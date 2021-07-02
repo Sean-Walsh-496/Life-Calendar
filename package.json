@@ -4,8 +4,12 @@
   "description": "This app is intended to help the user organize their life on both a macro and micro scale.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:css": "tailwind build src/style.css -o public/style.css"
   },
   "author": "Sean Walsh",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "tailwindcss": "^2.2.4",
+    "win-node-env": "^0.4.0"
+  }
 }
