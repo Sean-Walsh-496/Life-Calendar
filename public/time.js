@@ -1,10 +1,15 @@
 
+function parseDateString(dateString){
+
+}
+
 class Day{
     /**
      * @param {array} item_list
      */
-    constructor(itemList){
+    constructor(itemList, date){
         this.itemList = itemList;
+        [this.day, this.month, this.year] = parseDateString(date);
     }
 
     /**
