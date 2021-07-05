@@ -40,39 +40,3 @@
 
 </body>
 </html>
-
-
-<script>
-
-    const weekTailwind = "h-full w-2 border border-black ml-0.5 mr-0.5"
-    const weekListTailwind = "m-0.5 flex w-9/12 h-3 justify-between items-center"
-
-    function createDay(){
-        let item = document.createElement("li");
-        item.className = weekTailwind;
-
-        return item;
-    }
-
-    function createYear(){
-        let $year = document.createElement("ol");
-        $year.className = weekListTailwind
-
-        return $year;
-    }
-
-    function populateCalendar(){
-        let $yearList = document.getElementById("year-list");
-        for (let i = 0; i < 80; i++){
-            let $year = createYear();
-            for (let j = 0; j < 52; j++){
-                $year.appendChild(createDay());
-            }
-            $yearList.append($year);
-        }
-    }
-
-    populateCalendar();
-
-
-</script>
