@@ -38,8 +38,11 @@ export class Calendar{
      * @param {number} numUsed 
      */
     highlightUsed(numUsed){
-        for (let i = 0; i < numUsed; i++){
+        let weeks = this.$el.getElementsByTagName("li");
+        let GoTo = numUsed > this.weeks ? this.weeks : numUsed;
 
+        for (let i = 0; i < GoTo; i++){
+            weeks[i].style.backgroundColor = "#F87171";
         }
     }
 }

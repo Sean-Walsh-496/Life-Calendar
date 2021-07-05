@@ -14,7 +14,9 @@ $popUp.$el.addEventListener("input", e =>{
         $popUp.changeVisibility();
         
         DOB = $popUp.getDate();
-        numWeeks = Math.floor((new Date() - DOB) / (100 * 60 * 60 * 24 * 7));
+        numWeeks = Math.floor((new Date() - DOB) / (1000 * 60 * 60 * 24 * 7));
+
+        calendar.highlightUsed(numWeeks);
     }
 
 });
@@ -24,3 +26,4 @@ $popUp.$el.addEventListener("input", e =>{
 $popUp.changeVisibility();
 $popUp.center();
 calendar.populate();
+
