@@ -1,6 +1,6 @@
 const weeksInYear = 52;
 const weekTailwind = "h-full w-2 border border-black ml-0.5 mr-0.5"
-const weekListTailwind = "m-0.5 flex w-9/12 h-3 justify-between items-center"
+const weekListTailwind = "m-0.5 flex max-w-6xl w-9/12 h-3 justify-between items-center"
 
 
 export class Calendar{
@@ -39,10 +39,13 @@ export class Calendar{
      */
     highlightUsed(numUsed){
         let weeks = this.$el.getElementsByTagName("li");
-        let GoTo = numUsed > this.weeks ? this.weeks : numUsed;
+        let goTo = numUsed > this.weeks ? this.weeks : numUsed; //just in case...
 
-        for (let i = 0; i < GoTo; i++){
-            weeks[i].style.backgroundColor = "#F87171";
+        for (let i = 0; i < goTo; i++){
+            setTimeout(function() {
+                weeks[i].style.backgroundColor = "#F87171";
+            }, 3000 * (((i + 1)**2) / (goTo**2)) + 500);
+            
         }
     }
 }
