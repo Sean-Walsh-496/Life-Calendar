@@ -10,6 +10,10 @@ export class Calendar{
         this.matrix = undefined;
     }
 
+    /**
+     * @param {object} $el 
+     * @returns {array}
+     */
     getMatrix($el){
         let weekList = [...$el.children];
         for (let i = 0; i < weekList.length; i++){
@@ -76,12 +80,22 @@ export class Calendar{
         let weeks = this.$el.getElementsByTagName("li");
         let goTo = numUsed > this.weeks ? this.weeks : numUsed; //just in case...
 
-        this.highlight(this.matrix[0][0]);
+        let localHighlight = this.highlight; //cannot reference method in anonymous function.
         for (let i = 0; i < goTo; i++){
             setTimeout(function() {
-                this.highlight(weeks[i]);
+                localHighlight(weeks[i]);
             }, 3000 * (((i + 1)**2) / (goTo**2)) + 500);
             
         }
+    }
+
+    /**
+     * 
+     * @param {number} row 
+     * @param {number} col 
+     * @returns {boolean}
+     */
+    areValidCoords(row, col){
+        return (row > -1 && row < this.weeks && col > -1 && col < weeksInYear);
     }
 }
