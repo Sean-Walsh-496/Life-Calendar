@@ -1,3 +1,4 @@
 1.  Prevent floating pop-up windows from shifting when adjusting the window size.
 2.  Find a better technique for assigning dates to objects, such as the day object.
 3.  Make sure that the max days for each month are set correctly.
+4.  Ensure that clicking non-calendar items, such as the DOB popup, still works.

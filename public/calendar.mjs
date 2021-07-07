@@ -80,7 +80,7 @@ export class Calendar{
         let weeks = this.$el.getElementsByTagName("li");
         let goTo = numUsed > this.weeks ? this.weeks : numUsed; //just in case...
 
-        let localHighlight = this.highlight; //cannot reference method in anonymous function.
+        let localHighlight = this.highlight; //cannot reference method in anonymous function...
         for (let i = 0; i < goTo; i++){
             setTimeout(function() {
                 localHighlight(weeks[i]);
