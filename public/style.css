@@ -39,6 +39,11 @@ html {
   /* 2 */
 }
 
+html, body {
+  min-width: 100vw;
+  min-height : 100vh;
+}
+
 /*
 Sections
 ========
