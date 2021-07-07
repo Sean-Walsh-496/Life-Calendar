@@ -26,8 +26,6 @@ export class Calendar{
             i++;
         }
 
-        console.log(weekList);
-
         return weekList;
     }
 
