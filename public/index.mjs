@@ -55,9 +55,11 @@ addEventListener("click", e => {
     let col = Math.round((coords[0] / (sizes.calendar.width)) * weeksInYear);
     let row = Math.round(coords[1] / (sizes.week.height + marginY)) - 1;
 
-    console.log($calendar);
 
-    $calendar.highlight($calendar.matrix[row][col]);
+    if ($calendar.areValidCoords(row, col)){
+        $calendar.highlight($calendar.matrix[row][col]);
+    }
+    
 
 });
 
