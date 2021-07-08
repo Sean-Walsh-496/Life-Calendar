@@ -3,41 +3,50 @@ export const weekTailwind = "h-full w-2 border border-black ml-0.5 mr-0.5";
 const weekListTailwind = "m-0.5 flex max-w-6xl w-full h-3 justify-between items-center";
 export const dividerTailwind = "max-w-6xl w-full h-1";
 
+
+export class WeekCell{
+    constructor(){
+        this.$el = this.get$el();
+        this.used = false;
+    }
+
+    get$el(){
+        let item = document.createElement("li");
+        item.className = weekTailwind;
+
+        return item;
+    }
+
+    onclick(){
+
+    }
+}
+
 export class Calendar{
     constructor(weeks = 80 * weeksInYear){
         this.weeks = weeks;
+        this.years = 80;
         this.$el = document.getElementById("year-list");
-        this.matrix = undefined;
+        this.matrix = this.getMatrix();
     }
 
     /**
      * @param {object} $el 
      * @returns {array}
      */
-    getMatrix($el){
-        let weekList = [...$el.children];
-        for (let i = 0; i < weekList.length; i++){
-            weekList[i] = [...weekList[i].children];
-        }
+    getMatrix(){
+        let years = [];
 
-        let i = 0; 
-        while (i < weekList.length){
-            if (weekList[i].length == 0){
-                weekList.splice(i, 1);
-                continue;
+        for (let i = 0; i < this.years; i++){
+            let year = [];
+            for (let j = 0; j < weeksInYear; j++){
+                year.push(new WeekCell());
             }
-
-            i++;
+            years.push(year);
         }
 
-        return weekList;
-    }
+        return years;
 
-    createWeek(){
-        let item = document.createElement("li");
-        item.className = weekTailwind;
-
-        return item;
     }
 
     createYear(){
@@ -48,10 +57,10 @@ export class Calendar{
     }
 
     populate(){
-        for (let i = 0; i < 80; i++){
+        for (let i = 0; i < this.years; i++){
             let $year = this.createYear();
-            for (let j = 0; j < 52; j++){
-                $year.appendChild(this.createWeek());
+            for (let j = 0; j < weeksInYear; j++){
+                $year.appendChild(this.matrix[i][j].$el);
             }
             if (i % 20 == 0){
                 let divider = document.createElement("div");
@@ -61,8 +70,6 @@ export class Calendar{
             }
             this.$el.append($year);
         }
-
-        this.matrix = this.getMatrix(this.$el);
     }
 
     /**
