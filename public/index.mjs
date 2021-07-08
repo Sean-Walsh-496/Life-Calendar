@@ -52,7 +52,7 @@ addEventListener("click", e => {
     const sizes = getSizes();
     const coords = [e.clientX - sizes.calendar.pos[0], e.clientY - sizes.calendar.pos[1]];
 
-    let col = Math.round((coords[0] / (sizes.calendar.width)) * weeksInYear);
+    let col = Math.floor((coords[0] / (sizes.calendar.width)) * weeksInYear);
     let row = Math.round(coords[1] / (sizes.week.height + marginY)) - 1;
 
 
