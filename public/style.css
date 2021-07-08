@@ -6835,6 +6835,10 @@ video {
   width: max-content;
 }
 
+.w-block{
+  width: 13.095238095%;
+}
+
 .w-1\/7 {
   width: 14.2857143%;
 }
