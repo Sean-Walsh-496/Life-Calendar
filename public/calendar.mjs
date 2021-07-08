@@ -18,7 +18,7 @@ export class WeekCell{
     }
 
     onclick(){
-
+        
     }
 }
 
@@ -73,10 +73,22 @@ export class Calendar{
     }
 
     /**
-     * @param {object} $el 
+     * @summary can either accept the element directly as one argument, or 
+     * a pair of coordinates indicating the cell's position 
      */
-    highlight($el){
-        $el.style.backgroundColor = "#F87171";
+    highlight(...args){
+        switch(arguments.length){
+            case 1:
+                args[0].style.backgroundColor = "#F87171";
+                break;
+            case 2:
+                this.matrix[args[0]][args[1]].$el.style.backgroundColor = "#F87171";
+                break;
+            default:
+                console.error("An invalid number of arguments was passed");
+        }
+        
+        
     }
 
     /**
