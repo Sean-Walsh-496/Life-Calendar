@@ -1,5 +1,6 @@
 
 const dayTailwind = "flex flex-col w-1/7 h-full border border-gray-400";
+const nameCardTailwind = "flex flex-col w-full h-1/8 border-b border-gray-400 text-center text-2xl font-bold"
 
 
 export class Day{
@@ -21,6 +22,13 @@ export class Day{
     get$el(){
         let $el = document.createElement("div");
         $el.className = dayTailwind;
+
+        let $nameCard = document.createElement("div");
+        $nameCard.className = nameCardTailwind;
+        $nameCard.innerText = this.dayName;
+        
+        $el.append($nameCard);
+        
         return $el;
     }
 
@@ -46,7 +54,7 @@ export class Week{
     }
 
     createDays(){
-        const nameList = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+        const nameList = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
         let dayList = [];
 
         nameList.forEach(el => {
