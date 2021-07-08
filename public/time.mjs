@@ -1,5 +1,5 @@
 
-const dayTailwind = "flex flex-col w-1/7 h-full border border-gray-400";
+const dayTailwind = "flex flex-col w-1/7 h-full border border-gray-400 items-center";
 const nameCardTailwind = "flex flex-col w-full h-1/8 border-b border-gray-400 text-center text-2xl font-bold"
 
 
@@ -37,8 +37,7 @@ export class Day{
      */
     insertItem(item){
         this.itemList.push(item);
-        let $itemEl = item.getElement();
-        this.$el.appendChild($itemEl);
+        this.$el.appendChild(item.$el);
     }
 
 }
@@ -68,7 +67,7 @@ export class Week{
 
     init$el(){
         this.days.forEach(el => {
-            this.$el.appendChild(el.get$el());
+            this.$el.appendChild(el.$el);
         });
     }
 }
