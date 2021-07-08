@@ -57,7 +57,7 @@ addEventListener("click", e => {
 
 
     if ($calendar.areValidCoords(row, col)){
-        $calendar.highlight(row, col);
+        $calendar.matrix[row][col].onclick();
     }
     
 
