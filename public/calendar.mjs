@@ -1,5 +1,5 @@
 export const weeksInYear = 52;
-export const weekTailwind = "h-full w-2 border border-black ml-0.5 mr-0.5";
+export const weekTailwind = "h-2 w-2 border border-black ml-0.5 mr-0.5 transition transform hover:scale-125";
 const weekListTailwind = "m-0.5 flex max-w-6xl w-full h-3 justify-between items-center";
 export const dividerTailwind = "max-w-6xl w-full h-1";
 
@@ -18,7 +18,7 @@ export class WeekCell{
     }
 
     onclick(){
-        
+        window.location.href = "./weekview.html"
     }
 }
 
