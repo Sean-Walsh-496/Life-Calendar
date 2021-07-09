@@ -1,7 +1,7 @@
 export const weeksInYear = 52;
-export const weekTailwind = "h-2 w-2 border border-black ml-0.5 mr-0.5 transition transform hover:scale-125";
-const weekListTailwind = "m-0.5 flex max-w-6xl w-full h-3 justify-between items-center";
-export const dividerTailwind = "max-w-6xl w-full h-1";
+export const weekTailwind = "h-full w-2.5 border border-gray-400 transition transform hover:scale-125";
+const weekListTailwind = "flex max-w-6xl w-full h-2.5 justify-between items-center";
+export const dividerTailwind = "w-full min h-0.5 h-0.5 bg-gray-400";
 
 
 export class WeekCell{
@@ -65,7 +65,6 @@ export class Calendar{
             if (i % 20 == 0){
                 let divider = document.createElement("div");
                 divider.className = dividerTailwind;
-                divider.style.backgroundColor = "#4B5563";
                 this.$el.append(divider);
             }
             this.$el.append($year);
