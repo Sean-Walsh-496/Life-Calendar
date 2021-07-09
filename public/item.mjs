@@ -1,6 +1,6 @@
 import {hourTailwind, weekdays, dayTailwind} from "./time.mjs";
-const itemTailwind = "w-block absolute bg-white rounded border border-gray-400";
-const movingItemTailwind = "w-block absolute bg-white rounded border border-gray-400 shadow-md transform scale-105 z-50";
+const itemTailwind = "absolute bg-white rounded border border-gray-400";
+const movingItemTailwind = "absolute bg-white rounded border border-gray-400 shadow-md transform scale-110 z-50";
 
 export class Item{
     /**
@@ -9,13 +9,15 @@ export class Item{
      * @param {object} time
      * @param {object} duration
      */
-    constructor(name, time, duration){
+    constructor(name, time, duration, width = 135){
         this.name = name;
         this.time = time;
         this.duration = duration;
-        this.$el = this.getElement();
+        this.width = `${width}px`;
+        
         this.clicked = false;
         this.week = null;
+        this.$el = this.getElement();
     }
 
     getElement(){
@@ -25,6 +27,7 @@ export class Item{
 
         $item.className = itemTailwind;
         $item.style.height = `${hourHeight * this.duration}px`;
+        $item.style.width = this.width;
         
         $item.addEventListener("mousedown", e => {
             this.clicked = true;

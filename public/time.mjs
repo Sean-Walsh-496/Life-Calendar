@@ -45,15 +45,12 @@ export class Day{
         return $el;
     }
 
-    #getLeft(){
-        return ((weekdays.indexOf(this.dayName)) / 7) * window.innerWidth;
-    }
-
     /**
      * @summary Arranges the elements in the HTML due to their absolute positions
      */
     arrangeItems(){
-        let left = this.#getLeft();
+        let bounds = this.$el.getBoundingClientRect();
+        let left = bounds.left;
         let top = 34;
 
         this.itemList.forEach(el => {
