@@ -1,4 +1,4 @@
-import {hourTailwind, weekdays} from "./time.mjs";
+import {hourTailwind, weekdays, dayTailwind} from "./time.mjs";
 const itemTailwind = "w-block absolute bg-white rounded border border-gray-400";
 const movingItemTailwind = "w-block absolute bg-white rounded border border-gray-400 shadow-md transform scale-105 z-50";
 
@@ -47,6 +47,7 @@ export class Item{
             this.clicked = false;
             e.target.className = itemTailwind;
             this.$el.style.left = this.findDay();
+            this.$el.style.top = this.findHour();
 
         });
 
@@ -63,7 +64,7 @@ export class Item{
         let closestPos;
 
         this.week.days.forEach(el => {
-            let bounds = el.$el.getBoundingClientRect()
+            let bounds = el.$el.getBoundingClientRect();
             let dayX = bounds.left; 
             let itemX = parseInt(this.$el.style.left.slice(0, -2));
 
@@ -75,6 +76,25 @@ export class Item{
         });
         
         return `${closestPos + 4}px`;
+    }
+
+    findHour(){
+        let closestDist = Number.MAX_VALUE;
+        let closestPos;
+
+        let hours = document.getElementsByClassName(dayTailwind)[0].children[1].children;
+
+        for (let i = 0; i < hours.length; i++){
+            let bounds = hours[i].getBoundingClientRect();
+            let hourY = bounds.top, itemY = parseInt(this.$el.style.top.slice(0, -2));
+
+            if (Math.abs(hourY - itemY) < closestDist){
+                closestDist = Math.abs(hourY - itemY);
+                closestPos = hourY;
+            }
+        };
+
+        return `${closestPos}px`
     }
 
     

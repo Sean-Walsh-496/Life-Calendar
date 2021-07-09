@@ -1,5 +1,5 @@
 
-const dayTailwind = "flex flex-col w-1/7 h-full border border-gray-400 items-center";
+export const dayTailwind = "flex flex-col w-1/7 h-full border border-gray-400 items-center";
 const nameCardTailwind = "flex flex-col w-full h-1/8 border-b border-gray-400 text-center text-2xl font-bold"
 export const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 export const hourTailwind = "w-full h-full border-b border-gray-400";

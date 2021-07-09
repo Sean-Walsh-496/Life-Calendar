@@ -1,5 +1,5 @@
 export const weeksInYear = 52;
-export const weekTailwind = "h-full w-2.5 border border-gray-400 transition transform hover:scale-125";
+export const weekTailwind = "h-full w-2.5 border border-gray-400 transition transform hover:scale-150 hover:bg-blue-300";
 const weekListTailwind = "flex max-w-6xl w-full h-2.5 justify-between items-center";
 export const dividerTailwind = "w-full min h-0.5 h-0.5 bg-gray-400";
 
@@ -62,7 +62,7 @@ export class Calendar{
             for (let j = 0; j < weeksInYear; j++){
                 $year.appendChild(this.matrix[i][j].$el);
             }
-            if (i % 20 == 0){
+            if (i % 20 == 0 && i != 0){
                 let divider = document.createElement("div");
                 divider.className = dividerTailwind;
                 this.$el.append(divider);
