@@ -1,7 +1,9 @@
 
 const dayTailwind = "flex flex-col w-1/7 h-full border border-gray-400 items-center";
 const nameCardTailwind = "flex flex-col w-full h-1/8 border-b border-gray-400 text-center text-2xl font-bold"
-const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+export const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+export const hourTailwind = "w-full h-full border-b border-gray-400";
+
 
 export class Day{
 
@@ -9,10 +11,11 @@ export class Day{
      * @param {array} item_list
      * @param {string} dayName Monday through Sunday
      */
-    constructor(dayName, itemList=[]){
+    constructor(dayName, week, itemList=[]){
         this.dayName = dayName;
         this.itemList = itemList;
         this.$el = this.get$el();
+        this.week = week;
     }
 
     /**
@@ -32,7 +35,7 @@ export class Day{
         
         for (let i = 0; i < 24; i++){
             let $hour = document.createElement("div")
-            $hour.className = "w-full h-full border-b border-gray-400";
+            $hour.className = hourTailwind;
             $hourSpace.appendChild($hour);
         }
 
@@ -51,12 +54,12 @@ export class Day{
      */
     arrangeItems(){
         let left = this.#getLeft();
-        let top = 35;
+        let top = 34;
 
         this.itemList.forEach(el => {
-            el.$el.style.left = `${left}px`;
+            el.$el.style.left = `${left + 4}px`;
             el.$el.style.top = `${top}px`;
-            top += el.$el.clientHeight + 2 * parseInt(getComputedStyle(el.$el).margin.slice(0, -2));
+            top += el.$el.clientHeight + 3;
             
         });
 
@@ -66,6 +69,7 @@ export class Day{
      * @param {object} item 
      */
     insertItem(item){
+        item.week = this.week;
         this.itemList.push(item);
         this.$el.appendChild(item.$el);
         this.arrangeItems();
@@ -88,7 +92,7 @@ export class Week{
         let dayList = [];
 
         weekdays.forEach(el => {
-            let d = new Day(el)
+            let d = new Day(el, this)
             dayList.push(d);
             
         });
