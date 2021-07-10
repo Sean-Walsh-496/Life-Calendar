@@ -53,12 +53,13 @@ export class Item{
         return $item;
     }
 
-    getLeft(){
-        return parseInt(this.$el.style.left.slice(0, -2));
-    }
-
-    getTop(){
-        return parseInt(this.$el.style.top.slice(0, -2));
+    /**
+     * @summary returns the item element's given attribute
+     * @param {string} att 
+     * @returns {number}
+     */
+    get(att){
+        return parseInt(this.$el.style[att].slice(0, -2));
     }
 
     /**
@@ -73,13 +74,14 @@ export class Item{
 
                     case nameTailwind:
                     case itemTailwind:
-                        $item.style.left = `${this.getLeft() + e.movementX}px`;
-                        $item.style.top = `${this.getTop() + e.movementY}px`;
+                        $item.style.left = `${this.get("left") + e.movementX}px`;
+                        $item.style.top = `${this.get("top") + e.movementY}px`;
                         $item.className = movingItemTailwind;
                         break;
                     
                     case resizerTailwind:
                         //
+                        console.log(this.get("height"));
 
                         break;
                 }
