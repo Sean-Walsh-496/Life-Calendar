@@ -1,7 +1,7 @@
 import {hourTailwind, weekdays, dayTailwind} from "./time.mjs";
 const itemTailwind = "absolute flex flex-col bg-white rounded border border-gray-400";
 const movingItemTailwind = "absolute flex flex-col bg-white rounded border border-gray-400 shadow-md transform scale-110 z-50";
-const resizerTailwind = "w-full h-1 transform duration-300 hover:bg-blue-300";
+const resizerTailwind = "w-full h-2 transform duration-300 hover:bg-blue-300";
 const nameTailwind = "h-full w-full";
 
 export class Item{
@@ -90,7 +90,8 @@ export class Item{
         let drop = () => {
             $item.className = itemTailwind;
             this.$el.style.left = this.findDay();
-            this.$el.style.top = this.findHour();
+            this.$el.style.top = this.findHour(true);
+            this.$el.style.height = this.findHour(false);
         }
 
         $item.addEventListener("mouseleave", drop);
@@ -126,17 +127,25 @@ export class Item{
         return `${this.findClosest(itemX, positions) + 4}px`;
     }
 
-    findHour(){
-        let itemY = parseInt(this.$el.style.top.slice(0, -2));
+    /**
+     * @summary snaps either the bottom or top to the nearest hour
+     * @param {boolean} isTop 
+     * @returns {string}
+     */
+    findHour(isTop = true){
+        let itemY = isTop ? this.get("top") : this.get("top") + this.get("height");
         let hours = Array.from(document.getElementsByClassName(dayTailwind)[0].children[1].children);
         
         let positions = [];
 
         hours.forEach(el => {
-            positions.push(el.getBoundingClientRect().top);
+            let bounds = el.getBoundingClientRect();
+            let pos = isTop ? bounds.top : bounds.top + bounds.height;
+            positions.push(pos);
         });
-            
-        return `${this.findClosest(itemY, positions)}px`
+        
+        let closest = this.findClosest(itemY, positions);
+        return isTop ? `${closest}px` : `${closest - this.get("top")}px`;
     }
 
     
