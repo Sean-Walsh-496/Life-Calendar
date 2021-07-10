@@ -75,42 +75,47 @@ export class Item{
         return $item;
     }
 
-    findDay(){
+    /**
+     * 
+     * @param {number} cur 
+     * @param {array} available 
+     */
+    findClosest(cur, available){
         let closestDist = Number.MAX_VALUE;
-        let closestPos;
+        let closestEl;
+
+        available.forEach(el => {
+            if (Math.abs(cur - el) < closestDist){
+                closestDist = Math.abs(cur - el);
+                closestEl = el;
+            }
+        });
+
+        return closestEl;
+    }
+
+    findDay(){
+        let itemX = parseInt(this.$el.style.left.slice(0, -2));
+        let positions = [];
 
         this.week.days.forEach(el => {
-            let bounds = el.$el.getBoundingClientRect();
-            let dayX = bounds.left; 
-            let itemX = parseInt(this.$el.style.left.slice(0, -2));
-
-            if (Math.abs(dayX - itemX) < closestDist){
-                closestDist = Math.abs(dayX - itemX);
-                closestPos = bounds.left;
-            }
-
+            positions.push(el.$el.getBoundingClientRect().left);
         });
         
-        return `${closestPos + 4}px`;
+        return `${this.findClosest(itemX, positions) + 4}px`;
     }
 
     findHour(){
-        let closestDist = Number.MAX_VALUE;
-        let closestPos;
+        let itemY = parseInt(this.$el.style.top.slice(0, -2));
+        let hours = Array.from(document.getElementsByClassName(dayTailwind)[0].children[1].children);
+        
+        let positions = [];
 
-        let hours = document.getElementsByClassName(dayTailwind)[0].children[1].children;
-
-        for (let i = 0; i < hours.length; i++){
-            let bounds = hours[i].getBoundingClientRect();
-            let hourY = bounds.top, itemY = parseInt(this.$el.style.top.slice(0, -2));
-
-            if (Math.abs(hourY - itemY) < closestDist){
-                closestDist = Math.abs(hourY - itemY);
-                closestPos = hourY;
-            }
-        };
-
-        return `${closestPos}px`
+        hours.forEach(el => {
+            positions.push(el.getBoundingClientRect().top);
+        });
+            
+        return `${this.findClosest(itemY, positions)}px`
     }
 
     
