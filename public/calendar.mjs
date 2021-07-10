@@ -1,5 +1,5 @@
 export const weeksInYear = 52;
-export const weekTailwind = "h-full w-2.5 border border-gray-400 transition transform hover:scale-150 hover:bg-blue-300";
+export const weekTailwind = "h-full w-2.5 border border-gray-400 transition duration-75 transform hover:scale-150 hover:bg-blue-300";
 const weekListTailwind = "flex max-w-6xl w-full h-2.5 justify-between items-center";
 export const dividerTailwind = "w-full min h-0.5 h-0.5 bg-gray-400";
 

@@ -7,8 +7,6 @@ const $week = new Week();
 
 function main(){
     $week.days[0].insertItem(new Item('Study', '2', 3));
-    $week.days[0].insertItem(new Item('Study', '2', 3));
-    $week.days[0].insertItem(new Item('Study', '2', 3));
     console.log($week.days[0]);
 
 }
