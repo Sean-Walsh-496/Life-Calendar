@@ -73,7 +73,6 @@ export class Item{
                 switch(e.target.className){
 
                     case nameTailwind:
-                    case itemTailwind:
                         $item.style.left = `${this.get("left") + e.movementX}px`;
                         $item.style.top = `${this.get("top") + e.movementY}px`;
                         $item.className = movingItemTailwind;
@@ -81,19 +80,21 @@ export class Item{
                     
                     case resizerTailwind:
                         //
-                        console.log(this.get("height"));
+                        $item.style.height = `${this.get("height") + e.movementY}px`
 
                         break;
                 }
             }
         });
 
-        $item.addEventListener("mouseup", e => {
+        let drop = () => {
             $item.className = itemTailwind;
             this.$el.style.left = this.findDay();
             this.$el.style.top = this.findHour();
+        }
 
-        });
+        $item.addEventListener("mouseleave", drop);
+        $item.addEventListener("mouseup", drop);
     }
 
     /**
