@@ -1,7 +1,8 @@
 import {hourTailwind, weekdays, dayTailwind} from "./time.mjs";
 const itemTailwind = "absolute flex flex-col bg-white rounded border border-gray-400";
 const movingItemTailwind = "absolute flex flex-col bg-white rounded border border-gray-400 shadow-md transform scale-110 z-50";
-const resizerTailwind = "w-full h-2 transform duration-300 hover:bg-blue-300";
+const resizerTailwind = "w-full h-1 transform duration-300 hover:bg-blue-300";
+const nameTailwind = "h-full w-full";
 
 export class Item{
     /**
@@ -16,12 +17,12 @@ export class Item{
         this.duration = duration;
         this.width = `${width}px`;
         
-        this.clicked = false;
         this.week = null;
         this.$el = this.getElement();
     }
 
     getElement(){
+        //declare and initialize components of item element
         const hourHeight = document.getElementsByClassName(hourTailwind)[0].clientHeight;
         let $item = document.createElement("div");
         let $name = document.createElement("h2");
@@ -30,39 +31,17 @@ export class Item{
         let $bottomDiv = document.createElement("div");
 
 
+        //styling and giving logic to the main div
         $item.className = itemTailwind;
         $item.style.height = `${hourHeight * this.duration}px`;
         $item.style.width = this.width;
-        
-        $item.addEventListener("mousedown", e => {
-            this.clicked = true;
-            $item.className = movingItemTailwind;
-            
-        });
+        this.initEventListeners($item);
 
-        $item.addEventListener("mousemove", e =>{
-            if (this.clicked){
-                let left = parseInt($item.style.left.slice(0, -2));
-                let top = parseInt($item.style.top.slice(0, -2));
-                $item.style.left = `${left + e.movementX}px`;
-                $item.style.top = `${top + e.movementY}px`; 
-            }
-            
-
-        });
-
-        $item.addEventListener("mouseup", e => {
-            this.clicked = false;
-            $item.className = itemTailwind;
-            this.$el.style.left = this.findDay();
-            this.$el.style.top = this.findHour();
-
-        });
-
+        //Giving the div a name
         $name.innerText = this.name
 
         $topResizer.className = resizerTailwind;
-        $bottomDiv.className = "h-full w-full"
+        $bottomDiv.className = nameTailwind;
         $bottomResizer.className = resizerTailwind;
 
         $item.appendChild($topResizer);
@@ -71,8 +50,48 @@ export class Item{
         $item.appendChild($bottomResizer);
 
         
-        
         return $item;
+    }
+
+    getLeft(){
+        return parseInt(this.$el.style.left.slice(0, -2));
+    }
+
+    getTop(){
+        return parseInt(this.$el.style.top.slice(0, -2));
+    }
+
+    /**
+     * @param {object} $item 
+     */
+    initEventListeners($item){
+
+        $item.addEventListener("mousemove", e => {
+            if (e.buttons){
+
+                switch(e.target.className){
+
+                    case nameTailwind:
+                    case itemTailwind:
+                        $item.style.left = `${this.getLeft() + e.movementX}px`;
+                        $item.style.top = `${this.getTop() + e.movementY}px`;
+                        $item.className = movingItemTailwind;
+                        break;
+                    
+                    case resizerTailwind:
+                        //
+
+                        break;
+                }
+            }
+        });
+
+        $item.addEventListener("mouseup", e => {
+            $item.className = itemTailwind;
+            this.$el.style.left = this.findDay();
+            this.$el.style.top = this.findHour();
+
+        });
     }
 
     /**
