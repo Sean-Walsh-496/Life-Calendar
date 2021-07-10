@@ -76,7 +76,6 @@ export class Item{
     }
 
     /**
-     * 
      * @param {number} cur 
      * @param {array} available 
      */
