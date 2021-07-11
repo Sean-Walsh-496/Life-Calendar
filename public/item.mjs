@@ -2,7 +2,8 @@ import {hourTailwind, weekdays, dayTailwind} from "./time.mjs";
 const itemTailwind = "absolute flex flex-col bg-white rounded border border-gray-400";
 const movingItemTailwind = "absolute flex flex-col bg-white rounded border border-gray-400 shadow-md transform scale-110 z-50";
 const resizerTailwind = "w-full h-2 transform duration-300 hover:bg-blue-300";
-const nameTailwind = "h-full w-full";
+const nameTailwind = "w-full select-none";
+const fillerTailwind = "h-full w-full";
 
 export class Item{
     /**
@@ -19,6 +20,7 @@ export class Item{
         
         this.week = null;
         this.$el = this.getElement();
+        this.clicked = false;
     }
 
     getElement(){
@@ -38,10 +40,11 @@ export class Item{
         this.initEventListeners($item);
 
         //Giving the div a name
-        $name.innerText = this.name
+        $name.innerText = this.name;
+        $name.className = nameTailwind;
 
         $topResizer.className = resizerTailwind;
-        $bottomDiv.className = nameTailwind;
+        $bottomDiv.className = fillerTailwind;
         $bottomResizer.className = resizerTailwind;
 
         $item.appendChild($topResizer);
@@ -67,12 +70,17 @@ export class Item{
      */
     initEventListeners($item){
 
-        $item.addEventListener("mousemove", e => {
-            if (e.buttons){
+        $item.addEventListener("mousedown", e => {
+            this.clicked = e.target;
+            this.className = movingItemTailwind;
+        });
 
-                switch(e.target.className){
+        document.addEventListener("mousemove", e => {
+            if (this.clicked){
 
-                    case nameTailwind:
+                switch(this.clicked.className){
+
+                    case fillerTailwind:
                         
                         $item.style.left = `${this.get("left") + e.movementX}px`;
                         $item.style.top = `${this.get("top") + e.movementY}px`;
@@ -92,10 +100,11 @@ export class Item{
             this.$el.style.left = this.findDay();
             this.$el.style.top = this.findHour(true);
             this.$el.style.height = this.findHour(false);
+            this.clicked = false;
         }
 
-        $item.addEventListener("mouseleave", drop);
-        $item.addEventListener("mouseup", drop);
+        //$item.addEventListener("mouseleave", drop);
+        document.addEventListener("mouseup", drop);
     }
 
     /**
