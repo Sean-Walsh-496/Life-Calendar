@@ -4,7 +4,7 @@ Features:
 #  Make it easiser to adjust the item size through clicking and dragging.
 #  Make items adjust when new ones are inserted or resized as to not have two overlap.
 #  Prevent floating pop-up windows from shifting when adjusting the window size. Including DOB and items
-#   Use the item popup menu to allow users to edit features about their items
+#  Use the item popup menu to allow users to edit features about their items
 #  Allow users to create template items
 #  Create more functional date system that accurately assigns days a month and numeric date
 #  Allow users to create template days
