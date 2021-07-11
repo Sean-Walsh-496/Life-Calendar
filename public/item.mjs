@@ -43,9 +43,11 @@ export class Item{
         $name.innerText = this.name;
         $name.className = nameTailwind;
 
-        $topResizer.className = resizerTailwind;
+        $topResizer.className = resizerTailwind
+        $topResizer.setAttribute("name", "top-resizer");
         $bottomDiv.className = fillerTailwind;
         $bottomResizer.className = resizerTailwind;
+        $bottomResizer.setAttribute("name", "bottom-resizer");
 
         $item.appendChild($topResizer);
         $item.appendChild($name);
@@ -88,8 +90,16 @@ export class Item{
                         break;
                     
                     case resizerTailwind:
-                    
-                        $item.style.height = `${this.get("height") + e.movementY}px`
+
+                        if (this.clicked.getAttribute("name") == "top-resizer"){
+                            $item.style.height = `${this.get("height") - e.movementY}px`;
+                            $item.style.top = `${this.get("top") + e.movementY}px`;
+                        }
+
+                        else if (this.clicked.getAttribute("name") == "bottom-resizer"){
+                            $item.style.height = `${this.get("height") + e.movementY}px`;
+                        }
+
                         break;
                 }
             }
