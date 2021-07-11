@@ -5,6 +5,7 @@ export const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
 export const hourTailwind = "w-full h-full border-b border-gray-400";
 
 
+
 export class Day{
 
     /**
@@ -16,6 +17,14 @@ export class Day{
         this.itemList = itemList;
         this.$el = this.get$el();
         this.week = week;
+    }
+
+    addHours($div){
+        for (let i = 0; i < 24; i++){
+            let $hour = document.createElement("div")
+            $hour.className = hourTailwind;
+            $div.appendChild($hour);
+        }
     }
 
     /**
@@ -33,11 +42,12 @@ export class Day{
         let $hourSpace = document.createElement("div");
         $hourSpace.className = "h-full w-full flex flex-col justify-center";
         
-        for (let i = 0; i < 24; i++){
-            let $hour = document.createElement("div")
-            $hour.className = hourTailwind;
-            $hourSpace.appendChild($hour);
-        }
+        this.addHours($hourSpace);
+        $hourSpace.addEventListener("click", e => {
+            if (e.button == 2){
+
+            }
+        });
 
         $el.append($nameCard);
         $el.append($hourSpace);
