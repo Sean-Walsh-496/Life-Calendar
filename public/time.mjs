@@ -2,7 +2,7 @@ import {ItemPopup} from "./item-popup.mjs";
 
 
 export const dayTailwind = "flex flex-col w-1/7 h-full border border-gray-400 items-center";
-const nameCardTailwind = "flex flex-col w-full h-1/8 border-b border-gray-400 text-center text-2xl font-bold"
+const nameCardTailwind = "flex flex-col w-full h-1/8 border-b border-gray-400 text-center text-2xl font-bold select-none"
 export const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 export const hourTailwind = "w-full h-full border-b border-gray-400";
 
@@ -44,13 +44,13 @@ export class Day{
         let $hourSpace = document.createElement("div");
         $hourSpace.className = "h-full w-full flex flex-col justify-center";
         
-        this.addHours($hourSpace);
-        $hourSpace.addEventListener("click", e => {
-            //if (e.button == 2){
-                const editWindow = new ItemPopup(document.getElementById("create-item"));
-                editWindow.clickAppear(e);
-            //}
-        });
+        // this.addHours($hourSpace);
+        // $hourSpace.addEventListener("click", e => {
+        //     //if (e.button == 2){
+        //         const editWindow = new ItemPopup(document.getElementById("create-item"));
+        //         editWindow.clickAppear(e);
+        //     //}
+        // });
 
         $el.append($nameCard);
         $el.append($hourSpace);
