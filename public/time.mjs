@@ -1,3 +1,5 @@
+import {ItemPopup} from "./item-popup.mjs";
+
 
 export const dayTailwind = "flex flex-col w-1/7 h-full border border-gray-400 items-center";
 const nameCardTailwind = "flex flex-col w-full h-1/8 border-b border-gray-400 text-center text-2xl font-bold"
@@ -44,9 +46,10 @@ export class Day{
         
         this.addHours($hourSpace);
         $hourSpace.addEventListener("click", e => {
-            if (e.button == 2){
-
-            }
+            //if (e.button == 2){
+                const editWindow = new ItemPopup(document.getElementById("create-item"));
+                editWindow.clickAppear(e);
+            //}
         });
 
         $el.append($nameCard);

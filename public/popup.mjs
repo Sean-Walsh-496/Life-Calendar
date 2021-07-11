@@ -3,10 +3,13 @@ export default class PopupWindow{
         this.$el = $el;
         this.height = $el.clientHeight;
         this.width = $el.clientWidth;
+        this.active = this.$el.style.visibility == "hidden" ? false : true;
     }
 
     changeVisibility(){
         let vis = this.$el.style.visibility;
+
+        this.active = !this.active;
         this.$el.style.visibility = (vis == "visible" || vis == '') ? "hidden" : "visible";
     }
 
@@ -17,7 +20,7 @@ export default class PopupWindow{
 
     position(x, y){
         this.$el.style.top = `${y}px`;
-        this.$el.stlye.left = `${x}px`;
+        this.$el.style.left = `${x}px`;
     }
 
 
