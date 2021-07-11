@@ -6,12 +6,18 @@ export default class PopupWindow{
     }
 
     changeVisibility(){
-        this.$el.style.visibility = (this.$el.style.visibility == "visible") ? "hidden" : "visible";
+        let vis = this.$el.style.visibility;
+        this.$el.style.visibility = (vis == "visible" || vis == '') ? "hidden" : "visible";
     }
 
     center(){
         this.$el.style.top = `${(window.innerHeight / 2) - this.height / 2}px`;
         this.$el.style.right = `${(window.innerWidth / 2) - this.width / 2}px`;
+    }
+
+    position(x, y){
+        this.$el.style.top = `${y}px`;
+        this.$el.stlye.left = `${x}px`;
     }
 
 

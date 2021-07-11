@@ -73,15 +73,15 @@ export class Item{
                 switch(e.target.className){
 
                     case nameTailwind:
+                        
                         $item.style.left = `${this.get("left") + e.movementX}px`;
                         $item.style.top = `${this.get("top") + e.movementY}px`;
                         $item.className = movingItemTailwind;
                         break;
                     
                     case resizerTailwind:
-                        //
+                    
                         $item.style.height = `${this.get("height") + e.movementY}px`
-
                         break;
                 }
             }
