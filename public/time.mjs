@@ -44,7 +44,7 @@ export class Day{
         let $hourSpace = document.createElement("div");
         $hourSpace.className = "h-full w-full flex flex-col justify-center";
         
-        // this.addHours($hourSpace);
+        this.addHours($hourSpace);
         // $hourSpace.addEventListener("click", e => {
         //     //if (e.button == 2){
         //         const editWindow = new ItemPopup(document.getElementById("create-item"));
