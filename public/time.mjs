@@ -1,4 +1,5 @@
 import {ItemPopup} from "./item-popup.mjs";
+import {Item} from "./item.mjs";
 
 
 export const dayTailwind = "flex flex-col w-1/7 h-full border border-gray-400 items-center";
@@ -45,12 +46,21 @@ export class Day{
         $hourSpace.className = "h-full w-full flex flex-col justify-center";
         
         this.addHours($hourSpace);
-        // $hourSpace.addEventListener("click", e => {
-        //     //if (e.button == 2){
-        //         const editWindow = new ItemPopup(document.getElementById("create-item"));
-        //         editWindow.clickAppear(e);
-        //     //}
-        // });
+
+        $hourSpace.addEventListener("mousedown", e => {
+            let newItem  = new Item("filler", 2, 2);
+            
+            this.insertItem(newItem);
+            for (let child of newItem.$el.children){
+                
+                if (child.getAttribute("name") == "bottom-resizer"){
+                    this.clicked = child;
+                    console.log(child);
+                    break;
+                }
+            }
+
+        });
 
         $el.append($nameCard);
         $el.append($hourSpace);

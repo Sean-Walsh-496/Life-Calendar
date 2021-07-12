@@ -1,4 +1,4 @@
-import {hourTailwind, weekdays, dayTailwind} from "./time.mjs";
+const hourTailwind = "w-full h-full border-b border-gray-400", dayTailwind = "flex flex-col w-1/7 h-full border border-gray-400 items-center";
 const itemTailwind = "absolute flex flex-col bg-white rounded border border-gray-400";
 const movingItemTailwind = "absolute flex flex-col bg-white rounded border border-gray-400 shadow-md transform scale-110 z-50";
 const resizerTailwind = "w-full h-2 transform duration-300 hover:bg-blue-300";
