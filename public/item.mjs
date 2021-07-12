@@ -83,6 +83,17 @@ export class Item{
     }
 
     /**
+     * @summary snaps HTML element into nearest cell
+     */
+    snap(){
+        this.$el.className = itemTailwind;
+        this.set("left", this.findDay());
+        this.set("top", this.findHour(true));
+        this.set('height', this.findHour(false));
+        this.clicked = false;
+    }
+
+    /**
      * @param {object} $item 
      */
     initEventListeners($item){
@@ -120,16 +131,8 @@ export class Item{
             }
         });
 
-        let drop = () => {
-            $item.className = itemTailwind;
-            this.set("left", this.findDay());
-            this.set("top", this.findHour(true));
-            this.set('height', this.findHour(false));
-            this.clicked = false;
-        }
-
         //$item.addEventListener("mouseleave", drop);
-        document.addEventListener("mouseup", drop);
+        document.addEventListener("mouseup", () => this.snap());
     }
 
     /**
