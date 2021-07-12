@@ -48,14 +48,10 @@ export class Day{
         this.addHours($hourSpace);
 
         $hourSpace.addEventListener("mousedown", e => {
-            let newItem  = new Item("filler", 2, 2);
-            newItem.$el.style.top = `${e.y}px`;
-            newItem.$el.style.left = `${e.x}px`;
-            newItem.$el.style.visibility = "hidden";
-            
+            let newItem  = new Item("filler");
             this.insertItem(newItem);
-            newItem.snap();
-            newItem.$el.style.visibility = "visible";
+            newItem.create(e.x, e.y);
+
             // for (let child of newItem.$el.children){
                 
             //     if (child.getAttribute("name") == "bottom-resizer"){

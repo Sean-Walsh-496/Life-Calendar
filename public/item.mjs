@@ -7,12 +7,13 @@ const fillerTailwind = "h-full w-full";
 
 export class Item{
     /**
-     * 
+     * @param {array} pos
      * @param {string} name
      * @param {object} time
      * @param {object} duration
+     * @param {number} width
      */
-    constructor(name, time, duration, width = 135){
+    constructor(name, time=null, duration=null, width=135){
         this.name = name;
         this.time = time;
         this.duration = duration;
@@ -21,6 +22,7 @@ export class Item{
         this.week = null;
         this.$el = this.getElement();
         this.clicked = false;
+
     }
 
     getElement(){
@@ -37,6 +39,7 @@ export class Item{
         $item.className = itemTailwind;
         $item.style.height = `${hourHeight * this.duration}px`;
         $item.style.width = this.width;
+        $item.style.transition = "top, left, height, width";
         this.initEventListeners($item);
 
         //Giving the div a name
@@ -91,6 +94,23 @@ export class Item{
         this.set("top", this.findHour(true));
         this.set('height', this.findHour(false));
         this.clicked = false;
+    }
+
+
+    /**
+     * @summary fits the dimensions of the nearest cell
+     */
+    fitSize(){
+        let bounds = document.getElementsByClassName(dayTailwind)[0].children[1].children[0].getBoundingClientRect()
+        let hourWidth = bounds.width;
+        let hourHeight = bounds.height;
+        
+
+        console.log(hourWidth);
+
+        this.set("width", parseInt(hourWidth) - 5, true);
+        this.set("height", hourHeight * 2, true);
+
     }
 
     /**
@@ -186,6 +206,22 @@ export class Item{
         return isTop ? `${closest}px` : `${closest - this.get("top")}px`;
     }
 
-    
+    /**
+     * @summary snaps the item into place and creates it, giving a smooth
+     * animation.
+     */
+    create(x, y){
+        this.set("visibility", "hidden");
+        this.set("left", x, true);
+        this.set("top", y, true);
+
+        this.set("width", 10, true);
+        this.set("height", 30, true);
+
+        this.set("visibility", "visible");
+        this.snap();
+        this.fitSize();
+
+    }
 
 }
