@@ -95,6 +95,12 @@ export class Day{
         this.arrangeItems();
     }
 
+    
+    removeItem(item){
+        let targetIndex = this.itemList.findIndex(el => el === item);
+        this.itemList.splice(targetIndex, 1);
+    }
+
 }
 
 export class Week{
