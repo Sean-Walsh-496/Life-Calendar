@@ -51,15 +51,18 @@ export class Day{
             let newItem  = new Item("filler", 2, 2);
             newItem.$el.style.top = `${e.y}px`;
             newItem.$el.style.left = `${e.x}px`;
+            newItem.$el.style.visibility = "hidden";
             
             this.insertItem(newItem);
-            for (let child of newItem.$el.children){
+            newItem.snap();
+            newItem.$el.style.visibility = "visible";
+            // for (let child of newItem.$el.children){
                 
-                if (child.getAttribute("name") == "bottom-resizer"){
-                    this.clicked = child;
-                    break;
-                }
-            }
+            //     if (child.getAttribute("name") == "bottom-resizer"){
+            //         this.clicked = child;
+            //         break;
+            //     }
+            // }
 
         });
 
