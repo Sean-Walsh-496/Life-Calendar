@@ -99,7 +99,6 @@ export class Day{
         for (let i = 0; i < list.length; i++){
             if (list[i] < item.get("top")){
                 after = i;
-                console.log("you shoudl only see this once");
                 break;
             }
         }
