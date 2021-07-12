@@ -17,7 +17,6 @@ export class Item{
         this.name = name;
         this.time = time;
         this.duration = duration;
-        this.width = `${width}px`;
         
         this.week = null;
         this.$el = this.getElement();
@@ -40,8 +39,6 @@ export class Item{
 
         //styling and giving logic to the main div
         $item.className = itemTailwind;
-        $item.style.height = `${hourHeight * this.duration}px`;
-        $item.style.width = this.width;
         this.initEventListeners($item);
 
         //Giving the div a name
@@ -187,7 +184,7 @@ export class Item{
             positions.push(el.$el.getBoundingClientRect().left);
         });
         
-        return `${this.findClosest(itemX, positions) + 4}px`;
+        return `${this.findClosest(itemX, positions)}px`;
     }
 
     /**
