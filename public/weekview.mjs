@@ -8,8 +8,6 @@ const $week = new Week();
 //main ==================================================================
 
 function main(){
-    $week.days[0].insertItem(new Item('Study', '2', 3));
-
 
 }
 

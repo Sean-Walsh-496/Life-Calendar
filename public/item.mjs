@@ -120,6 +120,7 @@ export class Item{
     /**
      * @param {number} cur 
      * @param {array} available 
+     * @returns {number}
      */
     findClosest(cur, available){
         let closestDist = Number.MAX_VALUE;

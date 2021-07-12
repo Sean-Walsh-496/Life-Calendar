@@ -31,7 +31,7 @@ export class Day{
     }
 
     /**
-     * 
+     * @summary Creates the day element
      * @returns {object}
      */
     get$el(){
@@ -49,13 +49,14 @@ export class Day{
 
         $hourSpace.addEventListener("mousedown", e => {
             let newItem  = new Item("filler", 2, 2);
+            newItem.$el.style.top = `${e.y}px`;
+            newItem.$el.style.left = `${e.x}px`;
             
             this.insertItem(newItem);
             for (let child of newItem.$el.children){
                 
                 if (child.getAttribute("name") == "bottom-resizer"){
                     this.clicked = child;
-                    console.log(child);
                     break;
                 }
             }
@@ -86,13 +87,28 @@ export class Day{
     }
 
     /**
+     * @summary This method assumes that the item's HTML element has already been placed
+     * into the day column.
      * @param {object} item 
      */
     insertItem(item){
         item.week = this.week;
-        this.itemList.push(item);
-        this.$el.appendChild(item.$el);
-        this.arrangeItems();
+
+        let list = this.itemList.map(el => el.get("top"));
+
+        let after = 0; //insert the item after the index stored in this variable
+        for (let i = 0; i < list.length; i++){
+            if (list[i] < item.get("top")){
+                after = i;
+                console.log("you shoudl only see this once");
+                break;
+            }
+        }
+
+
+        this.itemList.splice(after + 1, 0, item);
+        this.$el.appendChild(item.$el); //may or may not be important that this is ordered; sus.
+        //this.arrangeItems();
     }
 
     
