@@ -68,6 +68,21 @@ export class Item{
     }
 
     /**
+     * @param {string} att 
+     * @param {string} value 
+     */
+    set(att, value, stringify = false){
+        if (stringify){
+            this.$el.style[att] = `${value}px`;
+        }
+
+        else{
+            this.$el.style[att] = value;
+        }
+        
+    }
+
+    /**
      * @param {object} $item 
      */
     initEventListeners($item){
@@ -107,9 +122,9 @@ export class Item{
 
         let drop = () => {
             $item.className = itemTailwind;
-            this.$el.style.left = this.findDay();
-            this.$el.style.top = this.findHour(true);
-            this.$el.style.height = this.findHour(false);
+            this.set("left", this.findDay());
+            this.set("top", this.findHour(true));
+            this.set('height', this.findHour(false));
             this.clicked = false;
         }
 
@@ -137,7 +152,7 @@ export class Item{
     }
 
     findDay(){
-        let itemX = parseInt(this.$el.style.left.slice(0, -2));
+        let itemX = this.get("left");
         let positions = [];
 
         this.week.days.forEach(el => {
