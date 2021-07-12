@@ -39,7 +39,6 @@ export class Item{
         $item.className = itemTailwind;
         $item.style.height = `${hourHeight * this.duration}px`;
         $item.style.width = this.width;
-        $item.style.transition = "top, left, height, width";
         this.initEventListeners($item);
 
         //Giving the div a name
@@ -95,7 +94,6 @@ export class Item{
         this.set('height', this.findHour(false));
         this.clicked = false;
     }
-
 
     /**
      * @summary fits the dimensions of the nearest cell
@@ -206,11 +204,22 @@ export class Item{
         return isTop ? `${closest}px` : `${closest - this.get("top")}px`;
     }
 
+    smooth(){
+        this.$el.style.transitionProperty = "height, width";
+        this.$el.style.transitionDuration = "1s";
+    }
+
+    removeSmooth(){
+        this.$el.style.transitionProperty = "";
+        this.$el.style.transitionDuration = "";
+    }
+
     /**
      * @summary snaps the item into place and creates it, giving a smooth
      * animation.
      */
     create(x, y){
+        this.smooth();
         this.set("visibility", "hidden");
         this.set("left", x, true);
         this.set("top", y, true);
@@ -221,6 +230,9 @@ export class Item{
         this.set("visibility", "visible");
         this.snap();
         this.fitSize();
+
+        setTimeout( () => this.removeSmooth(), 1000);
+        
 
     }
 
