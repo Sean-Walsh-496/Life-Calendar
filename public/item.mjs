@@ -1,8 +1,8 @@
 const hourTailwind = "w-full h-full border-b border-gray-400", dayTailwind = "flex flex-col w-1/7 h-full border border-gray-400 items-center";
-const itemTailwind = "absolute flex flex-col bg-white rounded border border-gray-400";
-const movingItemTailwind = "absolute flex flex-col bg-white rounded border border-gray-400 shadow-md transform scale-110 z-50";
+const itemTailwind = "absolute flex flex-col bg-purple-400 rounded border border-gray-400";
+const movingItemTailwind = "absolute flex flex-col bg-purple-400 rounded border border-gray-400 shadow-md transform scale-110 z-50";
 const resizerTailwind = "w-full h-2 transform duration-300 hover:bg-blue-300";
-const nameTailwind = "w-full select-none";
+const nameTailwind = "w-full select-none text-white";
 const fillerTailwind = "h-full w-full";
 
 export class Item{
@@ -109,7 +109,7 @@ export class Item{
 
         console.log(hourWidth);
 
-        this.set("width", parseInt(hourWidth) - 5, true);
+        this.set("width", parseInt(hourWidth) , true);
         this.set("height", hourHeight * 2, true);
 
     }
