@@ -18,6 +18,7 @@ export class Item{
         this.time = time;
         this.duration = duration;
         
+        this.wMargin = 3;
         this.week = null;
         this.$el = this.getElement();
         this.clicked = false;
@@ -106,7 +107,7 @@ export class Item{
 
         console.log(hourWidth);
 
-        this.set("width", parseInt(hourWidth) , true);
+        this.set("width", parseInt(hourWidth) - this.wMargin, true);
         this.set("height", hourHeight * 2, true);
 
     }
@@ -184,7 +185,7 @@ export class Item{
             positions.push(el.$el.getBoundingClientRect().left);
         });
         
-        return `${this.findClosest(itemX, positions)}px`;
+        return `${this.findClosest(itemX, positions) + this.wMargin}px`;
     }
 
     /**
