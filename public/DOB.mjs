@@ -9,7 +9,7 @@ export class DateOfBirthWindow extends popupWindow {
     }
 
     /**
-     * @param {object} $el
+     * @param {HTMLElement} $el
      * @returns {array} 
      */
     #initInputs($el){

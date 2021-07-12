@@ -32,7 +32,7 @@ export class Day{
 
     /**
      * @summary Creates the day element
-     * @returns {object}
+     * @returns {HTMLElement}
      */
     get$el(){
         let $el = document.createElement("div");
@@ -128,6 +128,10 @@ export class Week{
         this.init$el();
     }
 
+    /**
+     * 
+     * @returns {array}
+     */
     createDays(){
         
         let dayList = [];

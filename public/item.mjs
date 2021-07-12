@@ -25,6 +25,9 @@ export class Item{
 
     }
 
+    /**
+     * @returns {HTMLElement}
+     */
     getElement(){
         //declare and initialize components of item element
         const hourHeight = document.getElementsByClassName(hourTailwind)[0].clientHeight;
@@ -172,6 +175,10 @@ export class Item{
         return closestEl;
     }
 
+    /**
+     * @summary returns nearest day cell's y-position
+     * @returns {string}
+     */
     findDay(){
         let itemX = this.get("left");
         let positions = [];
@@ -204,11 +211,17 @@ export class Item{
         return isTop ? `${closest}px` : `${closest - this.get("top")}px`;
     }
 
+    /**
+     * @summary adds a smoothing transition
+     */
     smooth(){
         this.$el.style.transitionProperty = "height, width";
         this.$el.style.transitionDuration = "1s";
     }
 
+    /**
+     * @summary removes the smooth transitions
+     */
     removeSmooth(){
         this.$el.style.transitionProperty = "";
         this.$el.style.transitionDuration = "";

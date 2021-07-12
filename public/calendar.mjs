@@ -10,6 +10,10 @@ export class WeekCell{
         this.used = false;
     }
 
+    /**
+     * 
+     * @returns {HTMLElement}
+     */
     get$el(){
         let item = document.createElement("li");
         item.className = weekTailwind;
@@ -17,6 +21,9 @@ export class WeekCell{
         return item;
     }
 
+    /**
+     * @summary links to week page
+     */
     onclick(){
         window.location.href = "./weekview.html"
     }
