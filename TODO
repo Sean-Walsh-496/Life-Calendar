@@ -1,6 +1,5 @@
 
 Features:
-#  allow users to create blocks thought simply clicking and dragging.
 #  Make items adjust when new ones are inserted or resized as to not have two overlap.
 #  Prevent floating pop-up windows from shifting when adjusting the window size. Including DOB and items
 #  Use the item popup menu to allow users to edit features about their items
