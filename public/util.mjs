@@ -12,65 +12,62 @@ export const tailwinds = {
 }
 
 
-/**
- * @param {number} cur 
- * @param {array} available 
- * @returns {number}
- */
-export function findClosest(cur, available){
-    let closestDist = Number.MAX_VALUE;
-    let closestEl;
+export const functions = {
+    /**
+     * @param {number} cur 
+     * @param {array} available 
+     * @returns {number}
+     */
+    findClosest(cur, available){
+        let closestDist = Number.MAX_VALUE;
+        let closestEl;
 
-    available.forEach(el => {
-        if (Math.abs(cur - el) < closestDist){
-            closestDist = Math.abs(cur - el);
-            closestEl = el;
-        }
-    });
+        available.forEach(el => {
+            if (Math.abs(cur - el) < closestDist){
+                closestDist = Math.abs(cur - el);
+                closestEl = el;
+            }
+        });
 
-    return closestEl;
-}
+        return closestEl;
+    },
 
-/**
- * @summary returns nearest day cell's y-position
- * @param {number} x
- * @returns {string}
- */
-export function findDay(x, margin=3, stringify=true){
-    let positions = [];
-    let days = Array.from(document.getElementById("day-container").children);
+    /**
+     * @summary returns nearest day cell's y-position
+     * @param {number} x
+     * @returns {string}
+     */
+    findDay(x, margin=3, stringify=true){
+        let positions = [];
+        let days = Array.from(document.getElementById("day-container").children);
 
-    days.forEach(el => {
-        positions.push(el.$el.getBoundingClientRect().left);
-    });
-    
-    return stringify ? `${findClosest(x, positions) + margin}px` : findClosest(x, positions) + margin;
-}
+        days.forEach(el => {
+            positions.push(el.$el.getBoundingClientRect().left);
+        });
+        
+        return stringify ? `${findClosest(x, positions) + margin}px` : findClosest(x, positions) + margin;
+    },
 
-function findHour(y){
+    /**
+     * @summary snaps either the bottom or top to the nearest hour
+     * @param {number} y
+     * @param {number} height
+     * @param {boolean} isTop 
+     * @returns {string}
+     */
+    findHour(y, height, isTop = true){
+        let itemY = isTop ? y : y + height;
+        let hours = Array.from(document.getElementsByClassName(dayTailwind)[0].children[1].children);
+        
+        let positions = [];
 
-}
-
-
-/**
- * @summary snaps either the bottom or top to the nearest hour
- * @param {number} y
- * @param {number} height
- * @param {boolean} isTop 
- * @returns {string}
- */
-export function findHour(y, height, isTop = true){
-    let itemY = isTop ? y : y + height;
-    let hours = Array.from(document.getElementsByClassName(dayTailwind)[0].children[1].children);
-    
-    let positions = [];
-
-    hours.forEach(el => {
-        let bounds = el.getBoundingClientRect();
-        let pos = isTop ? bounds.top : bounds.top + bounds.height;
-        positions.push(pos);
-    });
-    
-    let closest = findClosest(itemY, positions);
-    return isTop ? `${closest}px` : `${closest - y}px`;
+        hours.forEach(el => {
+            let bounds = el.getBoundingClientRect();
+            let pos = isTop ? bounds.top : bounds.top + bounds.height;
+            positions.push(pos);
+        });
+        
+        let closest = findClosest(itemY, positions);
+        return isTop ? `${closest}px` : `${closest - y}px`;
+    },
 }
