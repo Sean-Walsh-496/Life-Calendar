@@ -3,15 +3,17 @@ import { tailwinds, functions } from "./util.mjs";
 export class Item{
     /**
      * @param {string} name
-     * @param {object} time
-     * @param {object} duration
+     * @param {object} week
+     * @param {object} day
+     * @param {number} hour
+     * @param {number} duration
      */
-    constructor(name, time=null, duration=null){
+    constructor(name, week=null, day=null, hour=null, duration=null){
         this.name = name;
-        this.hour = time;
+        this.hour = hour;
         this.duration = duration;
-        this.week = null;
-        this.day = null;
+        this.week = week;
+        this.day = day;
 
         this.wMargin = 3;
         this.$el = this.getElement();

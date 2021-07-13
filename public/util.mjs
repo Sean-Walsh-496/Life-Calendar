@@ -16,20 +16,25 @@ export const functions = {
     /**
      * @param {number} cur 
      * @param {array} available 
+     * @param {boolean} rIndex determines whether you should return the index of the
+     * closest element and not actually the element itself.
      * @returns {number}
      */
-    findClosest(cur, available){
+    findClosest(cur, available, rIndex = false){
         let closestDist = Number.MAX_VALUE;
-        let closestEl;
+        let closestEl, closestIndex;
 
+        let i = 0;
         available.forEach(el => {
             if (Math.abs(cur - el) < closestDist){
                 closestDist = Math.abs(cur - el);
                 closestEl = el;
+                closestIndex = i;
             }
+            i++;
         });
 
-        return closestEl;
+        return rIndex ? closestIndex : closestEl;
     },
 
     /**
@@ -51,11 +56,12 @@ export const functions = {
     /**
      * @summary snaps either the bottom or top to the nearest hour
      * @param {number} y
-     * @param {number} height
+     * @param {number} height pixel value of height
      * @param {boolean} isTop 
+     * @param {boolean} rIndex
      * @returns {string}
      */
-    findHour(y, height, isTop = true){
+    findHour(y, height, isTop = true, rIndex = false){
         let itemY = isTop ? y : y + height;
         let hours = Array.from(document.getElementsByClassName(dayTailwind)[0].children[1].children);
         
@@ -67,7 +73,12 @@ export const functions = {
             positions.push(pos);
         });
         
-        let closest = findClosest(itemY, positions);
-        return isTop ? `${closest}px` : `${closest - y}px`;
+        let closest = findClosest(itemY, positions, rIndex);
+
+        if (rIndex) return closest;
+
+        else return isTop ? `${closest}px` : `${closest - y}px`;
+        
+        
     },
 }

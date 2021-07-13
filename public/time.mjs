@@ -56,7 +56,8 @@ export class Day{
      * @returns {HTMLElement} 
      */
     clickIn(e){
-        let newItem = new Item("filler");
+        let hourIndex = functions.findHour(e.y, this.$el.children[0].getBoundingClientRect().height, true, true);
+        let newItem = new Item("filler", this.week, this, hourIndex, 2);
         this.insertItem(newItem);
         newItem.create(e.x, e.y);
     }
@@ -137,7 +138,6 @@ export class Day{
         item.week = this.week;
         item.day = this;
     }
-
     
     /**
      * @param {object} item 
