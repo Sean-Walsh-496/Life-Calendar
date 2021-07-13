@@ -7,19 +7,18 @@ const fillerTailwind = "h-full w-full";
 
 export class Item{
     /**
-     * @param {array} pos
      * @param {string} name
      * @param {object} time
      * @param {object} duration
-     * @param {number} width
      */
-    constructor(name, time=null, duration=null, width=135){
+    constructor(name, time=null, duration=null){
         this.name = name;
-        this.time = time;
+        this.hour = time;
         this.duration = duration;
-        
-        this.wMargin = 3;
         this.week = null;
+        this.day = null;
+
+        this.wMargin = 3;
         this.$el = this.getElement();
         this.clicked = false;
 
