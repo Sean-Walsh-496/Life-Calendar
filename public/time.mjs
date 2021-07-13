@@ -63,14 +63,6 @@ export class Day{
             this.insertItem(newItem);
             newItem.create(e.x, e.y);
 
-            // for (let child of newItem.$el.children){
-                
-            //     if (child.getAttribute("name") == "bottom-resizer"){
-            //         this.clicked = child;
-            //         break;
-            //     }
-            // }
-
         });
 
         $el.append($nameCard);
