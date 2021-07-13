@@ -1,9 +1,4 @@
-const hourTailwind = "w-full h-full border-b border-gray-400", dayTailwind = "flex flex-col w-1/7 h-full border border-gray-400 items-center";
-const itemTailwind = "absolute flex flex-col bg-purple-400 rounded border border-gray-400";
-const movingItemTailwind = "absolute flex flex-col bg-purple-400 rounded border border-gray-400 shadow-md transform scale-110 z-50";
-const resizerTailwind = "w-full h-2 transform duration-300 hover:bg-purple-700";
-const nameTailwind = "w-full select-none text-white";
-const fillerTailwind = "h-full w-full";
+import { tailwinds, functions } from "./util.mjs";
 
 export class Item{
     /**
@@ -29,7 +24,7 @@ export class Item{
      */
     getElement(){
         //declare and initialize components of item element
-        const hourHeight = document.getElementsByClassName(hourTailwind)[0].clientHeight;
+        const hourHeight = document.getElementsByClassName(tailwinds.hour)[0].clientHeight;
         let $item = document.createElement("div");
         let $name = document.createElement("h2");
         let $topResizer = document.createElement("div");
@@ -38,17 +33,17 @@ export class Item{
 
 
         //styling and giving logic to the main div
-        $item.className = itemTailwind;
+        $item.className = tailwinds.item;
         this.initEventListeners($item);
 
         //Giving the div a name
         $name.innerText = this.name;
-        $name.className = nameTailwind;
+        $name.className = tailwinds.nameDiv;
 
-        $topResizer.className = resizerTailwind
+        $topResizer.className = tailwinds.resizer
         $topResizer.setAttribute("name", "top-resizer");
-        $bottomDiv.className = fillerTailwind;
-        $bottomResizer.className = resizerTailwind;
+        $bottomDiv.className = tailwinds.fillerDiv;
+        $bottomResizer.className = tailwinds.resizer;
         $bottomResizer.setAttribute("name", "bottom-resizer");
 
         $item.appendChild($topResizer);
@@ -89,7 +84,7 @@ export class Item{
      * @summary snaps HTML element into nearest cell
      */
     snap(){
-        this.$el.className = itemTailwind;
+        this.$el.className = tailwinds.item;
         this.set("left", this.findDay());
         this.set("top", this.findHour(true));
         this.set('height', this.findHour(false));
@@ -100,7 +95,7 @@ export class Item{
      * @summary fits the dimensions of the nearest cell
      */
     fitSize(){
-        let bounds = document.getElementsByClassName(dayTailwind)[0].children[1].children[0].getBoundingClientRect()
+        let bounds = document.getElementsByClassName(tailwinds.day)[0].children[1].children[0].getBoundingClientRect()
         let hourWidth = bounds.width;
         let hourHeight = bounds.height;
         
@@ -119,7 +114,7 @@ export class Item{
 
         $item.addEventListener("mousedown", e => {
             this.clicked = e.target;
-            this.className = movingItemTailwind;
+            this.className = tailwinds.movingItem;
         });
 
         document.addEventListener("mousemove", e => {
@@ -127,14 +122,14 @@ export class Item{
 
                 switch(this.clicked.className){
 
-                    case fillerTailwind:
+                    case tailwinds.fillerDiv:
                         
                         $item.style.left = `${this.get("left") + e.movementX}px`;
                         $item.style.top = `${this.get("top") + e.movementY}px`;
                         $item.className = movingItemTailwind;
                         break;
                     
-                    case resizerTailwind:
+                    case tailwinds.resizer:
 
                         if (this.clicked.getAttribute("name") == "top-resizer"){
                             $item.style.height = `${this.get("height") - e.movementY}px`;
@@ -155,61 +150,6 @@ export class Item{
 
         window.addEventListener("resize", () => this.snap());
 
-    }
-
-    /**
-     * @param {number} cur 
-     * @param {array} available 
-     * @returns {number}
-     */
-    findClosest(cur, available){
-        let closestDist = Number.MAX_VALUE;
-        let closestEl;
-
-        available.forEach(el => {
-            if (Math.abs(cur - el) < closestDist){
-                closestDist = Math.abs(cur - el);
-                closestEl = el;
-            }
-        });
-
-        return closestEl;
-    }
-
-    /**
-     * @summary returns nearest day cell's y-position
-     * @returns {string}
-     */
-    findDay(){
-        let itemX = this.get("left");
-        let positions = [];
-
-        this.week.days.forEach(el => {
-            positions.push(el.$el.getBoundingClientRect().left);
-        });
-        
-        return `${this.findClosest(itemX, positions) + this.wMargin}px`;
-    }
-
-    /**
-     * @summary snaps either the bottom or top to the nearest hour
-     * @param {boolean} isTop 
-     * @returns {string}
-     */
-    findHour(isTop = true){
-        let itemY = isTop ? this.get("top") : this.get("top") + this.get("height");
-        let hours = Array.from(document.getElementsByClassName(dayTailwind)[0].children[1].children);
-        
-        let positions = [];
-
-        hours.forEach(el => {
-            let bounds = el.getBoundingClientRect();
-            let pos = isTop ? bounds.top : bounds.top + bounds.height;
-            positions.push(pos);
-        });
-        
-        let closest = this.findClosest(itemY, positions);
-        return isTop ? `${closest}px` : `${closest - this.get("top")}px`;
     }
 
     /**
