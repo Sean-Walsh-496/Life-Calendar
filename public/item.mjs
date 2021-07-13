@@ -1,7 +1,7 @@
 const hourTailwind = "w-full h-full border-b border-gray-400", dayTailwind = "flex flex-col w-1/7 h-full border border-gray-400 items-center";
 const itemTailwind = "absolute flex flex-col bg-purple-400 rounded border border-gray-400";
 const movingItemTailwind = "absolute flex flex-col bg-purple-400 rounded border border-gray-400 shadow-md transform scale-110 z-50";
-const resizerTailwind = "w-full h-2 transform duration-300 hover:bg-blue-300";
+const resizerTailwind = "w-full h-2 transform duration-300 hover:bg-purple-700";
 const nameTailwind = "w-full select-none text-white";
 const fillerTailwind = "h-full w-full";
 
@@ -72,7 +72,8 @@ export class Item{
 
     /**
      * @param {string} att 
-     * @param {string} value 
+     * @param {string | number} value 
+     * @param {boolean} stringify
      */
     set(att, value, stringify = false){
         if (stringify){
@@ -152,6 +153,9 @@ export class Item{
 
         //$item.addEventListener("mouseleave", drop);
         document.addEventListener("mouseup", () => this.snap());
+
+        window.addEventListener("resize", () => this.snap());
+
     }
 
     /**
