@@ -1,13 +1,6 @@
 import {ItemPopup} from "./item-popup.mjs";
 import {Item} from "./item.mjs";
-
-
-export const dayTailwind = "flex flex-col w-1/7 h-full border border-gray-400 items-center";
-const nameCardTailwind = "flex flex-col w-full h-1/8 border-b border-gray-400 text-center text-2xl font-bold select-none"
-export const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-export const hourTailwind = "w-full h-full border-b border-gray-400";
-
-
+import {tailwinds} from "./util.mjs";
 
 export class Day{
 
@@ -36,9 +29,37 @@ export class Day{
     addHours($div){
         for (let i = 0; i < 24; i++){
             let $hour = document.createElement("div")
-            $hour.className = hourTailwind;
+            $hour.className = tailwinds.hour;
             $div.appendChild($hour);
         }
+    }
+
+    /**
+     * @summary returns boundingClientRect of hourspace.
+     * @returns {ClientRect}
+     */
+    getHourSpaceDims(){
+        return document.getElementById("hour-space");
+    }
+
+    /**
+     * @summary returns the boundingClientRect of the hour cells
+     * @returns {ClientRect}
+     */
+    getHourDims(){
+        let hourSpace = this.getElementById("hour-space");
+        let hour = hourSpace.children[0];
+        return hour.getBoundingClientRect();
+    }
+
+    /**
+     * @param {MouseEvent} e
+     * @returns {HTMLElement} 
+     */
+    clickIn(e){
+        let newItem = new Item("filler");
+        this.insertItem(newItem);
+        newItem.create(e.x, e.y);
     }
 
     /**
@@ -47,23 +68,19 @@ export class Day{
      */
     get$el(){
         let $el = document.createElement("div");
-        $el.className = dayTailwind;
+        $el.className = tailwinds.day;
 
         let $nameCard = document.createElement("div");
-        $nameCard.className = nameCardTailwind;
+        $nameCard.className = tailwinds.weekNameDiv;
         $nameCard.innerText = this.dayName;
 
         let $hourSpace = document.createElement("div");
         $hourSpace.className = "h-full w-full flex flex-col justify-center";
+        $hourSpace.id = "hour-space";
         
         this.addHours($hourSpace);
 
-        $hourSpace.addEventListener("mousedown", e => {
-            let newItem  = new Item("filler");
-            this.insertItem(newItem);
-            newItem.create(e.x, e.y);
-
-        });
+        $hourSpace.addEventListener("mousedown", e => this.clickIn(e));
 
         $el.append($nameCard);
         $el.append($hourSpace);
@@ -72,44 +89,54 @@ export class Day{
     }
 
     /**
-     * @summary Arranges the elements in the HTML due to their absolute positions
+     * 
+     * @param {number} index 
+     * @param {number} size
+     * @returns {boolean} 
      */
-    arrangeItems(){
-        let bounds = this.$el.getBoundingClientRect();
-        let left = bounds.left;
-        let top = 34;
+    isEmptyBlock(index, size){
+        for (let i = index; i < index + size; i++){
+            if (this.itemList[i] != null){
+                return false;
+            }
+        }
+        return true;
+    }
 
-        this.itemList.forEach(el => {
-            el.$el.style.left = `${left + 4}px`;
-            el.$el.style.top = `${top}px`;
-            top += el.$el.clientHeight + 3;
-            
-        });
+    /**
+     * 
+     * @param {number} index 
+     * @param {number} size
+     * @returns {void} 
+     */
+    shiftDown(index, size){
+        let stack = [];
+        for (let i = 0; i < size; i++) stack.push(null);
+
+        while (stack){
+            if (this.itemList[index] !== null){
+                stack.push(this.itemList[index]);
+            }
+            this.itemList[index] = stack.shift();
+            index++;
+        }
 
     }
 
     /**
-     * @summary This method assumes that the item's HTML element has already been placed
-     * into the day column.
-     * @param {object} item 
+     * @summary This method will assume that it is only pushing other elements down,
+     * in other words, that it is either starting at an empty index or at the top
+     * of another block of time.
+     * @param {object} item
+     * @param {number} index
+     * @returns {void}
      */
-    insertItem(item){
+    insertItem(item, index){
+        this.shiftDown(index, item.size);
+        for(let i = index; i < index + item.size; i++) this.itemList[i] = item;
+
         item.week = this.week;
-
-        let list = this.itemList.map(el => el.get("top"));
-
-        let after = 0; //insert the item after the index stored in this variable
-        for (let i = 0; i < list.length; i++){
-            if (list[i] < item.get("top")){
-                after = i;
-                break;
-            }
-        }
-
-
-        this.itemList.splice(after + 1, 0, item);
-        this.$el.appendChild(item.$el); //may or may not be important that this is ordered; sus.
-        //this.arrangeItems();
+        item.day = this;
     }
 
     
