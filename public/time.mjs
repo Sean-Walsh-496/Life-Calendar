@@ -113,9 +113,13 @@ export class Day{
     }
 
     
+    /**
+     * @param {object} item 
+     */
     removeItem(item){
-        let targetIndex = this.itemList.findIndex(el => el === item);
-        this.itemList.splice(targetIndex, 1);
+        this.itemList.forEach(el => {
+            if (el === item) el = null;
+        });
     }
 
 }
