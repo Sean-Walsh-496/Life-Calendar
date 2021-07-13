@@ -38,9 +38,9 @@ export function findClosest(cur, available){
  */
 export function findDay(x, margin=3, stringify=true){
     let positions = [];
-    let days = Array.from(document.get)
+    let days = Array.from(document.getElementById("day-container").children);
 
-    this.week.days.forEach(el => {
+    days.forEach(el => {
         positions.push(el.$el.getBoundingClientRect().left);
     });
     
@@ -55,11 +55,12 @@ function findHour(y){
 /**
  * @summary snaps either the bottom or top to the nearest hour
  * @param {number} y
+ * @param {number} height
  * @param {boolean} isTop 
  * @returns {string}
  */
-export function findHour(y, isTop = true){
-    let itemY = isTop ? this.get("top") : this.get("top") + this.get("height");
+export function findHour(y, height, isTop = true){
+    let itemY = isTop ? y : y + height;
     let hours = Array.from(document.getElementsByClassName(dayTailwind)[0].children[1].children);
     
     let positions = [];
@@ -70,6 +71,6 @@ export function findHour(y, isTop = true){
         positions.push(pos);
     });
     
-    let closest = this.findClosest(itemY, positions);
-    return isTop ? `${closest}px` : `${closest - this.get("top")}px`;
+    let closest = findClosest(itemY, positions);
+    return isTop ? `${closest}px` : `${closest - y}px`;
 }
