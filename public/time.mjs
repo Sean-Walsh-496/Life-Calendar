@@ -15,11 +15,22 @@ export class Day{
      * @param {array} item_list
      * @param {string} dayName Monday through Sunday
      */
-    constructor(dayName, week, itemList=[]){
+    constructor(dayName, week){
         this.dayName = dayName;
-        this.itemList = itemList;
+        this.itemList = this.makeItemList();
         this.$el = this.get$el();
         this.week = week;
+    }
+
+    /**
+     * @param {number} res
+     * @summary Creates a list where each item represents a unit of time.
+     * @returns {array}
+     */
+    makeItemList(res = 1){
+        let itemList = [];
+        for (let i = 0; i < 24 * res; i++) itemList.push(null);
+        return itemList
     }
 
     addHours($div){
