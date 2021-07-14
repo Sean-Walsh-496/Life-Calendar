@@ -95,6 +95,11 @@ export class Item{
 
         if (day) this.set("left", this.week.getPos(day, 1).left, true);
 
+        
+        else{
+            this.day = functions.findDay(this.get("left"), 3, true, true);
+        }
+
         //bandaid solution to getPos's imprecision
         this.set("left", functions.findDay(this.get("left")));
 
@@ -107,11 +112,13 @@ export class Item{
         }
 
         else{
+            this.hour = functions.findHour(this.get("top"), this.get("height"), true, true);
             this.set("top", functions.findHour(this.get("top"), this.get("height"), true));
             this.set('height', functions.findHour(this.get("top"), this.get("height"), false));
         }
 
         this.clicked = false;
+
         this.$el.children[1].innerText = `day: ${this.day}, hour: ${this.hour}`;
     }
 
