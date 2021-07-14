@@ -44,7 +44,6 @@ $popUp.$el.addEventListener("input", e =>{
 
         $calendar.highlightUsed(numWeeks);
     }
-    console.log(getSizes());
 
 });
 
