@@ -40,9 +40,12 @@ export const functions = {
     /**
      * @summary returns nearest day cell's y-position
      * @param {number} x
+     * @param {number} margin if there should be any space to the left and right of the item
+     * @param {boolean} stringify
+     * @param {boolean} rIndex return index
      * @returns {string}
      */
-    findDay : function(x, margin=3, stringify=true){
+    findDay : function(x, margin=3, stringify=true, rIndex=false){
         const {findClosest} = this;
         let positions = [];
         let days = Array.from(document.getElementById("day-container").children);
@@ -51,7 +54,11 @@ export const functions = {
             positions.push(el.getBoundingClientRect().left);
         });
         
-        return stringify ? `${findClosest(x, positions) + margin}px` : findClosest(x, positions) + margin;
+        let closest = findClosest(x, positions, rIndex);
+
+        if (rIndex) return closest;
+
+        return stringify ? `${closest + margin}px` : closest + margin;
     },
 
     /**
