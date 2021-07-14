@@ -83,13 +83,32 @@ export class Item{
     }
 
     /**
-     * @summary snaps HTML element into nearest cell
+     * @param {number} day
+     * @param {number} hour
+     * @summary snaps HTML element into given cell, or closest one if no arguments
+     * are passed in.
      */
-    snap(){
+    snap(day = null, hour = null){
+
         this.$el.className = tailwinds.item;
-        this.set("left", this.findDay());
-        this.set("top", this.findHour(true));
-        this.set('height', this.findHour(false));
+
+        if (day) this.set("left", this.week.getPos(day, 1).left, true);
+
+        else this.set("left", this.findDay());
+
+
+        if (hour){
+            let newTop = this.week.getPos(1, hour).top;
+            let newHeight = this.week.getPos(1, hour + this.duration) - newTop;
+            this.set("top", newTop, true);
+            this.set("height", newHeight, true);
+        }
+
+        else{
+            this.set("top", this.findHour(true));
+            this.set('height', this.findHour(false));
+        }
+
         this.clicked = false;
     }
 
