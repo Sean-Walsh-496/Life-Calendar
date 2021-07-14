@@ -87,10 +87,13 @@ export class Item{
      * the week's matrix.
      */
     reassign(){
+
+        this.week.days[this.day].removeItem(this);
+
         this.day = functions.findDay(this.get("left"), 3, true, true);
         this.hour = functions.findHour(this.get("top"), this.get("height"), true, true);
 
-
+        this.week.days[this.day].insertItem(this, this.hour);
 
         this.snap();
 
@@ -106,13 +109,14 @@ export class Item{
 
         this.$el.className = tailwinds.item;
 
-        if (day) this.set("left", this.week.getPos(day, 1).left, true);
+        if (day !== null) this.set("left", this.week.getPos(day, 1).left, true);
+
 
         //bandaid solution to getPos's imprecision
         this.set("left", functions.findDay(this.get("left")));
 
 
-        if (hour){
+        if (hour !== null){
             let newTop = this.week.getPos(1, hour).top;
             let newHeight = this.week.getPos(1, hour + this.duration) - newTop;
             this.set("top", newTop, true);
