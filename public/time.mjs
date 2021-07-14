@@ -52,13 +52,28 @@ export class Day{
     }
 
     /**
+     * @summary Returns this day's index in the week's itemList
+     * @returns {number}
+     */
+    getIndex(){
+        const {days} = this.week;
+        for (let i = 0; i < days.length; i++){
+            if (days[i] == this){
+                return i;
+            }
+        }
+        return null;
+
+    }
+
+    /**
      * @param {MouseEvent} e
      * @returns {HTMLElement} 
      */
     clickIn(e){
         let hourIndex = functions.findHour(e.y, this.$el.children[1].getBoundingClientRect().height, true, true);
-        console.log(hourIndex);
-        let newItem = new Item("filler", this.week, this, hourIndex, 2);
+        console.log(this.getIndex());
+        let newItem = new Item("filler", this.week, this.getIndex(), hourIndex, 2);
         this.insertItem(newItem, hourIndex); //breaks code
         newItem.create(e.x, e.y);
     }
@@ -137,7 +152,7 @@ export class Day{
         for(let i = index; i < index + item.duration; i++) this.itemList[i] = item;
 
         item.week = this.week;
-        item.day = this;
+        item.day = this.getIndex();
         this.$el.appendChild(item.$el);
     }
     

@@ -111,6 +111,7 @@ export class Item{
         }
 
         this.clicked = false;
+        this.$el.children[1].innerText = `day: ${this.day}, hour: ${this.hour}`;
     }
 
     /**
@@ -120,9 +121,6 @@ export class Item{
         let bounds = document.getElementsByClassName(tailwinds.day)[0].children[1].children[0].getBoundingClientRect()
         let hourWidth = bounds.width;
         let hourHeight = bounds.height;
-        
-
-        console.log(hourWidth);
 
         this.set("width", parseInt(hourWidth) - this.wMargin, true);
         this.set("height", hourHeight * 2, true);
@@ -148,7 +146,7 @@ export class Item{
                         
                         $item.style.left = `${this.get("left") + e.movementX}px`;
                         $item.style.top = `${this.get("top") + e.movementY}px`;
-                        $item.className = movingItemTailwind;
+                        $item.className = tailwinds.movingItem;
                         break;
                     
                     case tailwinds.resizer:
