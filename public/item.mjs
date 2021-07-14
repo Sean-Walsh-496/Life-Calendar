@@ -95,7 +95,8 @@ export class Item{
 
         if (day) this.set("left", this.week.getPos(day, 1).left, true);
 
-        else this.set("left", functions.findDay(this.get("left")));
+        //bandaid solution to getPos's imprecision
+        this.set("left", functions.findDay(this.get("left")));
 
 
         if (hour){
@@ -168,7 +169,7 @@ export class Item{
         //$item.addEventListener("mouseleave", drop);
         document.addEventListener("mouseup", () => this.snap());
 
-        window.addEventListener("resize", () => this.snap());
+        window.addEventListener("resize", () => this.snap(this.day, this.hour));
 
     }
 

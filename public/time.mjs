@@ -205,8 +205,8 @@ export class Week{
      * @returns {object}
      */
     getWeekBounds(){
-        let $monHours = this.days[0].$el.children[1];
-        let bounds = $monHours.getBoundingClientRect();
+        let $monHour = this.days[0].$el.children[1];
+        let bounds = $monHour.getBoundingClientRect();
         return {
             top: bounds.top,
             height: bounds.height,
