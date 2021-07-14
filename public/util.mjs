@@ -20,7 +20,7 @@ export const functions = {
      * closest element and not actually the element itself.
      * @returns {number}
      */
-    findClosest(cur, available, rIndex = false){
+    findClosest : function(cur, available, rIndex = false){
         let closestDist = Number.MAX_VALUE;
         let closestEl, closestIndex;
 
@@ -42,13 +42,13 @@ export const functions = {
      * @param {number} x
      * @returns {string}
      */
-    findDay(x, margin=3, stringify=true){
+    findDay : function(x, margin=3, stringify=true){
         const {findClosest} = this;
         let positions = [];
         let days = Array.from(document.getElementById("day-container").children);
 
         days.forEach(el => {
-            positions.push(el.$el.getBoundingClientRect().left);
+            positions.push(el.getBoundingClientRect().left);
         });
         
         return stringify ? `${findClosest(x, positions) + margin}px` : findClosest(x, positions) + margin;
@@ -62,7 +62,7 @@ export const functions = {
      * @param {boolean} rIndex
      * @returns {string}
      */
-    findHour(y, height, isTop = true, rIndex = false){
+    findHour : function(y, height, isTop = true, rIndex = false){
         const {findClosest} = this;
         let itemY = isTop ? y : y + height;
         let hours = Array.from(document.getElementsByClassName(tailwinds.day)[0].children[1].children);
@@ -80,7 +80,5 @@ export const functions = {
         if (rIndex) return closest;
 
         else return isTop ? `${closest}px` : `${closest - y}px`;
-        
-        
     },
-}
+};

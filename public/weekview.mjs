@@ -14,6 +14,7 @@ const $container = document.getElementById("day-container");
 //main ==================================================================
 
 function main(){
+    console.log($week.getPos(1, 1));
 
 }
 

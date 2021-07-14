@@ -56,9 +56,10 @@ export class Day{
      * @returns {HTMLElement} 
      */
     clickIn(e){
-        let hourIndex = functions.findHour(e.y, this.$el.children[0].getBoundingClientRect().height, true, true);
+        let hourIndex = functions.findHour(e.y, this.$el.children[1].getBoundingClientRect().height, true, true);
+        console.log(hourIndex);
         let newItem = new Item("filler", this.week, this, hourIndex, 2);
-        this.insertItem(newItem);
+        this.insertItem(newItem, hourIndex); //breaks code
         newItem.create(e.x, e.y);
     }
 
@@ -113,7 +114,7 @@ export class Day{
         let stack = [];
         for (let i = 0; i < size; i++) stack.push(null);
 
-        while (stack){
+        while (stack.length > 0){
             if (this.itemList[index] !== null){
                 stack.push(this.itemList[index]);
             }
@@ -132,11 +133,12 @@ export class Day{
      * @returns {void}
      */
     insertItem(item, index){
-        this.shiftDown(index, item.size);
-        for(let i = index; i < index + item.size; i++) this.itemList[i] = item;
+        this.shiftDown(index, item.duration); //breaks code
+        for(let i = index; i < index + item.duration; i++) this.itemList[i] = item;
 
         item.week = this.week;
         item.day = this;
+        this.$el.appendChild(item.$el);
     }
     
     /**

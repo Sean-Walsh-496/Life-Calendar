@@ -90,11 +90,12 @@ export class Item{
      */
     snap(day = null, hour = null){
 
+
         this.$el.className = tailwinds.item;
 
         if (day) this.set("left", this.week.getPos(day, 1).left, true);
 
-        else this.set("left", this.findDay());
+        else this.set("left", functions.findDay(this.get("left")));
 
 
         if (hour){
@@ -105,8 +106,8 @@ export class Item{
         }
 
         else{
-            this.set("top", this.findHour(true));
-            this.set('height', this.findHour(false));
+            this.set("top", functions.findHour(this.get("top"), this.get("height"), true));
+            this.set('height', functions.findHour(this.get("top"), this.get("height"), false));
         }
 
         this.clicked = false;
