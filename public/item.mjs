@@ -83,6 +83,20 @@ export class Item{
     }
 
     /**
+     * @summary internally updates the item's day and hour and internally updates
+     * the week's matrix.
+     */
+    reassign(){
+        this.day = functions.findDay(this.get("left"), 3, true, true);
+        this.hour = functions.findHour(this.get("top"), this.get("height"), true, true);
+
+
+
+        this.snap();
+
+    }
+
+    /**
      * @param {number} day
      * @param {number} hour
      * @summary snaps HTML element into given cell, or closest one if no arguments
@@ -90,15 +104,9 @@ export class Item{
      */
     snap(day = null, hour = null){
 
-
         this.$el.className = tailwinds.item;
 
         if (day) this.set("left", this.week.getPos(day, 1).left, true);
-
-        
-        else{
-            this.day = functions.findDay(this.get("left"), 3, true, true);
-        }
 
         //bandaid solution to getPos's imprecision
         this.set("left", functions.findDay(this.get("left")));
@@ -112,7 +120,6 @@ export class Item{
         }
 
         else{
-            this.hour = functions.findHour(this.get("top"), this.get("height"), true, true);
             this.set("top", functions.findHour(this.get("top"), this.get("height"), true));
             this.set('height', functions.findHour(this.get("top"), this.get("height"), false));
         }
@@ -120,6 +127,7 @@ export class Item{
         this.clicked = false;
 
         this.$el.children[1].innerText = `day: ${this.day}, hour: ${this.hour}`;
+        console.log(this.week.days);
     }
 
     /**
@@ -174,7 +182,7 @@ export class Item{
         });
 
         //$item.addEventListener("mouseleave", drop);
-        document.addEventListener("mouseup", () => this.snap());
+        document.addEventListener("mouseup", () => this.reassign());
 
         window.addEventListener("resize", () => this.snap(this.day, this.hour));
 
