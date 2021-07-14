@@ -43,6 +43,7 @@ export const functions = {
      * @returns {string}
      */
     findDay(x, margin=3, stringify=true){
+        const {findClosest} = this;
         let positions = [];
         let days = Array.from(document.getElementById("day-container").children);
 
@@ -62,8 +63,9 @@ export const functions = {
      * @returns {string}
      */
     findHour(y, height, isTop = true, rIndex = false){
+        const {findClosest} = this;
         let itemY = isTop ? y : y + height;
-        let hours = Array.from(document.getElementsByClassName(dayTailwind)[0].children[1].children);
+        let hours = Array.from(document.getElementsByClassName(tailwinds.day)[0].children[1].children);
         
         let positions = [];
 
