@@ -1,5 +1,5 @@
 import { Item } from "./item.mjs";
-import { tailwinds, functions } from "./util.mjs";
+import { tailwinds, functions, weekdays } from "./util.mjs";
 
 export class Day{
 
@@ -181,6 +181,35 @@ export class Week{
         this.days.forEach(el => {
             this.$el.appendChild(el.$el);
         });
+    }
+
+    /**
+     * @summary Gets the dimensions of the hourspace for the entire week
+     * @returns {object}
+     */
+    getWeekBounds(){
+        let $monHours = this.days[0].$el.children[1];
+        let bounds = $monHours.getBoundingClientRect();
+        return {
+            top: bounds.top,
+            height: bounds.height,
+            left: bounds.left,
+            width: bounds.width * 7
+        };
+        
+    }
+
+    /**
+     * @param {number} day index starts at zero
+     * @param {number} hour index starts at zero
+     * @returns {object} top and left values as numbers, NOT STRINGS!
+     */
+    getPos(day, hour){
+        const {left, width, height, top} = this.getWeekBounds();
+        return {
+            left: left + (width * (day / 7)),
+            top: top + (height * (hour / 24))
+            };
     }
 }
 
