@@ -92,6 +92,8 @@ export class Item{
 
         this.day = functions.findDay(this.get("left"), 3, true, true);
         this.hour = functions.findHour(this.get("top"), this.get("height"), true, true);
+        let bottom = functions.findHour(this.get("top"), this.get("height"), false, true) + 1; //sus
+        this.duration = bottom - this.hour;
 
         this.week.days[this.day].insertItem(this, this.hour);
 
@@ -186,7 +188,9 @@ export class Item{
         });
 
         //$item.addEventListener("mouseleave", drop);
-        document.addEventListener("mouseup", () => this.reassign());
+        document.addEventListener("mouseup", () => {
+            if(this.clicked) this.reassign();
+        });
 
         window.addEventListener("resize", () => this.snap(this.day, this.hour));
 
