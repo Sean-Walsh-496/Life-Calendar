@@ -137,19 +137,6 @@ export class Item{
     }
 
     /**
-     * @summary fits the dimensions of the nearest cell
-     */
-    fitSize(){
-        let bounds = document.getElementsByClassName(tailwinds.day)[0].children[1].children[0].getBoundingClientRect()
-        let hourWidth = bounds.width;
-        let hourHeight = bounds.height;
-
-        this.set("width", parseInt(hourWidth) - this.wMargin, true);
-        this.set("height", hourHeight * 2, true);
-
-    }
-
-    /**
      * @param {object} $item 
      */
     initEventListeners($item){
@@ -199,25 +186,25 @@ export class Item{
     /**
      * @summary adds a smoothing transition
      */
-    smooth(){
+    smooth(callback){
         this.$el.style.transitionProperty = "height, width";
         this.$el.style.transitionDuration = "1s";
+
+        callback();
+        setTimeout(() =>{
+            this.$el.style.transitionProperty = "";
+            this.$el.style.transitionDuration = ""; 
+        }, 1000);
     }
 
-    /**
-     * @summary removes the smooth transitions
-     */
-    removeSmooth(){
-        this.$el.style.transitionProperty = "";
-        this.$el.style.transitionDuration = "";
-    }
+
 
     /**
      * @summary snaps the item into place and creates it, giving a smooth
      * animation.
      */
     create(x, y){
-        this.smooth();
+
         this.set("visibility", "hidden");
         this.set("left", x, true);
         this.set("top", y, true);
@@ -227,9 +214,13 @@ export class Item{
 
         this.set("visibility", "visible");
         this.snap();
-        this.fitSize();
+        this.smooth(() => {
+            let hourDims = this.week.days[this.day].getHourDims();
+            this.set("width", hourDims.width, true);
+            this.set("height", hourDims.height * 2, true);
+        });
 
-        setTimeout( () => this.removeSmooth(), 1000);
+
         
 
     }
