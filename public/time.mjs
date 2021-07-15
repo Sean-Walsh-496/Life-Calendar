@@ -74,7 +74,7 @@ export class Day{
         let hourIndex = functions.findHour(e.y, this.$el.children[1].getBoundingClientRect().height, true, true);
         console.log(this.getIndex());
         let newItem = new Item("filler", this.week, this.getIndex(), hourIndex, 2);
-        this.insertItem(newItem, hourIndex); //breaks code
+        this.insertItem(newItem, hourIndex);
         newItem.create(e.x, e.y);
     }
 
@@ -148,7 +148,7 @@ export class Day{
      * @returns {void}
      */
     insertItem(item, index){
-        this.shiftDown(index, item.duration); //breaks code
+        this.shiftDown(index, item.duration);
         for(let i = index; i < index + item.duration; i++) this.itemList[i] = item;
 
         item.week = this.week;
@@ -160,8 +160,8 @@ export class Day{
      * @param {object} item 
      */
     removeItem(item){
-        this.itemList.forEach(el => {
-            if (el === item) el = null;
+        this.itemList.forEach((el, i) => {
+            if (el === item) this.itemList[i] = null;
         });
     }
 
