@@ -185,19 +185,20 @@ export class Item{
 
     /**
      * @summary adds a smoothing transition
+     * @param {Function} callback
+     * @param {string} propString
+     * @param {number} ms milliseconds
      */
-    smooth(callback){
-        this.$el.style.transitionProperty = "height, width";
-        this.$el.style.transitionDuration = "1s";
+    smooth(callback, propString = "height, width", ms = 1000){
+        this.$el.style.transitionProperty = propString;
+        this.$el.style.transitionDuration = `${ms}ms`;
 
         callback();
         setTimeout(() =>{
             this.$el.style.transitionProperty = "";
             this.$el.style.transitionDuration = ""; 
-        }, 1000);
+        }, ms);
     }
-
-
 
     /**
      * @summary snaps the item into place and creates it, giving a smooth
@@ -213,7 +214,7 @@ export class Item{
         this.set("height", 30, true);
 
         this.set("visibility", "visible");
-        this.snap();
+        this.reassign();
         this.smooth(() => {
             let hourDims = this.week.days[this.day].getHourDims();
             this.set("width", hourDims.width, true);

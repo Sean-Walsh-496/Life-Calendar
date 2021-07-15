@@ -126,7 +126,6 @@ export class Day{
      * @returns {void} 
      */
     shiftDown(index, size){
-        let start = index;
         let stack = [];
         for (let i = 0; i < size; i++) stack.push(null);
 
@@ -139,7 +138,10 @@ export class Day{
             this.itemList[index] = current;
             if (current !== null && current !== this.itemList[index - 1]){
                 current.hour = index;
-                current.snap(current.day, current.hour);
+                current.smooth(() =>{
+                    current.snap(current.day, current.hour);
+                }, "top, left", 750);
+                
             }
 
             index++;
