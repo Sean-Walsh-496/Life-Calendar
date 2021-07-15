@@ -176,7 +176,9 @@ export class Item{
 
         //$item.addEventListener("mouseleave", drop);
         document.addEventListener("mouseup", () => {
-            if(this.clicked) this.reassign();
+            if(this.clicked) this.smooth(() => {
+                this.reassign();
+            }, "top, height", 500); 
         });
 
         window.addEventListener("resize", () => this.snap(this.day, this.hour));
