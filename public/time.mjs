@@ -120,15 +120,17 @@ export class Day{
         return true;
     }
 
+    
+
     /**
-     * 
      * @param {number} index 
-     * @param {number} size
-     * @returns {void} 
+     * @param {number} n the amount to shift
+     * @param {boolean} down 
      */
-    shiftDown(index, size){
+    itemShift(index, n, down){
+        const next = down ? 1 : -1;
         let stack = [];
-        for (let i = 0; i < size; i++) stack.push(null);
+        for (let i = 0; i < n; i++) stack.push(null);
 
         while (stack.length > 0){
             if (this.itemList[index] !== null){
@@ -137,7 +139,7 @@ export class Day{
             
             let current = stack.shift();
             this.itemList[index] = current;
-            if (current !== null && current !== this.itemList[index - 1]){
+            if (current !== null && current !== this.itemList[index - next]){
                 current.hour = index;
                 current.smooth(() =>{
                     current.snap(current.day, current.hour);
@@ -145,7 +147,7 @@ export class Day{
                 
             }
 
-            index++;
+            index += next
         }
 
     }
@@ -159,7 +161,8 @@ export class Day{
      * @returns {void}
      */
     insertItem(item, index){
-        this.shiftDown(index, item.duration);
+        this.itemShift(index, item.duration, true);
+
         for(let i = index; i < index + item.duration; i++) this.itemList[i] = item;
 
         item.week = this.week;
