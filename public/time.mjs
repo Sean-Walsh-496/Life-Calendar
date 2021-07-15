@@ -38,7 +38,7 @@ export class Day{
      * @returns {ClientRect}
      */
     getHourSpaceDims(){
-        return document.getElementById("hour-space");
+        return document.getElementById("hour-space").getBoundingClientRect();
     }
 
     /**
@@ -72,10 +72,11 @@ export class Day{
      */
     clickIn(e){
         let hourIndex = functions.findHour(e.y, this.$el.children[1].getBoundingClientRect().height, true, true);
-        console.log(this.getIndex());
+
+        let hourPos = this.$el.children[1].children[hourIndex].getBoundingClientRect();
+
         let newItem = new Item("filler", this.week, this.getIndex(), hourIndex, 2);
-        this.insertItem(newItem, hourIndex);
-        newItem.create(e.x, e.y);
+        newItem.create(hourPos.left, hourPos.top);
     }
 
     /**

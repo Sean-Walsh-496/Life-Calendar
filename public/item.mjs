@@ -19,6 +19,8 @@ export class Item{
         this.$el = this.getElement();
         this.clicked = false;
 
+        this.created = false;
+
     }
 
     /**
@@ -93,7 +95,7 @@ export class Item{
         this.day = functions.findDay(this.get("left"), 3, true, true);
         this.hour = functions.findHour(this.get("top"), this.get("height"), true, true);
         let bottom = functions.findHour(this.get("top"), this.get("height"), false, true) + 1; //sus
-        this.duration = bottom - this.hour;
+        this.duration = this.created ? bottom - this.hour : this.duration;
 
         this.week.days[this.day].insertItem(this, this.hour);
 
@@ -216,7 +218,7 @@ export class Item{
         this.set("height", 30, true);
 
         this.set("visibility", "visible");
-        this.reassign();
+        this.reassign(); 
         this.smooth(() => {
             let hourDims = this.week.days[this.day].getHourDims();
             this.set("width", hourDims.width, true);
@@ -224,7 +226,7 @@ export class Item{
         });
 
 
-        
+        this.created = true;
 
     }
 
