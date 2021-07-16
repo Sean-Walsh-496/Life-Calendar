@@ -28,11 +28,12 @@ export class Item{
      */
     getElement(){
         //declare and initialize components of item element
-        const hourHeight = document.getElementsByClassName(tailwinds.hour)[0].clientHeight;
         let $item = document.createElement("div");
         let $name = document.createElement("h2");
         let $topResizer = document.createElement("div");
         let $bottomResizer = document.createElement("div");
+        let $topDiv = document.createElement("div");
+        let $deleteButton = document.createElement("div")
         let $bottomDiv = document.createElement("div");
 
 
@@ -46,12 +47,20 @@ export class Item{
 
         $topResizer.className = tailwinds.resizer
         $topResizer.setAttribute("name", "top-resizer");
+        $topDiv.appendChild($name)
+        $topDiv.appendChild($deleteButton);
+        $topDiv.className = "w-full h-8 flex justify-between"
+
+        $deleteButton.innerText = "X";
+        $deleteButton.className = tailwinds.itemDeleteButton;
+        
+
         $bottomDiv.className = tailwinds.fillerDiv;
         $bottomResizer.className = tailwinds.resizer;
         $bottomResizer.setAttribute("name", "bottom-resizer");
 
         $item.appendChild($topResizer);
-        $item.appendChild($name);
+        $item.appendChild($topDiv);
         $item.appendChild($bottomDiv)
         $item.appendChild($bottomResizer);
 
@@ -133,8 +142,6 @@ export class Item{
         }
 
         this.clicked = false;
-
-        this.$el.children[1].innerText = `day: ${this.day}, hour: ${this.hour}`;
     }
 
     /**
@@ -143,8 +150,14 @@ export class Item{
     initEventListeners($item){
 
         $item.addEventListener("mousedown", e => {
-            this.clicked = e.target;
-            this.className = tailwinds.movingItem;
+            if (e.target.className == tailwinds.itemDeleteButton){ 
+                this.delete();
+            }
+            else{
+                this.clicked = e.target;
+                this.className = tailwinds.movingItem;
+            }
+            
         });
 
         document.addEventListener("mousemove", e => {
@@ -183,6 +196,20 @@ export class Item{
         });
 
         window.addEventListener("resize", () => this.snap(this.day, this.hour));
+
+    }
+
+    delete(){
+        let curDay = this.week.days[this.day];
+        curDay.removeItem(this);
+        
+        this.smooth(() => {
+            this.set("height", 0, true);
+            this.set("width", 0, true);
+        },undefined ,500);
+
+        setTimeout(() => this.$el.remove(), 450);
+        
 
     }
 
