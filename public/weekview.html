@@ -18,9 +18,20 @@
     </div>
 
     <div class="flex flex-col justify-center items-center" style="height: 100vh; width: 100vw;" id="main-div">
-        <ol class="flex justify-between" style="height: 900px; width: 1000px;" id="day-container">
-        
-        </ol>
+        <div class="flex justify-start h-full w-full" id="top-bar">
+            <div class="w-10"></div>
+            <div class="flex justify-center items-center">
+                <div class="text-3xl text-gray-500 select-none transform duration-400 hover:text-red-500" id="exit-button">⮜ </div>
+                <div class="text-gray-500 select-none">&ensp;Back to life view</div>
+            </div>
+            
+        </div>
+        <ol class="flex justify-between" style="height: 950px; min-height: 900px; width: 1000px;" id="day-container"></ol>
+        <div class="flex h-full w-full justify-center items-center" id="bottom-bar">
+            <div class="flex items-center justify-end h-full" style="width: 1000px;">
+                <div class="h-5/6 w-1/12 rounded-md bg-blue-400 text-white text-center transform duration-300 hover:bg-blue-300 hover:scale-105">Save</div>
+            </div>
+        </div>
 
     </div>
     
