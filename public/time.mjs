@@ -131,6 +131,10 @@ export class Day{
         return index - top < middle;
     }
 
+    findMiddle(item){
+        return Math.round(item.duration / 2) + item.hour;
+    }
+
     /**
      * @param {number} index 
      * @param {number} n the amount to shift
@@ -176,14 +180,23 @@ export class Day{
      * @returns {void}
      */
     insertItem(item, index){
-        //deals with case of wanting to shift the displaced item up
-        let curOccupant = this.itemList[index];
-        if (curOccupant !== null){
-        let bottom = curOccupant.hour + curOccupant.duration - 1;    
-            if (! this.isTopHalf(curOccupant, index)){
-                this.itemShift(bottom, bottom - index + 1, false);
+        
+        let middle = this.findMiddle(item);
+        let upStart = index;
+        for (let i = index; i < middle; i++){
+            let cur = this.itemList[i];
+            if (cur !== null){
+                if (this.findMiddle(cur) > middle){
+                    break
+                }
+                else{
+                    upStart = cur.hour + cur.duration - 1;
+                }
             }
+            
         }
+        this.itemShift(upStart, upStart - index + 1, false);
+
 
         this.itemShift(index, item.duration, true);
         for(let i = index; i < index + item.duration; i++) this.itemList[i] = item;
