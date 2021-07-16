@@ -120,7 +120,16 @@ export class Day{
         return true;
     }
 
-    
+    /**
+     * @param {object} item 
+     * @param {number} index
+     * @returns {boolean} 
+     */
+    isTopHalf(item, index){
+        let middle = Math.round(item.duration / 2);
+        let top = this.itemList.findIndex(el => el === item);
+        return index - top < middle;
+    }
 
     /**
      * @param {number} index 
@@ -139,9 +148,15 @@ export class Day{
             
             let current = stack.shift();
             this.itemList[index] = current;
-            if (current !== null && current !== this.itemList[index - next]){
+            let condition;
+
+            if (down) condition = current !== null && current !== this.itemList[index - next];
+            else condition = current !== null && stack.find(el => el === current) === undefined;
+
+            if (condition){
                 current.hour = index;
                 current.smooth(() =>{
+                    let side = down ? "top" : "bottom";
                     current.snap(current.day, current.hour);
                 }, "top, left", 750);
                 
@@ -161,8 +176,16 @@ export class Day{
      * @returns {void}
      */
     insertItem(item, index){
-        this.itemShift(index, item.duration, true);
+        //deals with case of wanting to shift the displaced item up
+        let curOccupant = this.itemList[index];
+        if (curOccupant !== null){
+        let bottom = curOccupant.hour + curOccupant.duration - 1;    
+            if (! this.isTopHalf(curOccupant, index)){
+                this.itemShift(bottom, bottom - index + 1, false);
+            }
+        }
 
+        this.itemShift(index, item.duration, true);
         for(let i = index; i < index + item.duration; i++) this.itemList[i] = item;
 
         item.week = this.week;
