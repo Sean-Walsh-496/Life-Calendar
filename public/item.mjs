@@ -135,7 +135,6 @@ export class Item{
         this.clicked = false;
 
         this.$el.children[1].innerText = `day: ${this.day}, hour: ${this.hour}`;
-        console.log(this.week.days);
     }
 
     /**
