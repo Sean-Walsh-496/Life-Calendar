@@ -120,17 +120,6 @@ export class Day{
         return true;
     }
 
-    /**
-     * @param {object} item 
-     * @param {number} index
-     * @returns {boolean} 
-     */
-    isTopHalf(item, index){
-        let middle = Math.round(item.duration / 2);
-        let top = this.itemList.findIndex(el => el === item);
-        return index - top < middle;
-    }
-
     findMiddle(item){
         return Math.round(item.duration / 2) + item.hour;
     }
@@ -192,8 +181,7 @@ export class Day{
                 else{
                     upStart = cur.hour + cur.duration - 1;
                 }
-            }
-            
+            }            
         }
         this.itemShift(upStart, upStart - index + 1, false);
 
