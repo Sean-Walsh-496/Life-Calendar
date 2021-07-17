@@ -1,8 +1,6 @@
-export const weeksInYear = 52;
-export const weekTailwind = "h-full w-2.5 border border-gray-400 transition duration-75 transform hover:scale-150 hover:bg-blue-300";
-const weekListTailwind = "flex max-w-6xl w-full h-2.5 justify-between items-center";
-export const dividerTailwind = "w-full min h-0.5 h-0.5 bg-gray-400";
+import { tailwinds } from "./util.mjs";
 
+export const weeksInYear = 52;
 
 export class WeekCell{
     constructor(){
@@ -16,7 +14,7 @@ export class WeekCell{
      */
     get$el(){
         let item = document.createElement("li");
-        item.className = weekTailwind;
+        item.className = tailwinds.weekCell;
 
         return item;
     }
@@ -58,7 +56,7 @@ export class Calendar{
 
     createYear(){
         let $year = document.createElement("ol");
-        $year.className = weekListTailwind
+        $year.className = tailwinds.weekCellList;
 
         return $year;
     }
@@ -71,7 +69,7 @@ export class Calendar{
             }
             if (i % 20 == 0 && i != 0){
                 let divider = document.createElement("div");
-                divider.className = dividerTailwind;
+                divider.className = tailwinds.divider;
                 this.$el.append(divider);
             }
             this.$el.append($year);

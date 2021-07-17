@@ -10,6 +10,9 @@ export const tailwinds = {
     fillerDiv : "h-full w-full",
     weekNameDiv : "flex flex-col w-full h-1/8 border-b border-gray-400 text-center text-2xl font-bold select-none",
     itemDeleteButton: "h-full w-1/4 text-center text-transparent transform select-none duration-500 hover:text-white",
+    weekCell: "h-full w-2.5 border border-gray-400 transition duration-75 transform hover:scale-150 hover:bg-blue-300",
+    divider: "w-full min h-0.5 h-0.5 bg-gray-400",
+    weekCellList: "flex max-w-6xl w-full h-2.5 justify-between items-center"
 }
 
 

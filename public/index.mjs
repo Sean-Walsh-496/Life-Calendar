@@ -1,6 +1,7 @@
 import PopupWindow from "./popup.mjs";"./popup.mjs";
 import {DateOfBirthWindow} from "./DOB.mjs";
-import {Calendar, dividerTailwind, weekTailwind, weeksInYear} from "./calendar.mjs";
+import { tailwinds } from "./util.mjs";
+import {Calendar, weeksInYear} from "./calendar.mjs";
 
 //variable declarations =================================================
 let $popUp = new DateOfBirthWindow(document.getElementById("DOB-popup"));
@@ -10,8 +11,8 @@ const $calendar = new Calendar();
 //Functions ============================================================
 function getSizes(){
     const bounds = $calendar.$el.getBoundingClientRect();
-    const dividerBounds = document.getElementsByClassName(dividerTailwind)[0].getBoundingClientRect();
-    const weekBounds = document.getElementsByClassName(weekTailwind)[0].getBoundingClientRect();
+    const dividerBounds = document.getElementsByClassName(tailwinds.divider)[0].getBoundingClientRect();
+    const weekBounds = document.getElementsByClassName(tailwinds.weekCell)[0].getBoundingClientRect();
 
     return {
         calendar : {
