@@ -1,7 +1,6 @@
-import { tailwinds } from "./util.mjs";
+import { tailwinds, functions } from "./util.mjs";
 
 export const weeksInYear = 52;
-
 export class WeekCell{
     constructor(){
         this.$el = this.get$el();
@@ -9,14 +8,10 @@ export class WeekCell{
     }
 
     /**
-     * 
      * @returns {HTMLElement}
      */
     get$el(){
-        let item = document.createElement("li");
-        item.className = tailwinds.weekCell;
-
-        return item;
+        return functions.getTemplate("week");
     }
 
     /**
@@ -55,10 +50,7 @@ export class Calendar{
     }
 
     createYear(){
-        let $year = document.createElement("ol");
-        $year.className = tailwinds.weekCellList;
-
-        return $year;
+        return functions.getTemplate("year");
     }
 
     populate(){
@@ -72,7 +64,7 @@ export class Calendar{
                 divider.className = tailwinds.divider;
                 this.$el.append(divider);
             }
-            this.$el.append($year);
+            this.$el.appendChild($year);
         }
     }
 

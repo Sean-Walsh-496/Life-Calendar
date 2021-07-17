@@ -92,4 +92,14 @@ export const functions = {
 
         else return isTop ? `${closest}px` : `${closest - y}px`;
     },
+
+    /**
+     * 
+     * @param {string} name 
+     * @returns {HTMLElement}
+     */
+    getTemplate : function(name){
+        let temp = document.getElementById(name).content.children[0];
+        return document.importNode(temp, true);
+    }
 };
