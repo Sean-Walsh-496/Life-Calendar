@@ -66,7 +66,7 @@ addEventListener("click", e => {
 
 //main
 document.addEventListener("DOMContentLoaded", function(e){
-    $popUp.changeVisibility();
+    //$popUp.changeVisibility();
     $popUp.center();
     $calendar.populate();    
 });
