@@ -1,4 +1,5 @@
 import { tailwinds, functions } from "./util.mjs";
+import { ItemPopup } from "./item-popup.mjs";
 
 export class Item{
     /**
@@ -133,6 +134,13 @@ export class Item{
             }            
         });
 
+        $item.addEventListener("contextmenu", e =>{
+            let $itemPop = new ItemPopup(document.getElementById("edit-popup"));
+            e.preventDefault();
+            $itemPop.activate(e, this);
+
+        });
+
         document.addEventListener("mousemove", e => {
             if (this.clicked){
 
@@ -163,7 +171,7 @@ export class Item{
 
         //$item.addEventListener("mouseleave", drop);
         document.addEventListener("mouseup", () => {
-            if(this.clicked){
+            if (this.clicked){
                 if (this.clicked.className == tailwinds.nameInput){
                     this.name = this.$input.value;
                 }
