@@ -119,14 +119,18 @@ export class Item{
     initEventListeners($item){
 
         $item.addEventListener("mousedown", e => {
-            if (e.target.className == tailwinds.itemDeleteButton){ 
-                this.delete();
+            if (e.button == 0){
+                if (e.target.className == tailwinds.itemDeleteButton){ 
+                    this.delete();
+                }
+                else{
+                    this.clicked = e.target;
+                    this.className = tailwinds.movingItem;
+                }
             }
-            else{
-                this.clicked = e.target;
-                this.className = tailwinds.movingItem;
-            }
-            
+            else if (e.button == 2){
+
+            }            
         });
 
         document.addEventListener("mousemove", e => {
