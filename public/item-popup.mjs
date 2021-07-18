@@ -2,8 +2,9 @@ import PopupWindow from "./popup.mjs";
 
 export class ItemPopup extends PopupWindow {
 
-    constructor($el){
+    constructor($el, $item){
         super($el);
+        this.$item = $item;
         this.standardDims = {height: 150, width: 150};
         
     }
@@ -28,20 +29,17 @@ export class ItemPopup extends PopupWindow {
     }
 
     /**
-     * @param {MouseEvent} e 
+     * @summary Called whenever the used right-clicks on an item to see the 
+     * custom context menu.
+     * @param {MouseEvent} e
      */
-    clickAppear(e){
+    activate(e){
+        this.position(e.x, e.y);
+        this.$el.style.width = `${this.standardDims.width}px`;
+        this.$el.style.height = `${this.standardDims.height}px`;
+    }
 
-        if (this.active){
-            this.shrink();
-            this.changeVisibility();
-        }
-        else{
-            this.position(e.x, e.y);
-            this.changeVisibility();
-            this.expand();
-        }
-        
+    deactive(){
         
     }
 
