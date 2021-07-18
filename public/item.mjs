@@ -135,9 +135,9 @@ export class Item{
         });
 
         $item.addEventListener("contextmenu", e =>{
-            let $itemPop = new ItemPopup(document.getElementById("edit-popup"));
+            let $itemPop = new ItemPopup(document.getElementById("edit-popup"), this.$el);
             e.preventDefault();
-            $itemPop.activate(e, this);
+            $itemPop.activate();
 
         });
 
