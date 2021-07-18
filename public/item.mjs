@@ -23,48 +23,17 @@ export class Item{
 
     }
 
+    
     /**
      * @returns {HTMLElement}
      */
     getElement(){
-        //declare and initialize components of item element
-        let $item = document.createElement("div");
-        let $name = document.createElement("h2");
-        let $topResizer = document.createElement("div");
-        let $bottomResizer = document.createElement("div");
-        let $topDiv = document.createElement("div");
-        let $deleteButton = document.createElement("div")
-        let $bottomDiv = document.createElement("div");
-
+        let $item = functions.getTemplate("item");
+        $item.children[1].children[0].innerText = this.name;
 
         //styling and giving logic to the main div
-        $item.className = tailwinds.item;
         this.initEventListeners($item);
 
-        //Giving the div a name
-        $name.innerText = this.name;
-        $name.className = tailwinds.nameDiv;
-
-        $topResizer.className = tailwinds.resizer
-        $topResizer.setAttribute("name", "top-resizer");
-        $topDiv.appendChild($name)
-        $topDiv.appendChild($deleteButton);
-        $topDiv.className = "w-full h-8 flex justify-between"
-
-        $deleteButton.innerText = "X";
-        $deleteButton.className = tailwinds.itemDeleteButton;
-        
-
-        $bottomDiv.className = tailwinds.fillerDiv;
-        $bottomResizer.className = tailwinds.resizer;
-        $bottomResizer.setAttribute("name", "bottom-resizer");
-
-        $item.appendChild($topResizer);
-        $item.appendChild($topDiv);
-        $item.appendChild($bottomDiv)
-        $item.appendChild($bottomResizer);
-
-        
         return $item;
     }
 
