@@ -1,5 +1,5 @@
 import { tailwinds, functions } from "./util.mjs";
-import { ItemPopup } from "./item-popup.mjs";
+import { $itemPop } from "./weekview.mjs";
 
 export class Item{
     /**
@@ -129,16 +129,11 @@ export class Item{
                     this.className = tailwinds.movingItem;
                 }
             }
-            else if (e.button == 2){
-
-            }            
         });
 
         $item.addEventListener("contextmenu", e =>{
-            let $itemPop = new ItemPopup(document.getElementById("edit-popup"), this.$el);
             e.preventDefault();
-            $itemPop.activate();
-
+            $itemPop.activate(this.$el);
         });
 
         document.addEventListener("mousemove", e => {
