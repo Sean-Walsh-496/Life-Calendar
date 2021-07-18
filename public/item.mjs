@@ -17,6 +17,7 @@ export class Item{
 
         this.wMargin = 3;
         this.$el = this.getElement();
+        this.$input = this.$el.querySelector("input[name='name-field']");
         this.clicked = false;
 
         this.created = false;
@@ -158,10 +159,16 @@ export class Item{
 
         //$item.addEventListener("mouseleave", drop);
         document.addEventListener("mouseup", () => {
-            if(this.clicked && this.clicked.className != tailwinds.nameInput){
-                this.smooth(() => {
-                    this.reassign();
-                }, "top, height", 500); 
+            if(this.clicked){
+                if (this.clicked.className == tailwinds.nameInput){
+                    this.name = this.$input.value;
+                }
+                else{
+                    this.smooth(() => {
+                        this.reassign();
+                    }, "top, height", 500);                     
+                }
+                
             }
             
         });
