@@ -29,7 +29,6 @@ export class Item{
      */
     getElement(){
         let $item = functions.getTemplate("item");
-        $item.children[1].children[0].innerText = this.name;
 
         //styling and giving logic to the main div
         this.initEventListeners($item);
@@ -159,9 +158,12 @@ export class Item{
 
         //$item.addEventListener("mouseleave", drop);
         document.addEventListener("mouseup", () => {
-            if(this.clicked) this.smooth(() => {
-                this.reassign();
-            }, "top, height", 500); 
+            if(this.clicked && this.clicked.className != tailwinds.nameInput){
+                this.smooth(() => {
+                    this.reassign();
+                }, "top, height", 500); 
+            }
+            
         });
 
         window.addEventListener("resize", () => this.snap(this.day, this.hour));
