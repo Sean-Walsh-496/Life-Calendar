@@ -6,6 +6,7 @@ export class ItemPopup extends PopupWindow {
         super($el);
         this.$item = $item;
         this.standardDims = {height: 150, width: 150};
+        this.itemOffset = [15, 10];
         
     }
 
@@ -29,12 +30,22 @@ export class ItemPopup extends PopupWindow {
     }
 
     /**
+     * @returns {array}
+     */
+    getItemPos(){
+        let bounds = this.$item.getBoundingClientRect();
+        let {itemOffset} = this;
+
+        return [bounds.right + itemOffset[0], bounds.top + itemOffset[1]];
+    }
+
+    /**
      * @summary Called whenever the used right-clicks on an item to see the 
      * custom context menu.
      * @param {MouseEvent} e
      */
-    activate(e){
-        this.position(e.x, e.y);
+    activate(){
+        this.position(...this.getItemPos());
         this.$el.style.width = `${this.standardDims.width}px`;
         this.$el.style.height = `${this.standardDims.height}px`;
     }
