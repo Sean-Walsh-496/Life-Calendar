@@ -9,6 +9,7 @@
   "author": "Sean Walsh",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
     "tailwindcss": "^2.2.4",
     "win-node-env": "^0.4.0"
   }
