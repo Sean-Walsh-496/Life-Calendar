@@ -1,4 +1,5 @@
 import PopupWindow from "./popup.mjs";
+import { tailwindColors } from "./util.mjs"; 
 
 export class ItemPopup extends PopupWindow {
 
@@ -14,10 +15,26 @@ export class ItemPopup extends PopupWindow {
         
     }
 
+    changeItemColor($item, newColor){
+
+        const colorObj = tailwindColors[newColor];
+
+        let hasBorder = Array.from($item.classList).findIndex(el => el.indexOf("border")) != -1;
+        let hasBgColor = Array.from($item.classList).findIndex(el => el.indexOf("bg-")) != -1
+
+        if (hasBgColor) $item.style.backgroundColor = colorObj[400];
+        if (hasBorder) $item.style.borderColor = colorObj[700];
+        
+        Array.from($item.children).forEach(el => {
+            this.changeItemColor(el, newColor);
+        });
+
+    }
+
     initEventListeners(){
         this.$el.addEventListener("click", e => {
             if (e.target.tagName == "BUTTON" && this.$colorPalette.contains(e.target)){
-                this.$cur.style.backgroundColor = window.getComputedStyle(e.target).backgroundColor;
+                this.changeItemColor(this.$cur, e.target.dataset.color);
 
             }
         });

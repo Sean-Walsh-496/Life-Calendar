@@ -25,7 +25,6 @@ export class Item{
 
     }
 
-    
     /**
      * @returns {HTMLElement}
      */
