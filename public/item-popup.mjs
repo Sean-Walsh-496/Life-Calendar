@@ -94,6 +94,8 @@ export class ItemPopup extends PopupWindow {
         this.shrink();
         this.$el.style.color = "transparent";
 
+        setTimeout(() => this.$el.style.visibility = "hidden", 700)
+
     }
 
 }
