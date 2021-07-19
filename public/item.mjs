@@ -1,4 +1,4 @@
-import { tailwinds, functions } from "./util.mjs";
+import { tailwinds, functions, tailwindColors } from "./util.mjs";
 import { $itemPop } from "./weekview.mjs";
 
 export class Item{
@@ -128,6 +128,20 @@ export class Item{
                     this.className = tailwinds.movingItem;
                 }
             }
+        });
+
+        $item.addEventListener("mouseover", e => {
+
+            if (e.target.className == tailwinds.resizer){
+                let colorKey = functions.findColor(window.getComputedStyle(this.$el).backgroundColor);
+                e.target.style.backgroundColor = tailwindColors[colorKey][700];
+
+            }
+        });
+
+        $item.addEventListener("mouseout", e => {
+            let colorKey = functions.findColor(window.getComputedStyle(this.$el).backgroundColor);
+            e.target.style.backgroundColor = tailwindColors[colorKey][400];
         });
 
         $item.addEventListener("contextmenu", e =>{
