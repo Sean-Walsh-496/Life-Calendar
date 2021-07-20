@@ -2,9 +2,18 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
-app.get("/", (req, res) =>{
-    console.log("I hope this works")
+app.use(express.static("public"));
+
+app.use(express.json());
+
+app.get("/", (req, res) => {
+    console.log("bruh");
+});
+
+app.post("/save", (req, res) => {
+    console.log(req.body);
 });
 
 
 app.listen(port, () => console.log("working"));
+
