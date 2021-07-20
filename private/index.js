@@ -1,6 +1,9 @@
 const express = require("express");
+const datastore = require("nedb");
+
 const app = express();
 const port = 3000;
+const db = new datastore("users.db");
 
 app.use(express.static("public"));
 
