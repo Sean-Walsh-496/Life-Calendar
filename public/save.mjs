@@ -49,6 +49,18 @@ export class SaveButton{
                 },
                 body: data
             })
-        })
+        });
+
+        this.$el.addEventListener("mousedown", () =>{
+            this.$el.style.transform = "scale(0.8)";
+        });
+
+        const unscale = () =>{
+            this.$el.style.transform = "scale(1)";
+        };
+
+        this.$el.addEventListener("mouseout", unscale);
+        this.$el.addEventListener("mouseup", unscale);
+
     }
 }
