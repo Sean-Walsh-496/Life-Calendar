@@ -196,4 +196,22 @@ export const functions = {
         return null;
 
     },
+
+    /**
+     * @summary copies the first layer of values while neglecting the 
+     * blacklisted attributes.
+     * @param {object} item 
+     * @param {object} blackList 
+     * @returns {object}
+     */
+    copyObject : function(item, blackList=["week"]){
+        let data = {};
+        for (let key in item){
+            if (blackList.indexOf(key) === -1){
+                data[key] = item[key];
+            }
+        }
+        return data;
+    },
+    
 };

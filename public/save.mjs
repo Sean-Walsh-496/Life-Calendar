@@ -1,3 +1,5 @@
+import { functions } from "./util.mjs";
+
 export class SaveButton{
     constructor(week){
         this.week = week;
@@ -5,32 +7,15 @@ export class SaveButton{
         this.initEventListeners();
     }
 
-    /**
-     * @summary copies the first layer of values while neglecting the 
-     * blacklisted attributes.
-     * @param {object} item 
-     * @param {object} blackList 
-     * @returns {object}
-     */
-    copyObject(item, blackList=["week"]){
-        let data = {};
-        for (let key in item){
-            if (blackList.indexOf(key) === -1){
-                data[key] = item[key];
-            }
-        }
-        return data;
-    }
-
     getSendableWeek(){
         let data = this.week.days;
         let newList = [];
         data.forEach((el, i) => {
-            newList.push(this.copyObject(el, ["week", "$el"]));
+            newList.push(functions.copyObject(el, ["week", "$el"]));
             
             newList[i].itemList.forEach((item, j) => {
                 if (item !== null){
-                    newList[i].itemList[j] = this.copyObject(item, ["week", "$el", "$input"]);
+                    newList[i].itemList[j] = functions.copyObject(item, ["week", "$el", "$input"]);
                 }
             });
         });
