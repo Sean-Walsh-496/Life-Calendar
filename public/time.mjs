@@ -266,5 +266,21 @@ export class Week{
             top: top + (height * (hour / 24))
             };
     }
+
+    getSendable(){
+        let data = this.days;
+        let newList = [];
+        data.forEach((el, i) => {
+            newList.push(functions.copyObject(el, ["week", "$el"]));
+            
+            newList[i].itemList.forEach((item, j) => {
+                if (item !== null){
+                    newList[i].itemList[j] = functions.copyObject(item, ["week", "$el", "$input"]);
+                }
+            });
+        });
+        
+        return JSON.stringify(newList);
+    }
 }
 

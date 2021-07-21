@@ -7,25 +7,9 @@ export class SaveButton{
         this.initEventListeners();
     }
 
-    getSendableWeek(){
-        let data = this.week.days;
-        let newList = [];
-        data.forEach((el, i) => {
-            newList.push(functions.copyObject(el, ["week", "$el"]));
-            
-            newList[i].itemList.forEach((item, j) => {
-                if (item !== null){
-                    newList[i].itemList[j] = functions.copyObject(item, ["week", "$el", "$input"]);
-                }
-            });
-        });
-        
-        return JSON.stringify(newList);
-    }
-
     initEventListeners(){
         this.$el.addEventListener("click", () => {
-            let data = this.getSendableWeek();
+            let data = this.week.getSendable();
             console.log(data);
             fetch("/save", {
                 method: "POST",
