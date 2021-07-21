@@ -271,11 +271,16 @@ export class Week{
         let data = this.days;
         let newList = [];
         data.forEach((el, i) => {
-            newList.push(functions.copyObject(el, ["week", "$el"]));
+            newList.push(functions.copyObject(el, ["week", "$el", "itemList"]));
+            newList[i].itemList = [];
             
-            newList[i].itemList.forEach((item, j) => {
+            data[i].itemList.forEach((item) => {
+
                 if (item !== null){
-                    newList[i].itemList[j] = functions.copyObject(item, ["week", "$el", "$input"]);
+                    newList[i].itemList.push(item.getSendable());
+                }
+                else{
+                    newList[i].itemList.push(null);
                 }
             });
         });

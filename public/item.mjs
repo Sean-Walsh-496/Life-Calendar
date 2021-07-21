@@ -254,4 +254,14 @@ export class Item{
 
     }
 
+    getSendable(){
+        return {
+            name: this.name,
+            hour: this.hour,
+            duration: this.duration,
+            day: this.day,
+            color: window.getComputedStyle(this.$el).backgroundColor
+        };
+    }
+
 }
