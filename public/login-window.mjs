@@ -1,3 +1,4 @@
+import {User} from "./user.mjs";
 
 
 export class LoginWindow{
@@ -26,7 +27,18 @@ export class LoginWindow{
         
         
         this.$signInButton.addEventListener("click", () =>{
-            
+            const user = new User(this.$username.value, this.$password.value);
+            console.log(user.getSendable());
+
+            fetch("/login", {
+               method: "POST",
+               headers: {
+                    "Content-Type": "application/json",
+               },
+               body : JSON.stringify(user.getSendable())
+            });
+
+
         });
 
 
