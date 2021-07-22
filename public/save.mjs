@@ -1,5 +1,3 @@
-import { functions } from "./util.mjs";
-
 export class SaveButton{
     constructor(week){
         this.week = week;
