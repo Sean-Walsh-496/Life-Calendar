@@ -26,19 +26,23 @@ export class LoginWindow{
         this.$signInButton.addEventListener("mouseup", scaleDown);
         
         
-        this.$signInButton.addEventListener("click", () =>{
+        this.$signInButton.addEventListener("click", async () =>{
             const user = new User(this.$username.value, this.$password.value);
-            console.log(user.getSendable());
 
-            fetch("/login", {
-               method: "POST",
-               headers: {
-                    "Content-Type": "application/json",
-               },
-               body : JSON.stringify(user.getSendable())
-            });
+            let response = await fetch("/login", {
+                method: "POST",
+                headers: {
+                        "Content-Type": "application/json",
+                },
+                body : JSON.stringify(user.getSendable())
+                });
 
+            console.log(response);
+            if (response.status == 401) console.log("wrong password");
 
+            if (response.status == 200) window.location.href = "./yearview.html";
+
+            
         });
 
 
