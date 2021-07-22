@@ -3,27 +3,12 @@ import {Week} from "./time.mjs";
 
 
 export class User{
-    constructor(name, years=80){
+    constructor(name, password, years=80){
         this.name = name;
-        this.password = null;
-        this.years = this.getDefaultYears(years);
+        this.password = password;
+        this.years = {};
         this.templates = {};
     }
-
-    getDefaultYears(numYears){
-        let userYears =[];
-        for (let i = 0; i < numYears; i++){
-            let curYear = []
-            for (let j = 0; j < 52; j++){
-                curYear.push(new Week(false));
-                curYear[j] = curYear[j].getSendable();
-            }
-            userYears.push(curYear);
-        }
-        return userYears;
-    }
-
-
     getSendable(){
         return {
             name: this.name,
