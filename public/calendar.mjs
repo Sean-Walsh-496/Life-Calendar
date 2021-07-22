@@ -2,9 +2,11 @@ import { tailwinds, functions } from "./util.mjs";
 
 export const weeksInYear = 52;
 export class WeekCell{
-    constructor(){
+    constructor(index=null){
+        if (index !== null) [this.row, this.col] = index;
         this.$el = this.get$el();
         this.used = false;
+        this.initEventListeners();
     }
 
     /**
@@ -17,8 +19,20 @@ export class WeekCell{
     /**
      * @summary links to week page
      */
-    onclick(){
-        window.location.href = "./weekview.html"
+    initEventListeners(){
+        this.$el.addEventListener("click", async () => {
+            let data = {col: this.col, row: this.row};
+            await fetch("/week-index", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data),
+            });
+            window.location.href = "./weekview.html"
+        });
+        
+        
     }
 }
 
@@ -40,7 +54,7 @@ export class Calendar{
         for (let i = 0; i < this.years; i++){
             let year = [];
             for (let j = 0; j < weeksInYear; j++){
-                year.push(new WeekCell());
+                year.push(new WeekCell([i, j]));
             }
             years.push(year);
         }
@@ -102,15 +116,5 @@ export class Calendar{
             }, 3000 * (((i + 1)**2) / (goTo**2)) + 500);
             
         }
-    }
-
-    /**
-     * 
-     * @param {number} row 
-     * @param {number} col 
-     * @returns {boolean}
-     */
-    areValidCoords(row, col){
-        return (row > -1 && row < this.weeks && col > -1 && col < weeksInYear);
     }
 }
