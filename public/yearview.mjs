@@ -48,23 +48,6 @@ $popUp.$el.addEventListener("input", e =>{
 
 });
 
-addEventListener("click", e => {
-    const marginY = 4, marginX = 3;
-    const sizes = getSizes();
-    const coords = [e.clientX - sizes.calendar.pos[0], e.clientY - sizes.calendar.pos[1]];
-
-    let col = Math.floor((coords[0] / (sizes.calendar.width)) * weeksInYear);
-    let row = Math.round(coords[1] / (sizes.week.height + marginY)) - 1;
-
-
-    if ($calendar.areValidCoords(row, col)){
-        $calendar.matrix[row][col].onclick();
-    }
-    
-
-});
-
-
 //main
 document.addEventListener("DOMContentLoaded", function(e){
     //$popUp.changeVisibility();
