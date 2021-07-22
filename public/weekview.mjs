@@ -3,13 +3,17 @@ import { SaveButton } from "./save.mjs";
 
 //variable declarations =================================================
 const $week = new Week();
-console.log($week);
 const $container = document.getElementById("day-container");
 
 const $saveButton = new SaveButton($week);
 
-// event listeners
+//loading in content
+let response = await fetch("/view-week");
+response = response.json();
 
+if (! response.isBlank){
+    
+}
 
 
 //main ==================================================================
