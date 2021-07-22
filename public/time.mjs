@@ -7,10 +7,12 @@ export class Day{
      * @param {array} item_list
      * @param {string} dayName Monday through Sunday
      */
-    constructor(dayName, week){
+    constructor(dayName, week, build=true){
         this.dayName = dayName;
         this.itemList = this.makeItemList();
-        this.$el = this.get$el();
+
+        if (build) this.$el = this.get$el();
+
         this.week = week;
     }
 
@@ -209,22 +211,25 @@ export class Week{
     /**
      * @param {array} days
      */
-    constructor(){
-        this.$el = document.getElementById("day-container");
-        this.days = this.createDays();
-        this.init$el();
+    constructor(build=true){
+        if (build) this.$el = document.getElementById("day-container");
+            
+        if (build) this.init$el();
+        
+        this.days = this.createDays(build);
+
     }
 
     /**
      * 
      * @returns {array}
      */
-    createDays(){
+    createDays(build=true){
         
         let dayList = [];
 
         weekdays.forEach(el => {
-            let d = new Day(el, this)
+            let d = new Day(el, this, build)
             dayList.push(d);
             
         });
