@@ -212,11 +212,13 @@ export class Week{
      * @param {array} days
      */
     constructor(build=true){
+
+        this.days = this.createDays(build);
         if (build) this.$el = document.getElementById("day-container");
             
         if (build) this.init$el();
         
-        this.days = this.createDays(build);
+        
 
     }
 
