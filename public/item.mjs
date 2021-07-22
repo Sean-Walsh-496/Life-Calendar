@@ -1,5 +1,10 @@
 import { tailwinds, functions, tailwindColors } from "./util.mjs";
-import { $itemPop } from "./weekview.mjs";
+import { ItemPopup } from "./item-popup.mjs";
+
+if (document.getElementById("edit-popup")){
+    const $itemPop = new ItemPopup(document.getElementById("edit-popup"));
+}
+
 
 export class Item{
     /**
