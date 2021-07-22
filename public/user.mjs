@@ -2,7 +2,7 @@ import {functions} from "./util.mjs";
 import {Week} from "./time.mjs";
 
 
-class User{
+export class User{
     constructor(name, years=80){
         this.name = name;
         this.password = null;
@@ -15,7 +15,7 @@ class User{
         for (let i = 0; i < numYears; i++){
             let curYear = []
             for (let j = 0; j < 52; j++){
-                curYear.push(new Week());
+                curYear.push(new Week(false));
                 curYear[j] = curYear[j].getSendable();
             }
             userYears.push(curYear);
