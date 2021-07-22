@@ -5,6 +5,7 @@ const app = express();
 const port = 3000;
 const db = new datastore("users.db");
 let user;
+const weekIndex = {row: null, col: null};
 db.loadDatabase();
 
 app.use(express.static("public"));
@@ -29,11 +30,32 @@ app.post("/login", (req, res) => {
             return;
         }
 
-        user = req.body;
+        user = req.body.name;
         res.sendStatus(200);
 
     });
 
+});
+
+app.post("/week-index", (req, res) => {
+    weekIndex.row = req.body.row;
+    weekIndex.col = req.body.col;
+    console.log(`Week index: [row: ${weekIndex.row} col: ${weekIndex.col}]`);
+    res.sendStatus(200);
+});
+
+app.get("/view-week", (req, res) => {
+
+    let {row, col} = weekIndex;
+    //looks at user's profile
+    db.findOne({name:user}, (err, doc) => {
+        if (doc.years.hasOwnProperty(`${row}`)){
+            if (doc.years[row].hasOwnProperty(`${col}`)){
+                res.send(doc.years[row][col]);
+            }
+        }
+    });
+    res.send({isBlank: true});
 });
 
 
