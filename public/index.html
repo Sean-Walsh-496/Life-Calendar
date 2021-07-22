@@ -4,68 +4,45 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Life</title>
+    <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    <script type="module" src="./index.mjs"></script>    
+    <script src="./index.mjs" type="module"></script>
 </head>
 
-<!--templates-->
 
-<template id="week">
-    <li class="h-full w-2.5 border border-gray-400 transition duration-75 transform hover:scale-150 hover:bg-blue-300"></li>
-</template>
+<body>
 
-<template id="year">
-    <ol class="flex max-w-6xl w-full h-2.5 justify-between items-center"></ol>
-</template>
-
-
-<body class="h-auto min-h-screen">
-
-    <div class="flex flex-col justify-center items-center h-auto min-h-screen">
-        <!-- header -->
-        <div>
-        </div>
-
-        <div class="absolute h-1/6 w-2/5 rounded border-2 border-gray-300 bg-white top-2/4 right-2/4 items-center z-50" id="DOB-popup">
-            <div class="h-10"></div>
-            <h1 class="text-2xl">When were you born?</h1>
-            <div class="flex text-xl text-gray-400" name="input-div">
-                <input class="border-b-2 border-blue-300 w-10 text-center" type="text" id="DOB-m" placeholder="MM">
-                -
-                <input class="border-b-2 border-blue-300 w-10 text-center" type="text" id="DOB-d" placeholder="DD">
-                -
-                <input class="border-b-2 border-blue-300 w-14 text-center" type="text" id="DOB-y" placeholder="YYYY">
+    <div class="flex justify-center items-center w-full h-screen" id="center-wrapper">
+        
+        <div class="flex flex-col items-center h-96 w-80 rounded-xl shadow-sm border border-gray-400" id="login-box">
+            <div class="w-full h-24 text-2xl rounded-t-xl flex justify-center items-center bg-gray-800">
+                <h1 class="text-center text-white select-none">Login</h1>
             </div>
             
-        </div>
+            <div>
+                <h2 class="mb-3 mt-3 select-none">Username</h2>
+                <div>
+                    <input class="border border-gray-300" type="text" id="username-input">
+                    <div class="h-0.5 bg-gray-500"></div>
+                </div>
+                <h2 class="mt-3 mb-3 select-none">Password</h2>
 
-        <!-- body -->
-        <div class="max-h-full w-screen flex justify-center items-center" style="height: 950px;">
-
-            <div class="w-full h-full" id="left-column">
-                <div class="w-full h-1/4 relative">
-                    <div class="absolute w-10/12 -bottom-3 text-right text-2xl text-gray-600">20</div>
-                </div>
-                <div class="w-full h-1/4 relative">
-                    <div class="absolute w-10/12 -bottom-3 text-right text-2xl text-gray-600">40</div>
-                </div>
-                <div class="w-full h-1/4 relative">
-                    <div class="absolute w-10/12 -bottom-3 text-right text-2xl text-gray-600">60</div>
-                </div>
-                <div class="w-full h-1/4 relative">
-                    <div class="absolute w-10/12 -bottom-1 text-right text-2xl text-gray-600">80</div>
+                <div>
+                    <input class="border border-gray-300" type="text" id="password-input">
+                    <div class="h-0.5 bg-gray-500"></div>
                 </div>
             </div>
 
-            <ol class="flex flex-col justify-between items-between h-full" style="width: 130vw;" id="year-list">
-
-            </ol>
-
-            <div class="w-full h-full" id="right-column">
-
+            <div class="flex justify-center m-4 w-full h-10">
+                <button class="bg-purple-400 text-white rounded-md w-1/3 h-full select-none transition-all" id="login-button">Login</button>
             </div>
-            
+
+            <div class="flex items-end w-full h-full ">
+                <div class="flex justify-around w-full mb-3">
+                    <p class="text-gray-500 text-sm">Forgot password?</p>
+                    <p class="text-gray-500 text-sm">Sign up</p>
+                </div>
+            </div>
 
         </div>
 
@@ -74,4 +51,3 @@
 
 </body>
 </html>
-

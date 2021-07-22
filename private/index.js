@@ -10,13 +10,17 @@ app.use(express.static("public"));
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    console.log("bruh");
+    res.redirect("./login.html");
 });
 
 app.post("/save", (req, res) => {
     console.log(req.body);
 });
 
+app.post("/login", (req, res) => {
+    console.log(req.body);
+
+});
+
 
 app.listen(port, () => console.log("working"));
-
