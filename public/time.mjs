@@ -218,17 +218,14 @@ export class Week{
     async init(build=true){
         let saved = await fetch("/view-week");
         saved = await saved.json();
-        console.log(saved);
 
         this.days = this.createDays(build);
-        if (!saved.hasOwnProperty("isBlank")) await this.importDays(saved);
-
-        console.log(this.days);
 
         if (build) this.$el = document.getElementById("day-container");
             
         if (build) this.init$el();
-        
+        if (!saved.hasOwnProperty("isBlank")) await this.importDays(saved);
+
     }
 
     async importDays(saved){
@@ -238,7 +235,10 @@ export class Week{
                 if (saved[day].itemList[hour] !== null){
                     let cur = saved[day].itemList[hour];
                     let item = new Item(cur.name, this, this.days[day], hour, cur.duration);
+                    functions.changeItemColor(item.$el, functions.findColor(cur.color));
                     this.days[day].insertItem(item, hour);
+                    item.snap(day, hour);
+                    item.created = true;
                     hour += item.duration - 1;
                 }
                 
