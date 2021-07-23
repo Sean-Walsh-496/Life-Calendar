@@ -17,7 +17,11 @@ app.get("/", (req, res) => {
 });
 
 app.post("/save", (req, res) => {
-    console.log(req.body);
+    let {row, col} = weekIndex;
+
+    db.update( {name: user}, { $set: {[`years.${row}.${col}`]: req.body}}, {}, function(){} );
+
+    res.sendStatus(200);
 });
 
 app.post("/login", (req, res) => {
@@ -53,9 +57,11 @@ app.get("/view-week", (req, res) => {
             if (doc.years[row].hasOwnProperty(`${col}`)){
                 res.send(doc.years[row][col]);
             }
+            else res.send({isBlank: true});
         }
+        else res.send({isBlank: true});
     });
-    res.send({isBlank: true});
+    
 });
 
 
