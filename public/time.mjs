@@ -212,14 +212,38 @@ export class Week{
      * @param {array} days
      */
     constructor(build=true){
+        this.init(build);
+    }
+
+    async init(build=true){
+        let saved = await fetch("/view-week");
+        saved = await saved.json();
+        console.log(saved);
 
         this.days = this.createDays(build);
+        if (!saved.hasOwnProperty("isBlank")) await this.importDays(saved);
+
+        console.log(this.days);
+
         if (build) this.$el = document.getElementById("day-container");
             
         if (build) this.init$el();
         
-        
+    }
 
+    async importDays(saved){
+        for (let day = 0; day < 7; day++){
+            for (let hour = 0; hour < 24; hour++){
+
+                if (saved[day].itemList[hour] !== null){
+                    let cur = saved[day].itemList[hour];
+                    let item = new Item(cur.name, this, this.days[day], hour, cur.duration);
+                    this.days[day].insertItem(item, hour);
+                    hour += item.duration - 1;
+                }
+                
+            }
+        }
     }
 
     /**
@@ -240,6 +264,7 @@ export class Week{
     }
 
     init$el(){
+        console.log(this.days);
         this.days.forEach(el => {
             this.$el.appendChild(el.$el);
         });
