@@ -107,7 +107,9 @@ export class Item{
             let newTop = this.week.getPos(1, hour).top;
             let newHeight = this.week.getPos(1, hour + this.duration) - newTop;
             this.set("top", newTop, true);
-            this.set("height", newHeight, true);
+            let hourDims = this.week.days[this.day].getHourDims();
+            this.set("width", hourDims.width, true);;
+            this.set("height", hourDims.height * this.duration, true);
         }
 
         else{
