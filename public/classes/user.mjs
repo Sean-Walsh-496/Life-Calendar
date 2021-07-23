@@ -1,7 +1,3 @@
-import {functions} from "./util.mjs";
-import {Week} from "./time.mjs";
-
-
 export class User{
     constructor(name, password, years=80){
         this.name = name;

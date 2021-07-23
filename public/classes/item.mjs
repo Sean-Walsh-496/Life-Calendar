@@ -1,4 +1,4 @@
-import { tailwinds, functions, tailwindColors } from "./util.mjs";
+import { tailwinds, functions, tailwindColors } from ".././util.mjs";
 import { ItemPopup } from "./item-popup.mjs";
 let $itemPop
 if (document.getElementById("edit-popup")){

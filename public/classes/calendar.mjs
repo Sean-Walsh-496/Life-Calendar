@@ -1,4 +1,4 @@
-import { tailwinds, functions } from "./util.mjs";
+import { tailwinds, functions } from ".././util.mjs";
 
 export const weeksInYear = 52;
 export class WeekCell{

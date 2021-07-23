@@ -1,5 +1,5 @@
 import { Item } from "./item.mjs";
-import { tailwinds, functions, weekdays } from "./util.mjs";
+import { tailwinds, functions, weekdays } from ".././util.mjs";
 
 export class Day{
 

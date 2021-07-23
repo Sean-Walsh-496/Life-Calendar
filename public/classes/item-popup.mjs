@@ -1,5 +1,5 @@
 import PopupWindow from "./popup.mjs";
-import { functions } from "./util.mjs";
+import { functions } from ".././util.mjs";
 
 export class ItemPopup extends PopupWindow {
 
