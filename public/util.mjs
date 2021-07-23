@@ -213,5 +213,21 @@ export const functions = {
         }
         return data;
     },
+
+    changeItemColor : function($item, newColor){
+
+        const colorObj = tailwindColors[newColor];
+
+        let hasBorder = Array.from($item.classList).findIndex(el => el.indexOf("border")) != -1;
+        let hasBgColor = Array.from($item.classList).findIndex(el => el.indexOf("bg-")) != -1
+
+        if (hasBgColor) $item.style.backgroundColor = colorObj[400];
+        if (hasBorder) $item.style.borderColor = colorObj[700];
+        
+        Array.from($item.children).forEach(el => {
+            this.changeItemColor(el, newColor);
+        });
+
+    },
     
 };
