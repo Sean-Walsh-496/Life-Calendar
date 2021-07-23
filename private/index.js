@@ -13,7 +13,7 @@ app.use(express.static("public"));
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    res.redirect("./login.html");
+    res.redirect("./pages/index.html");
 });
 
 app.post("/save", (req, res) => {

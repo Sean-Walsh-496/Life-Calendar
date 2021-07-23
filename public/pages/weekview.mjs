@@ -1,5 +1,5 @@
-import {Day, Week} from "./time.mjs";
-import { SaveButton } from "./save.mjs";
+import {Day, Week} from "../classes/time.mjs";
+import { SaveButton } from "../classes/save.mjs";
 
 //variable declarations =================================================
 const $week = new Week();

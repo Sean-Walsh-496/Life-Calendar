@@ -1,7 +1,6 @@
-import PopupWindow from "./popup.mjs";"./popup.mjs";
-import {DateOfBirthWindow} from "./DOB.mjs";
-import { tailwinds } from "./util.mjs";
-import {Calendar, weeksInYear} from "./calendar.mjs";
+import { DateOfBirthWindow } from "../classes/DOB.mjs";
+import { tailwinds } from ".././util.mjs";
+import { Calendar } from "../classes/calendar.mjs";
 
 //variable declarations =================================================
 let $popUp = new DateOfBirthWindow(document.getElementById("DOB-popup"));

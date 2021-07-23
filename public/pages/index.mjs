@@ -1,4 +1,4 @@
-import {LoginWindow} from "./login-window.mjs";
+import {LoginWindow} from "../classes/login-window.mjs";
 
 const $login = new LoginWindow();
 
