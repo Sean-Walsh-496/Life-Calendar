@@ -25,21 +25,36 @@ app.post("/save", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-    db.find({name: req.body.name}, (err, docs) =>{
-        if (docs.length == 0){
-            db.insert(req.body);
-        }
+
+    db.find({name: req.body.name}, (err, docs) => {
+        if (docs.length == 0) res.send("user does not exist");
+
         else if (docs[0].password != req.body.password){
-            res.sendStatus(401)
-            return;
+            res.send("password is invalid");
         }
-
-        user = req.body.name;
-        res.sendStatus(200);
-
+        else{
+            user = req.body.name;
+            res.send("valid");
+        }
     });
 
 });
+
+app.post("/register", (req, res) => {
+
+    db.find({name: req.body.name}, (err, doc) => {
+        if (doc.length != 0){
+            res.send("this username is taken");
+        }
+        else{
+            db.insert(req.body);
+            user = req.body.name;
+            res.sendStatus(200);            
+        }
+    });
+    
+});
+
 
 app.post("/week-index", (req, res) => {
     weekIndex.row = req.body.row;
