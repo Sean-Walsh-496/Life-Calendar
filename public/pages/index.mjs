@@ -5,8 +5,6 @@ import {RegisterWindow} from "../classes/register-window.mjs";
 const $login = new LoginWindow();
 const $register = new RegisterWindow();
 
-console.log($register);
-
 function randomDepth(){
     return Math.round(Math.random() * 3) + 1;
 }
