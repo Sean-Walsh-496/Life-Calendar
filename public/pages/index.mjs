@@ -1,9 +1,11 @@
 const $view = document.getElementById("sliding-view");
 import {LoginWindow} from "../classes/login-window.mjs";
 import {RegisterWindow} from "../classes/register-window.mjs";
+import { WarningPopup } from "../classes/warning-popup.mjs";
 
 const $login = new LoginWindow();
 const $register = new RegisterWindow();
+const $warning = new WarningPopup();
 
 function randomDepth(){
     return Math.round(Math.random() * 3) + 1;
