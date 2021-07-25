@@ -1,4 +1,11 @@
 const $view = document.getElementById("sliding-view");
+import {LoginWindow} from "../classes/login-window.mjs";
+import {RegisterWindow} from "../classes/register-window.mjs";
+
+const $login = new LoginWindow();
+const $register = new RegisterWindow();
+
+console.log($register);
 
 function randomDepth(){
     return Math.round(Math.random() * 3) + 1;
@@ -46,7 +53,7 @@ function createColumn(time = 30, start=[-100, 100]){
     //the setTimeout thread was breaking the original while loop
     const helper = () => {
         if (copyColors.length == 0) copyColors = [...originalColors];
-        if (time > 4){
+        if (time > 2){
             let height = Math.round(Math.random() * 400) + 100;
             let velocity = (window.innerWidth + height) / totalTime;
             timeDif = height / velocity + 0.2;
@@ -64,8 +71,12 @@ function createColumn(time = 30, start=[-100, 100]){
 document.getElementById("to-login").addEventListener("click", () => {
     let curLeft = $view.getBoundingClientRect().left;
     $view.style.left = `${curLeft + window.innerWidth}px`;
-    console.log(`${curLeft + window.innerWidth}px`);
 
+});
+
+document.getElementById("to-register").addEventListener("click", () =>{
+    let curLeft = $view.getBoundingClientRect().left;
+    $view.style.left = `${curLeft - window.innerWidth}px`;
 });
 
 function main(){
