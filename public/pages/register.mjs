@@ -1,4 +1,3 @@
-const colors = ["gray", "red", "green", "yellow", "purple", "pink", "indigo"];
 const $view = document.getElementById("sliding-view");
 
 function randomDepth(){
@@ -8,8 +7,11 @@ function randomDepth(){
 /**
  * @returns {string}
  */
-function randomColor(depth){
-    let color = colors[Math.round(Math.random() * (colors.length - 1))];
+function randomColor(depth, palette = ["gray", "red", "green", "yellow", "purple", "pink", "indigo"], destroy=true){
+    let index = Math.round(Math.random() * (palette.length - 1));
+    let color = palette[index];
+    if (destroy) palette = palette.splice(index, 1);
+    
     return ` bg-${color}-${depth}00`
 }
 
@@ -36,11 +38,14 @@ function createItem(height, start=[-100, 100]){
 }
 
 function createColumn(time = 30, start=[-100, 100]){
+    const originalColors = ["gray", "red", "green", "yellow", "purple", "pink", "indigo"];
+    let copyColors = [...originalColors];
     let timeDif = 0;
     const totalTime = time;
 
     //the setTimeout thread was breaking the original while loop
     const helper = () => {
+        if (copyColors.length == 0) copyColors = [...originalColors];
         if (time > 4){
             let height = Math.round(Math.random() * 400) + 100;
             let velocity = (window.innerWidth + height) / totalTime;
