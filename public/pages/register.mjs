@@ -10,7 +10,7 @@ function randomDepth(){
 function randomColor(depth, palette = ["gray", "red", "green", "yellow", "purple", "pink", "indigo"], destroy=true){
     let index = Math.round(Math.random() * (palette.length - 1));
     let color = palette[index];
-    if (destroy) palette = palette.splice(index, 1);
+    if (destroy) palette.splice(index, 1);
     
     return ` bg-${color}-${depth}00`
 }
@@ -21,7 +21,7 @@ function randomColor(depth, palette = ["gray", "red", "green", "yellow", "purple
  * @param start the left and top, the left being in pixels and the top being in vh
  * @returns 
  */
-function createItem(height, start=[-100, 100]){
+function createItem(height, colors, start=[-100, 100]){
     let $item = document.createElement("div");
     let depth = randomDepth();
 
@@ -30,7 +30,7 @@ function createItem(height, start=[-100, 100]){
     $item.style.zIndex = `${depth}`;
 
     $item.className = "rounded-2xl absolute background-block-loop";
-    $item.className += randomColor(depth);
+    $item.className += randomColor(depth, colors);
     $item.style.height = `${height}px`;
     $item.style.width = `${144 + (depth * 15)}px`;
     document.body.appendChild($item);
@@ -51,7 +51,7 @@ function createColumn(time = 30, start=[-100, 100]){
             let velocity = (window.innerWidth + height) / totalTime;
             timeDif = height / velocity + 0.2;
             time -= timeDif;
-            createItem(height, start);
+            createItem(height, copyColors, start);
             setTimeout(() => helper(), timeDif * 1000);
 
         }
