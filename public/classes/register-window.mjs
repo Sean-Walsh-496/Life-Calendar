@@ -1,4 +1,5 @@
-import { LandingPageBox } from "./landing-page-box.mjs";
+import { LandingPageBox } from "./landing-page-box.mjs"; 
+import { User } from "./user.mjs";
 
 export class RegisterWindow extends LandingPageBox{
     constructor(){
@@ -16,5 +17,25 @@ export class RegisterWindow extends LandingPageBox{
             let curLeft = $view.getBoundingClientRect().left;
             $view.style.left = `${curLeft + window.innerWidth}px`;        
         });
+
+
+        this.$mainButton.addEventListener("click", async () => {
+            const user = new User(this.$username.value, this.$password.value);
+
+            let response = await fetch("/register", {
+                method: "POST",
+                headers: {
+                        "Content-Type": "application/json",
+                },
+                body : JSON.stringify(user.getSendable())
+                });
+
+            response = await response.text();
+            if (response === "this username is taken") console.log("oof");
+
+            else window.location.href = "./yearview.html";
+
+        });
+
     }
 }

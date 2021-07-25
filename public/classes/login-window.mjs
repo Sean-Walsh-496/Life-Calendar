@@ -26,10 +26,13 @@ export class LoginWindow extends LandingPageBox{
                 body : JSON.stringify(user.getSendable())
                 });
 
-            console.log(response);
-            if (response.status == 401) console.log("wrong password");
+            response = await response.text();
 
-            if (response.status == 200) window.location.href = "./yearview.html";
+            if (response === "password is invalid") console.log("wrong password");
+
+            else if (response === "user does not exist") console.log("user is invalid");
+
+            else if (response === "valid") window.location.href = "./yearview.html";
 
         });
             
