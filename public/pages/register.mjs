@@ -1,6 +1,18 @@
 const colors = ["gray", "red", "green", "yellow", "purple", "pink", "indigo"];
 const $view = document.getElementById("sliding-view");
 
+function randomDepth(){
+    return Math.round(Math.random() * 3) + 1;
+}
+
+/**
+ * @returns {string}
+ */
+function randomColor(depth){
+    let color = colors[Math.round(Math.random() * (colors.length - 1))];
+    return ` bg-${color}-${depth}00`
+}
+
 /**
  * 
  * @param height how tall the block is
@@ -9,12 +21,16 @@ const $view = document.getElementById("sliding-view");
  */
 function createItem(height, start=[-100, 100]){
     let $item = document.createElement("div");
+    let depth = randomDepth();
+
     $item.style.top = `${start[1]}vh`;
     $item.style.left = `${start[0] - Math.random() * 40}px`;
+    $item.style.zIndex = `${depth}`;
+
     $item.className = "rounded-2xl absolute background-block-loop";
-    $item.className += (` bg-${colors[Math.round(Math.random() * (colors.length - 1))]}-200`);
+    $item.className += randomColor(depth);
     $item.style.height = `${height}px`;
-    $item.style.width = `${144 + Math.round(Math.random() * 30)}px`;
+    $item.style.width = `${144 + (depth * 15)}px`;
     document.body.appendChild($item);
     return $item;
 }
