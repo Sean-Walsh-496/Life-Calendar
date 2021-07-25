@@ -1,5 +1,6 @@
 import { LandingPageBox } from "./landing-page-box.mjs"; 
 import { User } from "./user.mjs";
+import { functions } from "../util.mjs";
 
 export class RegisterWindow extends LandingPageBox{
     constructor(){
@@ -31,7 +32,7 @@ export class RegisterWindow extends LandingPageBox{
                 });
 
             response = await response.text();
-            if (response === "this username is taken") console.log("oof");
+            if (response === "this username is taken") functions.transmitToWarning(response);
 
             else window.location.href = "./yearview.html";
 

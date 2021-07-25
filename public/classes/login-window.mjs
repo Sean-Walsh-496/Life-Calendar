@@ -1,5 +1,6 @@
 import { User } from "./user.mjs";
 import { LandingPageBox } from "./landing-page-box.mjs";
+import { functions } from "../util.mjs";
 
 
 export class LoginWindow extends LandingPageBox{
@@ -28,11 +29,9 @@ export class LoginWindow extends LandingPageBox{
 
             response = await response.text();
 
-            if (response === "password is invalid") console.log("wrong password");
+            if (response === "valid") window.location.href = "./yearview.html";
 
-            else if (response === "user does not exist") console.log("user is invalid");
-
-            else if (response === "valid") window.location.href = "./yearview.html";
+            else functions.transmitToWarning(response);
 
         });
             
