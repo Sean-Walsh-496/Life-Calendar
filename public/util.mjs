@@ -229,5 +229,17 @@ export const functions = {
         });
 
     },
+
+    /**
+     * @param {string} message 
+     */
+    transmitToWarning : function(message){
+        const $warning = document.getElementById("warning");
+        $warning.querySelector("p[name='warning-message']").textContent = message;
+        $warning.style.visibility = "visible";
+        setTimeout(() =>{ 
+            $warning.style.visibility = "hidden";
+        }, 5000);
+    }
     
 };
