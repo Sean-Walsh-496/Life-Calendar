@@ -1,0 +1,20 @@
+
+@keyframes sliding{
+    0% {
+        transform: translate(0px, 0px) rotate(45deg);
+    }
+
+    100% {
+        /* both go 100vw because if you use vh on the y direction the item drifts to the right*/
+        transform: translate(calc(100vw + 100%), calc(-100vw - 100%)) rotate(45deg);
+    }
+}
+
+.background-block-loop {
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-name: sliding;
+    animation-duration: 30s;
+
+    z-index: -10;
+}
