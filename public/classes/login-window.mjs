@@ -1,32 +1,21 @@
-import {User} from "./user.mjs";
+import { User } from "./user.mjs";
+import { LandingPageBox } from "./landing-page-box.mjs";
 
 
-export class LoginWindow{
+export class LoginWindow extends LandingPageBox{
     constructor(){
-        this.$el = document.getElementById("login-box");
-        this.$username = document.getElementById("username-input");
-        this.$password = document.getElementById("password-input");
-        this.$signInButton = document.getElementById("login-button");
-        this.initEventListeners();
+        super(document.getElementById("login-box"));
+        this.initExtraEventHandlers();
     }
 
-    initEventListeners(){
-
-        this.$signInButton.addEventListener("mouseover", () =>{
-            this.$signInButton.style.transform = "scale(1.1)";
-        });
-
-        this.$signInButton.addEventListener("mousedown", () =>{
-            this.$signInButton.style.transform = "scale(0.9)"
-        });
-
-        const scaleDown = () => this.$signInButton.style.transform = "scale(1.0)";
+    initExtraEventHandlers(){
+        this.$goBackButton.addEventListener("click", () =>{
+            let $view = document.getElementById("sliding-view");
+            let curLeft = $view.getBoundingClientRect().left;
+            $view.style.left = `${curLeft - window.innerWidth}px`;
+        });    
         
-        this.$signInButton.addEventListener("mouseout", scaleDown);
-        this.$signInButton.addEventListener("mouseup", scaleDown);
-        
-        
-        this.$signInButton.addEventListener("click", async () =>{
+        this.$mainButton.addEventListener("click", async () =>{
             const user = new User(this.$username.value, this.$password.value);
 
             let response = await fetch("/login", {
@@ -42,10 +31,9 @@ export class LoginWindow{
 
             if (response.status == 200) window.location.href = "./yearview.html";
 
-            
         });
-
-
-
+            
+        
     }
+
 }
