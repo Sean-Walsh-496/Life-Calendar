@@ -1,4 +1,5 @@
 const colors = ["gray", "red", "green", "yellow", "purple", "pink", "indigo"];
+const $view = document.getElementById("sliding-view");
 
 /**
  * 
@@ -39,7 +40,19 @@ function createColumn(time = 30, start=[-100, 100]){
 
 }
 
-createColumn();
-createColumn(30, [300, 110]);
-createColumn(30, [700, 110]);
+document.getElementById("to-login").addEventListener("click", () => {
+    let curLeft = $view.getBoundingClientRect().left;
+    $view.style.left = `${curLeft + window.innerWidth}px`;
+    console.log(`${curLeft + window.innerWidth}px`);
+
+});
+
+function main(){
+    createColumn();
+    createColumn(30, [300, 110]);
+    createColumn(30, [700, 110]);
+} 
+
+main();
+
 
