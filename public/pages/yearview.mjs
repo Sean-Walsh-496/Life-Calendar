@@ -8,13 +8,16 @@ const $calendar = new Calendar();
 //main
 document.addEventListener("DOMContentLoaded", async function(e){
     $calendar.populate();    
-    let response = await fetch("/age")
-                    .then(res => res.text())
-                    .then(res => new Date(res));
+    let user = await fetch("/user-profile").then(res => res.json());
 
-    let numWeeks = (new Date() - response) / (1000 * 60 * 60 * 24 * 7);
+    let DOB = new Date(user.DOB);
 
-    $calendar.highlightUsed(numWeeks);
+    let numWeeks = (new Date() - DOB) / (1000 * 60 * 60 * 24 * 7);
+
+    if (user.newUser) $calendar.highlightUsed(numWeeks);
+
+    else $calendar.highlightUsed(numWeeks, false);
+    
 
 });
 
