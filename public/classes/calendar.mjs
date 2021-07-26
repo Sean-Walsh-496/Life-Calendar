@@ -104,17 +104,23 @@ export class Calendar{
     /**
      * @summary Highlights the number of used up weeks
      * @param {number} numUsed 
+     * @param {boolean} isAnimated
      */
-    highlightUsed(numUsed){
+    highlightUsed(numUsed, isAnimated=true){
         let weeks = this.$el.getElementsByTagName("li");
         let goTo = numUsed > this.weeks ? this.weeks : numUsed; //just in case...
 
         let localHighlight = this.highlight; //cannot reference method in anonymous function...
         for (let i = 0; i < goTo; i++){
-            setTimeout(function() {
+            if (isAnimated){
+                setTimeout(function() {
+                    localHighlight(weeks[i]);
+                }, 3000 * (((i + 1)**2) / (goTo**2)) + 500);
+            }
+            else{
                 localHighlight(weeks[i]);
-            }, 3000 * (((i + 1)**2) / (goTo**2)) + 500);
-            
+            }
+
         }
     }
 }
