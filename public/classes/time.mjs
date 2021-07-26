@@ -1,5 +1,5 @@
 import { Item } from "./item.mjs";
-import { tailwinds, functions, weekdays } from "./util.mjs";
+import { tailwinds, functions, weekdays } from ".././util.mjs";
 
 export class Day{
 
@@ -7,10 +7,12 @@ export class Day{
      * @param {array} item_list
      * @param {string} dayName Monday through Sunday
      */
-    constructor(dayName, week){
+    constructor(dayName, week, build=true){
         this.dayName = dayName;
         this.itemList = this.makeItemList();
-        this.$el = this.get$el();
+
+        if (build) this.$el = this.get$el();
+
         this.week = week;
     }
 
@@ -209,22 +211,51 @@ export class Week{
     /**
      * @param {array} days
      */
-    constructor(){
-        this.$el = document.getElementById("day-container");
-        this.days = this.createDays();
-        this.init$el();
+    constructor(build=true){
+        this.init(build);
+    }
+
+    async init(build=true){
+        let saved = await fetch("/view-week");
+        saved = await saved.json();
+
+        this.days = this.createDays(build);
+
+        if (build) this.$el = document.getElementById("day-container");
+            
+        if (build) this.init$el();
+        if (!saved.hasOwnProperty("isBlank")) await this.importDays(saved);
+
+    }
+
+    async importDays(saved){
+        for (let day = 0; day < 7; day++){
+            for (let hour = 0; hour < 24; hour++){
+
+                if (saved[day].itemList[hour] !== null){
+                    let cur = saved[day].itemList[hour];
+                    let item = new Item(cur.name, this, this.days[day], hour, cur.duration);
+                    functions.changeItemColor(item.$el, functions.findColor(cur.color));
+                    this.days[day].insertItem(item, hour);
+                    item.snap(day, hour);
+                    item.created = true;
+                    hour += item.duration - 1;
+                }
+                
+            }
+        }
     }
 
     /**
      * 
      * @returns {array}
      */
-    createDays(){
+    createDays(build=true){
         
         let dayList = [];
 
         weekdays.forEach(el => {
-            let d = new Day(el, this)
+            let d = new Day(el, this, build)
             dayList.push(d);
             
         });
@@ -233,6 +264,7 @@ export class Week{
     }
 
     init$el(){
+        console.log(this.days);
         this.days.forEach(el => {
             this.$el.appendChild(el.$el);
         });
@@ -265,6 +297,27 @@ export class Week{
             left: left + (width * (day / 7)),
             top: top + (height * (hour / 24))
             };
+    }
+
+    getSendable(){
+        let data = this.days;
+        let newList = [];
+        data.forEach((el, i) => {
+            newList.push(functions.copyObject(el, ["week", "$el", "itemList"]));
+            newList[i].itemList = [];
+            
+            data[i].itemList.forEach((item) => {
+
+                if (item !== null){
+                    newList[i].itemList.push(item.getSendable());
+                }
+                else{
+                    newList[i].itemList.push(null);
+                }
+            });
+        });
+        
+        return JSON.stringify(newList);
     }
 }
 

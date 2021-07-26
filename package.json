@@ -4,11 +4,14 @@
   "description": "This app is intended to help the user organize their life on both a macro and micro scale.",
   "main": "index.js",
   "scripts": {
-    "build:css": "tailwind build src/style.css -o public/style.css"
+    "build:css": "tailwind build src/style.css -o public/style.css",
+    "start": "node private/index.js"
   },
   "author": "Sean Walsh",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
+    "nedb": "^1.8.0",
     "tailwindcss": "^2.2.4",
     "win-node-env": "^0.4.0"
   }

@@ -1,20 +1,18 @@
-import {Day, Week} from "./time.mjs";
-import {Item} from "./item.mjs";
-import { ItemPopup } from "./item-popup.mjs";
+import {Day, Week} from "../classes/time.mjs";
+import { SaveButton } from "../classes/save.mjs";
 
 //variable declarations =================================================
 const $week = new Week();
 const $container = document.getElementById("day-container");
-//const $itemPop = new ItemPopup(document.getElementById("create-item"));
-
-// event listeners
+console.log($week);
+const $saveButton = new SaveButton($week);
 
 
 
 //main ==================================================================
 
 function main(){
-    //console.log($week.getPos(1, 1));
+    
 
 }
 

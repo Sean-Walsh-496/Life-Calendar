@@ -1,4 +1,10 @@
-import { tailwinds, functions } from "./util.mjs";
+import { tailwinds, functions, tailwindColors } from ".././util.mjs";
+import { ItemPopup } from "./item-popup.mjs";
+let $itemPop
+if (document.getElementById("edit-popup")){
+    $itemPop = new ItemPopup(document.getElementById("edit-popup"));
+}
+
 
 export class Item{
     /**
@@ -17,6 +23,7 @@ export class Item{
 
         this.wMargin = 3;
         this.$el = this.getElement();
+        this.$input = this.$el.querySelector("input[name='name-field']");
         this.clicked = false;
 
         this.created = false;
@@ -27,44 +34,11 @@ export class Item{
      * @returns {HTMLElement}
      */
     getElement(){
-        //declare and initialize components of item element
-        let $item = document.createElement("div");
-        let $name = document.createElement("h2");
-        let $topResizer = document.createElement("div");
-        let $bottomResizer = document.createElement("div");
-        let $topDiv = document.createElement("div");
-        let $deleteButton = document.createElement("div")
-        let $bottomDiv = document.createElement("div");
-
+        let $item = functions.getTemplate("item");
 
         //styling and giving logic to the main div
-        $item.className = tailwinds.item;
         this.initEventListeners($item);
 
-        //Giving the div a name
-        $name.innerText = this.name;
-        $name.className = tailwinds.nameDiv;
-
-        $topResizer.className = tailwinds.resizer
-        $topResizer.setAttribute("name", "top-resizer");
-        $topDiv.appendChild($name)
-        $topDiv.appendChild($deleteButton);
-        $topDiv.className = "w-full h-8 flex justify-between"
-
-        $deleteButton.innerText = "X";
-        $deleteButton.className = tailwinds.itemDeleteButton;
-        
-
-        $bottomDiv.className = tailwinds.fillerDiv;
-        $bottomResizer.className = tailwinds.resizer;
-        $bottomResizer.setAttribute("name", "bottom-resizer");
-
-        $item.appendChild($topResizer);
-        $item.appendChild($topDiv);
-        $item.appendChild($bottomDiv)
-        $item.appendChild($bottomResizer);
-
-        
         return $item;
     }
 
@@ -133,7 +107,9 @@ export class Item{
             let newTop = this.week.getPos(1, hour).top;
             let newHeight = this.week.getPos(1, hour + this.duration) - newTop;
             this.set("top", newTop, true);
-            this.set("height", newHeight, true);
+            let hourDims = this.week.days[this.day].getHourDims();
+            this.set("width", hourDims.width, true);;
+            this.set("height", hourDims.height * this.duration, true);
         }
 
         else{
@@ -150,14 +126,34 @@ export class Item{
     initEventListeners($item){
 
         $item.addEventListener("mousedown", e => {
-            if (e.target.className == tailwinds.itemDeleteButton){ 
-                this.delete();
+            if (e.button == 0){
+                if (e.target.className == tailwinds.itemDeleteButton){ 
+                    this.delete();
+                }
+                else{
+                    this.clicked = e.target;
+                    this.className = tailwinds.movingItem;
+                }
             }
-            else{
-                this.clicked = e.target;
-                this.className = tailwinds.movingItem;
+        });
+
+        $item.addEventListener("mouseover", e => {
+
+            if (e.target.className == tailwinds.resizer){
+                let colorKey = functions.findColor(window.getComputedStyle(this.$el).backgroundColor);
+                e.target.style.backgroundColor = tailwindColors[colorKey][700];
+
             }
-            
+        });
+
+        $item.addEventListener("mouseout", e => {
+            let colorKey = functions.findColor(window.getComputedStyle(this.$el).backgroundColor);
+            e.target.style.backgroundColor = tailwindColors[colorKey][400];
+        });
+
+        $item.addEventListener("contextmenu", e =>{
+            e.preventDefault();
+            $itemPop.activate(this.$el);
         });
 
         document.addEventListener("mousemove", e => {
@@ -190,9 +186,18 @@ export class Item{
 
         //$item.addEventListener("mouseleave", drop);
         document.addEventListener("mouseup", () => {
-            if(this.clicked) this.smooth(() => {
-                this.reassign();
-            }, "top, height", 500); 
+            if (this.clicked){
+                if (this.clicked.className == tailwinds.nameInput){
+                    this.name = this.$input.value;
+                }
+                else{
+                    this.smooth(() => {
+                        this.reassign();
+                    }, "top, height", 500);                     
+                }
+                
+            }
+            
         });
 
         window.addEventListener("resize", () => this.snap(this.day, this.hour));
@@ -254,6 +259,16 @@ export class Item{
 
         this.created = true;
 
+    }
+
+    getSendable(){
+        return {
+            name: this.name,
+            hour: this.hour,
+            duration: this.duration,
+            day: this.day,
+            color: window.getComputedStyle(this.$el).backgroundColor
+        };
     }
 
 }

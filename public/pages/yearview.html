@@ -5,11 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Life</title>
-    <link rel="stylesheet" href="style.css">
-    <script type="module" src="./index.mjs"></script>    
+    <link rel="stylesheet" href=".././style.css">
+    <script type="module" src="./yearview.mjs"></script>    
 </head>
 
+<!--templates-->
 
+<template id="week">
+    <li class="h-full w-2.5 border border-gray-400 transition duration-75 transform hover:scale-150 hover:bg-blue-300"></li>
+</template>
+
+<template id="year">
+    <ol class="flex max-w-6xl w-full h-2.5 justify-between items-center"></ol>
+</template>
 
 
 <body class="h-auto min-h-screen">
@@ -17,19 +25,6 @@
     <div class="flex flex-col justify-center items-center h-auto min-h-screen">
         <!-- header -->
         <div>
-        </div>
-
-        <div class="absolute h-1/6 w-2/5 rounded border-2 border-gray-300 bg-white top-2/4 right-2/4 invisible items-center z-50" id="DOB-popup">
-            <div class="h-10"></div>
-            <h1 class="text-2xl">When were you born?</h1>
-            <div class="flex text-xl text-gray-400" name="input-div">
-                <input class="border-b-2 border-blue-300 w-10 text-center" type="text" id="DOB-m" placeholder="MM">
-                -
-                <input class="border-b-2 border-blue-300 w-10 text-center" type="text" id="DOB-d" placeholder="DD">
-                -
-                <input class="border-b-2 border-blue-300 w-14 text-center" type="text" id="DOB-y" placeholder="YYYY">
-            </div>
-            
         </div>
 
         <!-- body -->
