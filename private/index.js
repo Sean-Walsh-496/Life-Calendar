@@ -55,7 +55,6 @@ app.post("/register", (req, res) => {
     
 });
 
-
 app.post("/week-index", (req, res) => {
     weekIndex.row = req.body.row;
     weekIndex.col = req.body.col;
@@ -75,6 +74,15 @@ app.get("/view-week", (req, res) => {
             else res.send({isBlank: true});
         }
         else res.send({isBlank: true});
+    });
+    
+});
+
+app.get("/age", (req, res) => {
+    //weird order of execution
+    db.findOne({name: user}, (err, doc) =>{
+        if (doc.hasOwnProperty("DOB")) res.send(doc.DOB);
+        else res.send("no user DOB found");
     });
     
 });
