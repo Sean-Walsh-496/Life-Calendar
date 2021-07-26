@@ -9,6 +9,11 @@ export class LoginWindow extends LandingPageBox{
         this.initExtraEventHandlers();
     }
 
+    isValidInput(){
+        let alphanumInputs = [this.$username, this.$password];
+        return alphanumInputs.every(el => el.value != "");
+    }
+
     initExtraEventHandlers(){
         this.$goBackButton.addEventListener("click", () =>{
             let $view = document.getElementById("sliding-view");
@@ -17,6 +22,12 @@ export class LoginWindow extends LandingPageBox{
         });    
         
         this.$mainButton.addEventListener("click", async () =>{
+
+            if (! this.isValidInput()){
+                functions.transmitToWarning("Invalid user input");
+                return;
+            }
+
             let response = await fetch("/login", {
                 method: "POST",
                 headers: {
