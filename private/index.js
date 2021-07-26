@@ -20,6 +20,7 @@ app.post("/save", (req, res) => {
     let {row, col} = weekIndex;
 
     db.update( {name: user}, { $set: {[`years.${row}.${col}`]: req.body}}, {}, function(){} );
+    db.update( {name: user}, {$set : {"newUser" : false}} );
 
     res.sendStatus(200);
 });
@@ -85,6 +86,12 @@ app.get("/age", (req, res) => {
         else res.send("no user DOB found");
     });
     
+});
+
+app.get("/user-profile", (req, res) => {
+    db.findOne({name: user}, (err, doc) => {
+        res.json(doc);
+    });
 });
 
 
