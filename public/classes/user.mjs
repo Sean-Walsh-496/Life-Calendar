@@ -12,6 +12,7 @@ export class User{
         this.years = {};
         this.templates = {};
         this.DOB = DOB;
+        this.newUser = true;
     }
     getSendable(){
         return {
@@ -19,7 +20,8 @@ export class User{
             password: this.password,
             years: this.years,
             templates: this.templates,
-            DOB: this.DOB
+            DOB: this.DOB,
+            newUser: this.newUser
         };
     }
 }
