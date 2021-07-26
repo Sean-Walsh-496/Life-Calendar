@@ -7,6 +7,10 @@ const $calendar = new Calendar();
 
 //main
 document.addEventListener("DOMContentLoaded", async function(e){
+
+    document.getElementById("year-list").style.opacity = "1";
+
+
     $calendar.populate();    
     let user = await fetch("/user-profile").then(res => res.json());
 
