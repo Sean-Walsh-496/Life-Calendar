@@ -21,13 +21,14 @@ export class RegisterWindow extends LandingPageBox{
 
 
         this.$mainButton.addEventListener("click", async () => {
+            const user = new User(this.$username.value, this.$password.value);
 
             let response = await fetch("/register", {
                 method: "POST",
                 headers: {
                         "Content-Type": "application/json",
                 },
-                body : JSON.stringify({name: this.$username.value, password: this.$password.value})
+                body : JSON.stringify(user.getSendable())
                 });
 
             response = await response.text();
