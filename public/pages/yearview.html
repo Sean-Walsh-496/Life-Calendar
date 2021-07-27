@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,7 +20,7 @@
 </template>
 
 
-<body class="h-auto min-h-screen">
+<body style="height: 100%;">
 
     <div class="absolute flex flex-col w-96 h-64 rounded-xl invisible -top-96 border transition-all border-gray-400 bg-white z-50 shadow-lg" id="tutorial">
         <h1 class="text-center text-2xl w-full" name="header"></h1>
@@ -45,13 +45,23 @@
 
 
 
-    <div class="flex flex-col justify-center items-center h-auto min-h-screen">
+    <div class="flex flex-col justify-center items-center h-full">
         <!-- header -->
-        <div>
+        <div class="w-full h-10 flex justify-center items-center">
+            <div>
+                <h2 class="select-none text-xl text-gray-800">Life-View</h2>
+                <div class="w-full h-1 bg-gray-800"></div>
+            </div>
+            <div class="h-full w-8"></div>
+            <div>
+                <h2 class="select-none text-xl text-gray-800">Templates</h2>
+                <div class="w-full h-1 bg-gray-800"></div>
+            </div>
+
         </div>
 
         <!-- body -->
-        <div class="max-h-full w-screen flex justify-center items-center" style="height: 950px;">
+        <div class="h-full w-screen flex justify-center items-center">
 
             <div class="w-full h-full" id="left-column">
                 <div class="w-full h-1/4 relative">
@@ -78,6 +88,8 @@
             
 
         </div>
+
+        <div class="h-5"></div>
 
     </div>        
 
