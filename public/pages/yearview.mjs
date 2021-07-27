@@ -7,11 +7,7 @@ const $tutorial = new TutorialScreen(slides);
 
 
 //event listeners
-$tutorial.$el.addEventListener("finished", () => {
-    $calendar.populate();
-    $calendar.highlightUsed(numWeeks);
-    document.getElementById("year-list").style.opacity = "1";
-});
+
 
 
 
@@ -25,7 +21,12 @@ async function main(){
       
     
     if (user.newUser) {
-        $tutorial.center();
+        $tutorial.activate();
+        $tutorial.$el.addEventListener("finished", () => {
+            $calendar.populate();
+            $calendar.highlightUsed(numWeeks);
+            document.getElementById("year-list").style.opacity = "1";
+        });
     }
 
     else {
