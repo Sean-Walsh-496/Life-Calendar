@@ -1,5 +1,6 @@
 import PopupWindow from "./popup.mjs";
 
+const finished = new Event("finished");
 
 export class TutorialScreen extends PopupWindow{
     /**
@@ -16,8 +17,9 @@ export class TutorialScreen extends PopupWindow{
         this.initEventListeners();
         this.slides = slides;
         this.slideIndex = 0;
-
+        
         this.displayIndex();
+
     }
 
     /**
@@ -58,9 +60,11 @@ export class TutorialScreen extends PopupWindow{
             }
             else{
                 this.$el.style.opacity = '0';
+                this.$el.dispatchEvent(finished);
                 setTimeout(() =>{
                     this.$el.style.top = '1vh'
                 }, parseInt(this.$el.style.transitionDuration, 10));
+                
                 
             }
 
@@ -73,6 +77,12 @@ export class TutorialScreen extends PopupWindow{
 
 
         });
+    }
+
+    activate(){
+        this.$el.style.visibility = "visible";
+        this.center();
+
     }
 }
 
