@@ -28,11 +28,7 @@ export class Day{
     }
 
     addHours($div){
-        for (let i = 0; i < 24; i++){
-            let $hour = document.createElement("div")
-            $hour.className = tailwinds.hour;
-            $div.appendChild($hour);
-        }
+        for (let i = 0; i < 24; i++) $div.append(functions.getTemplate("hour"))
     }
 
     /**
@@ -86,24 +82,14 @@ export class Day{
      * @returns {HTMLElement}
      */
     get$el(){
-        let $el = document.createElement("div");
-        $el.className = tailwinds.day;
+        const $el = functions.getTemplate("day");
+        let $name =  $el.querySelector("header[name='day-name']"), $hourSpace = $el.querySelector("ol[name='hour-space']");
 
-        let $nameCard = document.createElement("div");
-        $nameCard.className = tailwinds.weekNameDiv;
-        $nameCard.innerText = this.dayName;
-
-        let $hourSpace = document.createElement("div");
-        $hourSpace.className = "h-full w-full flex flex-col justify-center";
-        $hourSpace.id = "hour-space";
-        
+        $name.innerText = this.dayName;
+    
         this.addHours($hourSpace);
 
         $hourSpace.addEventListener("mousedown", e => this.clickIn(e));
-
-        $el.append($nameCard);
-        $el.append($hourSpace);
-        
         return $el;
     }
 

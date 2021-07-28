@@ -22,10 +22,31 @@
 
 </template>
 
+<template id="hour">
+
+    <li class="w-full h-full border-b border-gray-400"></li>
+    
+</template>
+
+<template id="day">
+
+    <article class="flex flex-col w-1/7 h-full border border-gray-400 items-center">
+        <header class="flex flex-col w-full h-1/8 border-b border-gray-400 text-center text-2xl font-bold select-none" name="day-name">
+
+        </header>
+
+        <ol class="h-full w-full flex flex-col justify-center" name="hour-space">
+
+        </ol>
+
+    </article>
+
+</template>
+
 <body class="min-h-screen">
 
 
-    <div class="flex flex-col border h-10 w-8 border-gray-300 rounded-ms bg-white absolute z-50" style="transition: width, height; transition-duration: .7s; visibility: hidden;" id="edit-popup">
+    <section class="flex flex-col border h-10 w-8 border-gray-300 rounded-ms bg-white absolute z-50" style="transition: width, height; transition-duration: .7s; visibility: hidden;" id="edit-popup">
         <h5 class="text-center">Edit</h5>
         <hr>
         <div class="flex flex-col justify-center items-center h-full" id="color-palette">
@@ -43,25 +64,27 @@
             </div>
         </div>
 
-    </div>
+    </section>
 
-    <div class="flex flex-col justify-center items-center" style="height: 100vh; width: 100vw;" id="main-div">
-        <div class="flex justify-start h-full w-full" id="top-bar">
+    <main class="flex flex-col justify-center items-center" style="height: 100vh; width: 100vw;" id="main-div">
+        <header class="flex justify-start h-full w-full" id="top-bar">
             <div class="w-10"></div>
             <div class="flex justify-center items-center">
                 <a class="text-3xl text-gray-500 select-none transform duration-400 hover:text-red-500" id="exit-button" href="./yearview.html">⮜ </a>
                 <div class="text-gray-500 select-none">&ensp;Back to life view</div>
             </div>
             
-        </div>
+        </header>
+        
         <ol class="flex justify-between" style="height: 950px; min-height: 900px; width: 1000px;" id="day-container"></ol>
-        <div class="flex h-full w-full justify-center items-center" id="bottom-bar">
+        
+        <footer class="flex h-full w-full justify-center items-center" id="bottom-bar">
             <div class="flex items-center justify-end h-full" style="width: 1000px;">
                 <div class="h-5/6 w-1/12 rounded-md bg-blue-400 text-white text-center select-none transform duration-300 hover:bg-blue-300 hover:scale-105" id="save-button">Save</div>
             </div>
-        </div>
+        </footer>
 
-    </div>
+    </main>
     
 
 </body>
