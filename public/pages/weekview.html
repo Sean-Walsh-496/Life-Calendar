@@ -25,12 +25,12 @@
 <template id="hour">
 
     <li class="w-full h-full border-b border-gray-400"></li>
-    
+
 </template>
 
 <template id="day">
 
-    <article class="flex flex-col w-1/7 h-full border border-gray-400 items-center">
+    <article class="flex flex-col w-1/7 h-full border-b border-t border-r border-gray-400 items-center">
         <header class="flex flex-col w-full h-1/8 border-b border-gray-400 text-center text-2xl font-bold select-none" name="day-name">
 
         </header>
@@ -76,7 +76,7 @@
             
         </header>
         
-        <ol class="flex justify-between" style="height: 950px; min-height: 900px; width: 1000px;" id="day-container"></ol>
+        <ol class="flex justify-between rounded-t-xl shadow-lg" style="height: 950px; min-height: 900px; width: 1000px;" id="day-container"></ol>
         
         <footer class="flex h-full w-full justify-center items-center" id="bottom-bar">
             <div class="flex items-center justify-end h-full" style="width: 1000px;">
