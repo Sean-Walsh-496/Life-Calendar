@@ -21,7 +21,7 @@ export class Item{
         this.week = week;
         this.day = day;
 
-        this.wMargin = 3;
+        this.wMargin = 0;
         this.$el = this.getElement();
         this.$input = this.$el.querySelector("input[name='name-field']");
         this.clicked = false;
@@ -108,7 +108,7 @@ export class Item{
             let newHeight = this.week.getPos(1, hour + this.duration) - newTop;
             this.set("top", newTop, true);
             let hourDims = this.week.days[this.day].getHourDims();
-            this.set("width", hourDims.width, true);;
+            this.set("width", hourDims.width, true);
             this.set("height", hourDims.height * this.duration, true);
         }
 
