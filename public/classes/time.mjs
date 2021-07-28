@@ -250,7 +250,16 @@ export class Week{
 
         weekdays.forEach((el, i) => {
             let d = new Day(el, this, build);
-            if(i==0 && d.hasOwnProperty("$el")) d.$el.classList += " border-l";
+
+            if (d.hasOwnProperty("$el")){
+                if (i == 0){
+                    d.$el.classList += " border-l";
+                }
+                if (i == 0 || i == 6){
+                    d.$el.classList += " bg-gray-200";
+                }
+            }
+
             dayList.push(d);
             
         });
