@@ -94,7 +94,7 @@ export const functions = {
      * @param {boolean} rIndex return index
      * @returns {string}
      */
-    findDay : function(x, margin=3, stringify=true, rIndex=false){
+    findDay : function(x, margin=0, stringify=true, rIndex=false){
         const {findClosest} = this;
         let positions = [];
         let days = Array.from(document.getElementById("day-container").children);
