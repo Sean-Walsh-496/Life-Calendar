@@ -36,7 +36,7 @@ export class Day{
      * @returns {ClientRect}
      */
     getHourSpaceDims(){
-        return document.getElementById("hour-space").getBoundingClientRect();
+        return this.$el.querySelector("ol[name='hour-space']").getBoundingClientRect();
     }
 
     /**
