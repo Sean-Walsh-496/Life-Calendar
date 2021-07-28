@@ -2,7 +2,7 @@ export const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
 
 export const tailwinds = {
     hour: "w-full h-full border-b border-gray-400",
-    day : "flex flex-col w-1/7 h-full border border-gray-400 items-center",
+    day : "flex flex-col w-1/7 h-full border-b border-t border-r border-gray-400 items-center",
     item : "absolute flex flex-col bg-purple-400 rounded border border-purple-700",
     movingItem : "absolute flex flex-col bg-purple-400 rounded border border-purple-700 shadow-xl transform scale-110 z-50",
     resizer : "w-full h-2 transform duration-300 hover:bg-purple-700",

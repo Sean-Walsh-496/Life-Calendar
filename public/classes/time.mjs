@@ -28,7 +28,15 @@ export class Day{
     }
 
     addHours($div){
-        for (let i = 0; i < 24; i++) $div.append(functions.getTemplate("hour"))
+        for (let i = 0; i < 24; i++){
+            let $hour = functions.getTemplate("hour");
+            
+            if(i == 23){
+                $hour.classList.remove("border-b");
+            }
+
+            $div.append($hour);
+        }
     }
 
     /**
@@ -240,8 +248,9 @@ export class Week{
         
         let dayList = [];
 
-        weekdays.forEach(el => {
-            let d = new Day(el, this, build)
+        weekdays.forEach((el, i) => {
+            let d = new Day(el, this, build);
+            if(i==0 && d.hasOwnProperty("$el")) d.$el.classList += " border-l";
             dayList.push(d);
             
         });
