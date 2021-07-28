@@ -31,7 +31,7 @@ export class TutorialScreen extends PopupWindow{
      */
     changeIndex(num){
         const {slideIndex} = this;
-        if (( slideIndex + num > 0 ) && ( slideIndex + num < this.slides.length )){
+        if (( slideIndex + num >= 0 ) && ( slideIndex + num < this.slides.length )){
             this.slideIndex += num;
             return true;
         }
