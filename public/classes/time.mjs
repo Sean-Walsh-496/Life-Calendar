@@ -4,11 +4,14 @@ import { tailwinds, functions, weekdays } from ".././util.mjs";
 export class Day{
 
     /**
-     * @param {array} item_list
-     * @param {string} dayName Monday through Sunday
+     * @param {string} dayName SUN through SAT
+     * @param {Week} week
+     * @param {number} dayNum day of the month
+     * @param {boolean} build
      */
-    constructor(dayName, week, build=true){
+    constructor(dayName, week, dayNum=0, build=true){
         this.dayName = dayName;
+        this.dayNum = dayNum
         this.itemList = this.makeItemList();
 
         if (build) this.$el = this.get$el();
@@ -92,8 +95,10 @@ export class Day{
     get$el(){
         const $el = functions.getTemplate("day");
         let $name =  $el.querySelector("div[name='day-name']"), $hourSpace = $el.querySelector("ol[name='hour-space']");
+        let $number = $el.querySelector("div[name='day-number']");
 
         $name.innerText = this.dayName;
+        $number.innerText = this.dayNum;
     
         this.addHours($hourSpace);
 
@@ -209,14 +214,36 @@ export class Week{
         this.init(build);
     }
 
+
+    /**
+     * @summary calculates the number of days to the right of the start of the week a day is
+     * @param {Date} date 
+     * @returns {number}
+     */
+    nearestSunday(date){
+        const fullDay = 1000*60*60*24;
+        let shift = 0;
+        while (new Date(date - (shift * fullDay)).getDay() !== 0){
+            shift++;
+            if (shift > 100) return;
+        }
+        return -shift;
+    }
+
     async init(build=true){
     
         let [user, pos, saved] = await Promise.all([fetch("/user-profile").then(res => res.json()),
                                                     fetch("/week-index").then(res => res.json()),
                                                     fetch("/view-week").then(res => res.json())]);
-        this.days = this.createDays(build);
 
-        console.log(7 * pos.col + (52 * 7 * pos.row));
+
+        let DOB = new Date(user.DOB).getTime();
+        let offset = this.nearestSunday(DOB);
+        this.sundayDay = new Date(DOB + ((7 * pos.col + (52 * 7 * pos.row) + offset) * 1000 * 60 * 60 * 24)).getDate();
+
+        console.log(this.sundayDay)
+        
+        this.days = this.createDays(build);
 
         if (build) this.$el = document.getElementById("day-container");
             
@@ -248,11 +275,11 @@ export class Week{
      * @returns {array}
      */
     createDays(build=true){
-        
+
         let dayList = [];
 
         weekdays.forEach((el, i) => {
-            let d = new Day(el, this, build);
+            let d = new Day(el, this, this.sundayDay + i, build);
 
             if (d.hasOwnProperty("$el")){
                 if (i == 0){
