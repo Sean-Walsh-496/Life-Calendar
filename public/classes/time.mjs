@@ -86,7 +86,7 @@ export class Day{
 
         let hourPos = this.$el.children[1].children[hourIndex].getBoundingClientRect();
 
-        let newItem = new Item("filler", this.week, this.getIndex(), hourIndex, 2);
+        let newItem = new Item("", this.week, this.getIndex(), hourIndex, 2);
         newItem.create(hourPos.left, hourPos.top);
     }
 
