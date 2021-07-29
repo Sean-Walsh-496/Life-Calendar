@@ -69,7 +69,7 @@
     </section>
 
     <main class="flex flex-col justify-center items-center" style="height: 100vh; width: 100vw;" id="main-div">
-        <header class="flex justify-start h-full w-full" id="top-bar">
+        <header class="flex justify-start h-10 w-full" id="top-bar">
             <div class="w-10"></div>
             <div class="flex justify-center items-center">
                 <a class="text-3xl text-gray-500 select-none transform duration-400 hover:text-red-500" id="exit-button" href="./yearview.html">⮜ </a>
@@ -78,9 +78,45 @@
             
         </header>
         
-        <ol class="flex justify-between rounded-t-xl shadow-lg" style="height: 950px; min-height: 900px; width: 1000px;" id="day-container"></ol>
+        <section class="w-full flex h-full justify-center">
+            <div class="h-auto flex-auto flex flex-col justify-center">
+                <div class="h-1/8 w-full" style="flex-basis: 5%;"></div>
+                <div class="w-full flex flex-col flex-auto justify-between items-end">
+                    <div class="text-right mr-2">12 AM</div>
+                    <div class="text-right mr-2">1 AM</div>
+                    <div class="text-right mr-2">2 AM</div>
+                    <div class="text-right mr-2">3 AM</div>
+                    <div class="text-right mr-2">4 AM</div>
+                    <div class="text-right mr-2">5 AM</div>
+                    <div class="text-right mr-2">6 AM</div>
+                    <div class="text-right mr-2">7 AM</div>
+                    <div class="text-right mr-2">8 AM</div>
+                    <div class="text-right mr-2">9 AM</div>
+                    <div class="text-right mr-2">10 AM</div>
+                    <div class="text-right mr-2">11 AM</div>
+                    <div class="text-right mr-2">12 PM</div>
+                    <div class="text-right mr-2">1 PM</div>
+                    <div class="text-right mr-2">2 PM</div>
+                    <div class="text-right mr-2">3 PM</div>
+                    <div class="text-right mr-2">4 PM</div>
+                    <div class="text-right mr-2">5 PM</div>
+                    <div class="text-right mr-2">6 PM</div>
+                    <div class="text-right mr-2">7 PM</div>
+                    <div class="text-right mr-2">8 PM</div>
+                    <div class="text-right mr-2">9 PM</div>
+                    <div class="text-right mr-2">10 PM</div>
+                    <div class="text-right mr-2">11 PM</div>
+                </div>
+
+            </div>
+
+            <ol class="flex justify-between rounded-t-xl shadow-lg" style="width: 1000px;" id="day-container"></ol>
         
-        <footer class="flex h-full w-full justify-center items-center" id="bottom-bar">
+            <div class="h-auto flex-auto"></div>
+        </section>
+
+        
+        <footer class="flex h-8 w-full justify-center items-center" id="bottom-bar">
             <div class="flex items-center justify-end h-full" style="width: 1000px;">
                 <div class="h-5/6 w-1/12 rounded-md bg-blue-400 text-white text-center select-none transform duration-300 hover:bg-blue-300 hover:scale-105" id="save-button">Save</div>
             </div>
