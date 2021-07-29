@@ -1,4 +1,4 @@
-export const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+export const weekdays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
 export const tailwinds = {
     hour: "w-full h-full border-b border-gray-400",
