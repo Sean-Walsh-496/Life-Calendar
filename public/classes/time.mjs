@@ -239,9 +239,7 @@ export class Week{
 
         let DOB = new Date(user.DOB).getTime();
         let offset = this.nearestSunday(DOB);
-        this.sundayDay = new Date(DOB + ((7 * pos.col + (52 * 7 * pos.row) + offset) * 1000 * 60 * 60 * 24)).getDate();
-
-        console.log(this.sundayDay)
+        this.sundayDay = new Date(DOB + ((7 * pos.col + (52 * 7 * pos.row) + offset) * 1000 * 60 * 60 * 24)).getTime();
         
         this.days = this.createDays(build);
 
@@ -279,7 +277,7 @@ export class Week{
         let dayList = [];
 
         weekdays.forEach((el, i) => {
-            let d = new Day(el, this, this.sundayDay + i, build);
+            let d = new Day(el, this, new Date(this.sundayDay + (i * 1000*3600*24 )).getDate(), build);
 
             if (d.hasOwnProperty("$el")){
                 if (i == 0){
