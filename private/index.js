@@ -63,6 +63,11 @@ app.post("/week-index", (req, res) => {
     res.sendStatus(200);
 });
 
+app.get("/week-index", (req, res) => {
+    res.send(weekIndex);
+});
+
+
 app.get("/view-week", (req, res) => {
 
     let {row, col} = weekIndex;
