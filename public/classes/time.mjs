@@ -1,5 +1,5 @@
 import { Item } from "./item.mjs";
-import { tailwinds, functions, weekdays } from ".././util.mjs";
+import { tailwindColors, functions, weekdays } from ".././util.mjs";
 
 export class Day{
 
@@ -7,12 +7,14 @@ export class Day{
      * @param {string} dayName SUN through SAT
      * @param {Week} week
      * @param {number} dayNum day of the month
+     * @param {boolean} isCur
      * @param {boolean} build
      */
-    constructor(dayName, week, dayNum=0, build=true){
+    constructor(dayName, week, dayNum=0, isCur=false, build=true){
         this.dayName = dayName;
         this.dayNum = dayNum
         this.itemList = this.makeItemList();
+        this.isCur = isCur;
 
         if (build) this.$el = this.get$el();
 
@@ -99,6 +101,10 @@ export class Day{
 
         $name.innerText = this.dayName;
         $number.innerText = this.dayNum;
+        if (this.isCur){
+            $number.style.backgroundColor = tailwindColors.red[400];
+            $number.style.color = "white";
+        }
     
         this.addHours($hourSpace);
 
@@ -214,7 +220,6 @@ export class Week{
         this.init(build);
     }
 
-
     /**
      * @summary calculates the number of days to the right of the start of the week a day is
      * @param {Date} date 
@@ -239,7 +244,7 @@ export class Week{
 
         let DOB = new Date(user.DOB).getTime();
         let offset = this.nearestSunday(DOB);
-        this.sundayDay = new Date(DOB + ((7 * pos.col + (52 * 7 * pos.row) + offset) * 1000 * 60 * 60 * 24)).getTime();
+        this.sundayDay = new Date(DOB + ((7 * pos.col + (52 * 7 * pos.row) + offset) * 1000 * 60 * 60 * 24));
         
         this.days = this.createDays(build);
 
@@ -270,6 +275,18 @@ export class Week{
 
     /**
      * 
+     * @param {Date} first 
+     * @param {Date} second 
+     * @returns {boolean}
+     */
+    sameDate(first, second){
+        return first.getFullYear() === second.getFullYear() &&
+               first.getMonth() === second.getMonth() &&
+               first.getDate() === second.getDate();
+    }
+
+    /**
+     * 
      * @returns {array}
      */
     createDays(build=true){
@@ -277,7 +294,11 @@ export class Week{
         let dayList = [];
 
         weekdays.forEach((el, i) => {
-            let d = new Day(el, this, new Date(this.sundayDay + (i * 1000*3600*24 )).getDate(), build);
+
+            let curDate = new Date(this.sundayDay.getTime() + (i * 1000*3600*24 ))
+            let d = new Day(el, this, curDate.getDate(), this.sameDate(curDate, new Date()), build);
+            if (d.isCur) console.log(i);
+
 
             if (d.hasOwnProperty("$el")){
                 if (i == 0){
