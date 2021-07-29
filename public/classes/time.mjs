@@ -91,7 +91,7 @@ export class Day{
      */
     get$el(){
         const $el = functions.getTemplate("day");
-        let $name =  $el.querySelector("header[name='day-name']"), $hourSpace = $el.querySelector("ol[name='hour-space']");
+        let $name =  $el.querySelector("div[name='day-name']"), $hourSpace = $el.querySelector("ol[name='hour-space']");
 
         $name.innerText = this.dayName;
     
@@ -210,10 +210,13 @@ export class Week{
     }
 
     async init(build=true){
-        let saved = await fetch("/view-week");
-        saved = await saved.json();
-
+    
+        let [user, pos, saved] = await Promise.all([fetch("/user-profile").then(res => res.json()),
+                                                    fetch("/week-index").then(res => res.json()),
+                                                    fetch("/view-week").then(res => res.json())]);
         this.days = this.createDays(build);
+
+        console.log(7 * pos.col + (52 * 7 * pos.row));
 
         if (build) this.$el = document.getElementById("day-container");
             
