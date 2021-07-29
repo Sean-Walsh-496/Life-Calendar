@@ -264,6 +264,7 @@ export class Week{
                     let item = new Item(cur.name, this, this.days[day], hour, cur.duration);
                     functions.changeItemColor(item.$el, functions.findColor(cur.color));
                     this.days[day].insertItem(item, hour);
+                    item.$input.value = item.name;
                     item.snap(day, hour);
                     item.created = true;
                     hour += item.duration - 1;
